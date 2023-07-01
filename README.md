@@ -13,3 +13,12 @@
 
 ## 개요
 사진 기반 음악 추천 시스템입니다.
+
+## 개발 환경 설정
+
+### Pre-Commit 설정
+
+```bash
+pip install pre-commit
+pre-commit install
+```
