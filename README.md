@@ -1,2 +1,24 @@
-# level3_recsys_finalproject-recsys-03
-level3_recsys_finalproject-recsys-03 created by GitHub Classroom
+<div align="center">
+  <br>
+  <picture>
+    <source srcset="./docs/imgs/dark-logo.png" media="(prefers-color-scheme: dark)">
+    <img width="300" src="./docs/imgs/light-logo.png">
+  </picture>
+  <h1>🎵 사기음추 🎵</h1>
+  <strong>사진 기반 음악 추천 시스템</strong>
+  <strong>Recsys-03 Recdol's Level 3 final project</strong>
+  <br>
+</div>
+<br>
+
+## 개요
+사진 기반 음악 추천 시스템입니다.
+
+## 개발 환경 설정
+
+### Pre-Commit 설정
+
+```bash
+pip install pre-commit
+pre-commit install
+```
