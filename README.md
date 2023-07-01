@@ -1,6 +1,9 @@
 <div align="center">
   <br>
-  <img width="300" src="./docs/imgs/logo.png">
+  <picture>
+    <source srcset="./docs/imgs/dark-logo.png" media="(prefers-color-scheme: dark)">
+    <img width="300" src="./docs/imgs/light-logo.png">
+  </picture>
   <h1>🎵 사기음추 🎵</h1>
   <strong>사진 기반 음악 추천 시스템</strong>
   <strong>Recsys-03 Recdol's Level 3 final project</strong>
