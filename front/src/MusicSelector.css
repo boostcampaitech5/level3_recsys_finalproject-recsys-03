@@ -1,0 +1,36 @@
+swiper-container {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+}
+
+swiper-slide img {
+  display: block;
+  width: 100%;
+}
+
+.songCard {
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.songTitle {
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: 700;
+}
+
+.artistName {
+  font-size: 11px;
+  line-height: 11px;
+  font-family: 'Open Sans';
+  font-weight: 400;
+}

@@ -1,5 +1,6 @@
 import React, { createRef, PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import './MusicSelector.css';
 
 export default class MusicSelector extends PureComponent {
   constructor(props) {
@@ -31,14 +32,28 @@ export default class MusicSelector extends PureComponent {
         ref={this.swiperElRef}
         pagination="true"
         navigation="true"
+        loop="true"
+        speed="500"
+        effect="coverflow"
+        grab-cursor="true"
+        centered-slides="true"
+        slides-per-view="auto"
+        coverflow-effect-rotate="0"
+        coverflow-effect-stretch="80"
+        coverflow-effect-depth="200"
+        coverflow-effect-modifier="1"
+        coverflow-effect-slide-shadows="false"
       >
         {songInfos.map((songInfo) => (
           <swiper-slide>
-            <img
-              src={process.env.PUBLIC_URL + songInfo.src}
-              alt={`${songInfo.musicTitle} 엘범 이미지`}
-              width="150"
-            />
+            <div className="songCard">
+              <img
+                src={process.env.PUBLIC_URL + songInfo.src}
+                alt={`${songInfo.musicTitle} 엘범 이미지`}
+              />
+              <h className="songTitle">{songInfo.musicTitle}</h>
+              <p className="artistName">{songInfo.artistName}</p>
+            </div>
           </swiper-slide>
         ))}
       </swiper-container>

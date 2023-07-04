@@ -23,8 +23,6 @@ export default class MusicDetail extends PureComponent {
 
     return (
       <div>
-        <h1>Music Title: {songInfo.musicTitle}</h1>
-        <h1>Artist Name: {songInfo.artistName}</h1>
         <YouTubeVideo videoId={songInfo.videoYtId} />
       </div>
     );
