@@ -4,7 +4,7 @@ import YouTube from 'react-youtube';
 
 function onReady(event) {
   // access to player in all event handlers via event.target
-  event.target.playVideo();
+  event.target.pauseVideo();
 }
 
 export default class YouTubeVideo extends PureComponent {
