@@ -1,4 +1,5 @@
 .MusicRecommend {
   display: inline-block;
-  width: calc(100% - 17.5rem);
+  /* width: calc(100% - 17.5rem); */
+  width: 50%;
 }

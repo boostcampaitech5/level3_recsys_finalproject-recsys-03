@@ -37,12 +37,12 @@ export default class MusicSelector extends PureComponent {
         effect="coverflow"
         grab-cursor="true"
         centered-slides="true"
-        slides-per-view="auto"
+        slides-per-view="2"
         coverflow-effect-rotate="0"
-        coverflow-effect-stretch="80"
-        coverflow-effect-depth="200"
+        coverflow-effect-stretch="0"
+        coverflow-effect-depth="700"
         coverflow-effect-modifier="1"
-        coverflow-effect-slide-shadows="false"
+        // coverflow-effect-slide-shadows="false"
       >
         {songInfos.map((songInfo) => (
           <swiper-slide>

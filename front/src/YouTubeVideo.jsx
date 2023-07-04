@@ -19,7 +19,7 @@ export default class YouTubeVideo extends PureComponent {
           playerVars: {
             rel: 0, // 관련 동영상 표시하지 않음
             modestbranding: 1, // 컨트롤 바에 youtube 로고를 표시하지 않음
-            autoplay: 1,
+            // autoplay: 1,
           },
           host: 'https://www.youtube-nocookie.com',
         }}
