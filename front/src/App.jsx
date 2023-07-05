@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import Home from './Home';
+import MainPage from './components/page/MainPage';
+import ImageUploadPage from './components/page/UploadPage';
 import MusicRecommend from './MusicRecommend';
 import './App.css';
 
@@ -8,7 +9,8 @@ export default (
   <div className="App">
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route index element={<MainPage />} />
+        <Route path="/upload" element={<ImageUploadPage />} />
         <Route path="/music-rec" element={<MusicRecommend />} />
       </Routes>
     </BrowserRouter>
