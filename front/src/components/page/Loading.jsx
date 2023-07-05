@@ -9,7 +9,7 @@ export default class Loading extends PureComponent {
         <h3> 잠시만 기다려 주세요 ^~^</h3>
         <img
           className="Spinner"
-          src={`${process.env.PUBLIC_URL}/spining.svg`}
+          src={`${process.env.PUBLIC_URL}/spinner.svg`}
           alt="spinner"
         />
       </div>
