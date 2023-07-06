@@ -41,7 +41,7 @@ class GenreSelectorPage extends PureComponent {
     const { navigate } = this.props;
 
     const selectedGenreTypes = this.getSelectedGenreTypes();
-    navigate('/loading', {
+    navigate('/upload', {
       state: {
         selectedGenreTypes,
       },

@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function ImageUploadPage() {
-  const navigate = useNavigate();
+  const location = useLocation();
+  const info = { ...location.state };
 
-  const navigateToCrop = (Imgurl) => {
+  const navigate = useNavigate();
+  const naviagteToNext = (Imgurl) => {
     navigate('/crop', {
       state: {
         url: Imgurl,
+        genres: info.selectedGenreTypes,
       },
     });
   };
@@ -25,7 +28,7 @@ function ImageUploadPage() {
       const previewImgUrl = reader.result;
       if (previewImgUrl) {
         setPreviewImg(previewImgUrl);
-        navigateToCrop(previewImgUrl);
+        naviagteToNext(e.target.files[0]);
       }
     };
   };
