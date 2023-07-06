@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function ImageUploadPage() {
+  const navigate = useNavigate();
+
+  const navigateToCrop = (Imgurl) => {
+    navigate('/crop', {
+      state: {
+        url: Imgurl,
+      },
+    });
+  };
+
   const [previewImg, setPreviewImg] = useState(null);
 
   const insertImg = (e) => {
@@ -15,6 +25,7 @@ function ImageUploadPage() {
       const previewImgUrl = reader.result;
       if (previewImgUrl) {
         setPreviewImg(previewImgUrl);
+        navigateToCrop(previewImgUrl);
       }
     };
   };
