@@ -1,0 +1,16 @@
+.GenreSelector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.GenreSelector {
+  width: 10em;
+}
+
+.GenreSelector img {
+  width: 100%;
+}
+
+/* .GenreSelector p {
+  color: white;
+} */
