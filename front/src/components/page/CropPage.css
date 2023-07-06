@@ -1,0 +1,20 @@
+
+.page-title {
+    color: white
+}
+
+.container-cropper {
+
+}
+
+.cropper {
+    position: relative;
+    height: 15em;
+    width: 30em;
+    border: 5px solid red;
+    margin: auto;
+  }
+
+.buttons {
+
+}
