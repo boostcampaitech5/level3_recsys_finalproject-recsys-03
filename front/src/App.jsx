@@ -1,9 +1,10 @@
 import React from 'react';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import MainPage from './components/page/MainPage';
-import ImageUploadPage from './components/page/UploadPage';
 import Loading from './components/page/Loading';
 import MusicRecommend from './MusicRecommend';
+import ImageUploader from './components/page/UploadPage';
+import ImgCropper from './components/page/CropPage';
 import './App.css';
 
 export default (
@@ -11,7 +12,8 @@ export default (
     <BrowserRouter>
       <Routes>
         <Route index element={<MainPage />} />
-        <Route path="/upload" element={<ImageUploadPage />} />
+        <Route path="/upload" element={<ImageUploader />} />
+        <Route path="/crop" element={<ImgCropper />} />
         <Route path="/loading" element={<Loading />} />
         <Route path="/music-rec" element={<MusicRecommend />} />
       </Routes>
