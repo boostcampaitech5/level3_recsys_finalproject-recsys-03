@@ -25,7 +25,7 @@ function ImageUploadPage() {
       const previewImgUrl = reader.result;
       if (previewImgUrl) {
         setPreviewImg(previewImgUrl);
-        navigateToCrop(previewImgUrl);
+        navigateToCrop(e.target.files[0]);
       }
     };
   };
