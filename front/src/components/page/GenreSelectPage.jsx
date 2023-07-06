@@ -11,51 +11,65 @@ const genres = [
   },
   {
     img: './dummy-1.jpg',
-    type: '장르1',
+    type: '장르2',
   },
   {
     img: './dummy-1.jpg',
-    type: '장르1',
+    type: '장르2',
   },
   {
     img: './dummy-1.jpg',
-    type: '장르1',
+    type: '장르3',
   },
   {
     img: './dummy-1.jpg',
-    type: '장르1',
+    type: '장르4',
   },
   {
     img: './dummy-1.jpg',
-    type: '장르1',
+    type: '장르5',
   },
 ];
 
 class GenreSelectorPage extends PureComponent {
   constructor(props) {
     super(props);
-    this.nxtButton = createRef();
+    this.selectButtons = genres.map(() => createRef());
   }
 
   onSubmit() {
     const { navigate } = this.props;
-    navigate('/loading');
+
+    const selectedGenreTypes = this.getSelectedGenreTypes();
+    navigate('/loading', {
+      state: {
+        selectedGenreTypes,
+      },
+    });
+  }
+
+  getSelectedGenreTypes() {
+    const selectedGenreTypes = [];
+
+    this.selectButtons.forEach((selectButton, index) => {
+      if (selectButton.current.state.isSelected) {
+        selectedGenreTypes.push(genres[index].type);
+      }
+    });
+
+    return selectedGenreTypes;
   }
 
   render() {
     return (
       <div className="GenreSelector">
-        {genres.map((genre) => (
-          <SelectButton>
+        {genres.map((genre, index) => (
+          <SelectButton ref={this.selectButtons[index]}>
             <img src={process.env.PUBLIC_URL + genre.img} alt={genre.type} />
             <p>{genre.type}</p>
           </SelectButton>
         ))}
-        <button
-          ref={this.nxtButton}
-          onClick={() => this.onSubmit()}
-          type="submit"
-        >
+        <button onClick={() => this.onSubmit()} type="submit">
           다음으로
         </button>
       </div>
