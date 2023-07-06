@@ -39,7 +39,9 @@ function CropPage() {
         </div>
       </div>
       <div className="buttons">
-        <button type="button">다시 선택</button>
+        <button type="button" onClick={() => navigate(-1)}>
+          다시 선택
+        </button>
         <button type="button" onClick={naviagteToNext}>
           결과보기
         </button>
