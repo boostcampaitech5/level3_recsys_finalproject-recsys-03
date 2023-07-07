@@ -30,7 +30,6 @@ export default class MusicSelector extends PureComponent {
     return (
       <swiper-container
         ref={this.swiperElRef}
-        pagination="true"
         navigation="true"
         loop="true"
         speed="500"
