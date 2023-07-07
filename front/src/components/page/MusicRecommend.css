@@ -1,0 +1,62 @@
+.MusicRecommend .header h1 {
+  color: white;
+  margin: 0;
+  font-size: 1.8em;
+}
+
+.MusicRecommend .header h3 {
+  color: white;
+  margin: 0.5em 0 0 0;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+h2 {
+  color: white;
+  margin: 0;
+  margin-bottom: 10px;
+  font-size: 1.3em;
+}
+
+.footer button {
+  height: 100%;
+  border: none;
+  border-radius: 15px;
+  font-weight: 900;
+  font-size: 1.3em;
+  color: black;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 10px;
+  height: 100%;
+  width: 100%;
+}
+
+.retry {
+  background: #e3e3e3;
+  color: black;
+}
+
+.retry:hover {
+  color: white;
+  fill: white;
+}
+
+.share {
+  background: #f44404;
+  color: black;
+}
+
+.share:hover {
+  color: white;
+  fill: white;
+}
+
+.buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
