@@ -1,4 +1,6 @@
 import React, { PureComponent, createRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import MusicSelector from './MusicSelector';
 import './MusicRecommend.css';
 import YouTubeVideo from './YouTubeVideo';
@@ -42,7 +44,7 @@ const songInfos = [
   },
 ];
 
-export default class MusicRecommend extends PureComponent {
+class MusicRecommend extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -52,6 +54,12 @@ export default class MusicRecommend extends PureComponent {
       const songInfo = songInfos[e.target.swiper.realIndex];
       this.youTubeVideoRef.current.changeVideoId(songInfo.videoYtId);
     };
+  }
+
+  goMainPage() {
+    const { navigate } = this.props;
+
+    navigate('/');
   }
 
   render() {
@@ -75,7 +83,11 @@ export default class MusicRecommend extends PureComponent {
         </div>
         <div className="footer">
           <div className="buttons">
-            <button className="retry" type="button">
+            <button
+              className="retry"
+              type="button"
+              onClick={() => this.goMainPage()}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="35"
@@ -102,4 +114,15 @@ export default class MusicRecommend extends PureComponent {
       </div>
     );
   }
+}
+
+MusicRecommend.propTypes = {
+  navigate: PropTypes.func.isRequired,
+};
+
+export default function MusicRecommendWrapper(props) {
+  const navigate = useNavigate();
+
+  // eslint-disable-next-line react/jsx-props-no-spreading
+  return <MusicRecommend {...props} navigate={navigate} />;
 }
