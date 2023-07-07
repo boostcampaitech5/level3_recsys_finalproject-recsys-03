@@ -4,11 +4,10 @@
   height: 100vh;
   margin: 0 auto;
   width: min(100%, 25em);
-  background: #f44404;
 }
 
 .header {
-  padding: 4em 1em;
+  padding: 3em 1em;
 }
 
 .header h1 {
@@ -24,8 +23,10 @@
 }
 
 .GenreSelectorWrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
   background: black;
-  border-radius: 40px 40px 0 0;
   padding: 1.5em;
   flex-grow: 1;
 }
@@ -35,6 +36,7 @@
   grid-template-columns: 1fr 1fr 1fr;
   width: 100%;
   margin: 0 auto;
+  grid-row-gap: 20px;
 }
 
 .GenreSelector .SelectButton {
@@ -65,6 +67,7 @@
   display: flex;
   align-items: center;
   padding: 20px;
+  margin-top: auto;
 }
 
 .GenreSelectPage .NextButton svg {
