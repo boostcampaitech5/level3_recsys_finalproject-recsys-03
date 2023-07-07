@@ -59,24 +59,32 @@
   color: black;
 }
 
-.GenreSelectPage .NextButton {
+.GenreSelectPage .footer button {
+  height: 100%;
   border: none;
-  margin: 10px 0;
-  width: 100%;
-  height: 3em;
   border-radius: 15px;
-  background: #f44404;
-  font-size: 1.3em;
+  width: 90%;
   font-weight: 900;
+  font-size: 1.3em;
+  color: black;
+  text-align: left;
   display: flex;
   align-items: center;
+  justify-content: center;
+  margin: 0 auto;
   padding: 20px;
 }
 
-.GenreSelectPage .NextButton span {
+.GenreSelectPage .next {
+  background: #f44404;
   color: black;
 }
 
-.GenreSelectPage .NextButton svg {
+.GenreSelectPage .next:hover {
+  color: white;
+  fill: white;
+}
+
+.GenreSelectPage .next svg {
   margin-left: auto;
 }
