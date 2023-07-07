@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 .App-logo {
@@ -26,6 +27,27 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.page{
+  height: 750px;
+  margin: 0 auto;
+  width: min(100%, 400px);
+  position: relative;
+}
+
+.contents{
+  height: 680px;
+  width: 100%;
+}
+
+.footer{
+  position : absolute;
+  height: 70px;
+  width: 100%;
+  bottom: 0;
+  /* padding-left: 10px; */
+  /* padding-right: 10px; */
 }
 
 @keyframes App-logo-spin {

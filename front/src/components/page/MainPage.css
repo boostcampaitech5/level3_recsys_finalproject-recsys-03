@@ -1,0 +1,66 @@
+.MainPage{
+    height: 100%;
+}
+
+.space{
+    padding: 2.5em;
+}
+
+.line{
+    height: 2px;
+    background-color: #f44404;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.title{
+    text-align: left;
+    color: white;
+    padding-left: 15px;
+    font-style: border;
+    font-size: 2.5em;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 900;
+}
+
+.colored {
+    color:#f44404;
+}
+
+.subtitle{
+    text-align: right;
+    color: white;
+    padding-top: 200px;
+    padding-right: 15px;
+    font-size: 1.1em;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.border{
+    font-weight: bolder;
+}
+
+.starbBnt{
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to right, #f44404, black);
+    border: none; 
+    border-radius: 15px;
+    font-family: 'Noto Sans KR', sans-serif;
+    border-style: solid;
+    border-color: black;
+    text-align: left;
+    font-weight: 900;
+    font-size: 1.3em;
+    color: black;
+}
+
+.starbBnt span{
+    padding-left: 20px;
+}
+
+.starbBnt:hover{
+    color: white;
+}
