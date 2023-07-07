@@ -3,7 +3,7 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import MainPage from './components/page/MainPage';
 import Loading from './components/page/Loading';
 import GenreSelector from './components/page/GenreSelectPage';
-import MusicRecommend from './MusicRecommend';
+import MusicRecommend from './components/page/MusicRecommend';
 import ImageUploader from './components/page/UploadPage';
 import ImgCropper from './components/page/CropPage';
 import './App.css';

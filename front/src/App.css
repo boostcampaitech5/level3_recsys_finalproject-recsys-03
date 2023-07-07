@@ -29,7 +29,7 @@
   color: #61dafb;
 }
 
-.page{
+.page {
   height: 750px;
   margin: 0 auto;
   width: min(100%, 400px);
@@ -37,17 +37,13 @@
   font-family: 'Noto Sans KR', sans-serif;
 }
 
-.contents{
+.contents {
   height: 680px;
   width: 100%;
 }
 
-.header {
-  padding: 3em 1em 0em 1em;
-}
-
-.footer{
-  position : absolute;
+.footer {
+  position: absolute;
   height: 70px;
   width: 100%;
   bottom: 0;
