@@ -7,18 +7,19 @@
 }
 
 .header {
-  padding: 3em 1em;
+  padding: 3em 1em 0em 1em;
 }
 
 .header h1 {
   color: white;
   margin: 0;
+  font-size: 9vw;
 }
 
 .header h3 {
   color: white;
   margin: 0.5em 0 0 0;
-  font-size: 1em;
+  font-size: 4.5vw;
   font-weight: 400;
 }
 
@@ -36,6 +37,8 @@
   grid-template-columns: 1fr 1fr 1fr;
   width: 100%;
   margin: 0 auto;
+  margin-top: 0.5em;
+  margin-bottom: 2em;
   grid-row-gap: 20px;
 }
 
@@ -67,7 +70,6 @@
   display: flex;
   align-items: center;
   padding: 20px;
-  margin-top: auto;
 }
 
 .GenreSelectPage .NextButton span {
