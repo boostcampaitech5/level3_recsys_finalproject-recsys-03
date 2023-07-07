@@ -7,27 +7,39 @@ import SelectButton from './SelectButton';
 const genres = [
   {
     img: './dummy-1.jpg',
-    type: '장르1',
+    type: 'POP',
+  },
+  {
+    img: './dummy-2.jpg',
+    type: 'K-POP',
+  },
+  {
+    img: './dummy-3.jpg',
+    type: '락',
   },
   {
     img: './dummy-1.jpg',
-    type: '장르2',
+    type: '인디',
   },
   {
-    img: './dummy-1.jpg',
-    type: '장르2',
+    img: './dummy-2.jpg',
+    type: '댄스',
   },
   {
-    img: './dummy-1.jpg',
-    type: '장르3',
+    img: './dummy-3.jpg',
+    type: '랩/힙합',
   },
   {
-    img: './dummy-1.jpg',
-    type: '장르4',
+    img: './dummy-3.jpg',
+    type: '발라드',
   },
   {
-    img: './dummy-1.jpg',
-    type: '장르5',
+    img: './dummy-3.jpg',
+    type: 'R&B',
+  },
+  {
+    img: './dummy-3.jpg',
+    type: '기타',
   },
 ];
 
@@ -62,16 +74,39 @@ class GenreSelectorPage extends PureComponent {
 
   render() {
     return (
-      <div className="GenreSelector">
-        {genres.map((genre, index) => (
-          <SelectButton ref={this.selectButtons[index]}>
-            <img src={process.env.PUBLIC_URL + genre.img} alt={genre.type} />
-            <p>{genre.type}</p>
-          </SelectButton>
-        ))}
-        <button onClick={() => this.onSubmit()} type="submit">
-          다음으로
-        </button>
+      <div className="GenreSelectPage">
+        <div className="header">
+          <h1>당신의 취향을 알려주세요</h1>
+          <h3>AI가 당신의 취향을 고려해서 노래를 찾아드릴게요</h3>
+        </div>
+        <div className="GenreSelectorWrapper">
+          <div className="GenreSelector">
+            {genres.map((genre, index) => (
+              <SelectButton ref={this.selectButtons[index]}>
+                <img
+                  src={process.env.PUBLIC_URL + genre.img}
+                  alt={genre.type}
+                />
+                <p>{genre.type}</p>
+              </SelectButton>
+            ))}
+          </div>
+          <button
+            className="NextButton"
+            onClick={() => this.onSubmit()}
+            type="submit"
+          >
+            <span>다음으로</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="35"
+              viewBox="0 -960 960 960"
+              width="35"
+            >
+              <path d="m242-200 210-280-210-280h74l210 280-210 280h-74Zm252 0 210-280-210-280h74l210 280-210 280h-74Z" />
+            </svg>
+          </button>
+        </div>
       </div>
     );
   }
