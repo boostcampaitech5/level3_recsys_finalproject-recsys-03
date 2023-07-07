@@ -13,13 +13,13 @@
 .header h1 {
   color: white;
   margin: 0;
-  font-size: 9vw;
+  font-size: 1.8em;
 }
 
 .header h3 {
   color: white;
   margin: 0.5em 0 0 0;
-  font-size: 4.5vw;
+  font-size: 1em;
   font-weight: 400;
 }
 
