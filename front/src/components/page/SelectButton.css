@@ -1,3 +1,7 @@
 .SelectButton.selected {
-  border: solid red;
+  border: solid #f44404;
+}
+
+.SelectButton {
+  margin: 0.5em;
 }

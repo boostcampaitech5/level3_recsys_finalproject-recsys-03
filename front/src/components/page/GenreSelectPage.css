@@ -1,16 +1,82 @@
+.GenreSelectPage {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0 auto;
+  width: min(100%, 25em);
+}
+
+.header {
+  padding: 3em 1em 0em 1em;
+}
+
+.header h1 {
+  color: white;
+  margin: 0;
+  font-size: 1.8em;
+}
+
+.header h3 {
+  color: white;
+  margin: 0.5em 0 0 0;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.GenreSelectorWrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  background: black;
+  padding: 1.5em;
+  flex-grow: 1;
+}
+
 .GenreSelector {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 0.5em;
+  margin-bottom: 2em;
+  grid-row-gap: 20px;
 }
 
-.GenreSelector {
-  width: 10em;
+.GenreSelector .SelectButton {
+  border-radius: 20px;
+  border: none;
+  background: white;
+  padding: 10px;
 }
 
-.GenreSelector img {
+.GenreSelector .SelectButton img {
+  border-radius: 10px;
   width: 100%;
 }
 
-/* .GenreSelector p {
-  color: white;
-} */
+.GenreSelector .SelectButton p {
+  margin: 10px 0 0 0;
+  color: black;
+}
+
+.GenreSelectPage .NextButton {
+  border: none;
+  margin: 10px 0;
+  width: 100%;
+  height: 3em;
+  border-radius: 15px;
+  background: #f44404;
+  font-size: 1.3em;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.GenreSelectPage .NextButton span {
+  color: black;
+}
+
+.GenreSelectPage .NextButton svg {
+  margin-left: auto;
+}
