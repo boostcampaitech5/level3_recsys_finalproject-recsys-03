@@ -70,6 +70,10 @@
   margin-top: auto;
 }
 
+.GenreSelectPage .NextButton span {
+  color: black;
+}
+
 .GenreSelectPage .NextButton svg {
   margin-left: auto;
 }
