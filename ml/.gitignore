@@ -1,0 +1,21 @@
+# Byte-compiled / optimized / DLL files
+__pycache__
+
+# data
+*.csv
+
+#vscode
+/.vscode
+.vscode
+
+# MacOS
+.DS_Store
+
+# For somebody who try to upload key file.. :)
+key
+
+# environment
+*.env
+
+# hydra
+/outputs
