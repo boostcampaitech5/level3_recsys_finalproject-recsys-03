@@ -1,11 +1,9 @@
-.bg{
-    height: 100vh;
-    margin: 0 auto;
-    width: min(100%, 25em);
+.MainPage{
+    height: 100%;
 }
 
 .space{
-    padding: 3em;
+    padding: 2.5em;
 }
 
 .line{
@@ -20,9 +18,9 @@
 .title{
     text-align: left;
     color: white;
-    margin-left: 15px;
+    padding-left: 15px;
     font-style: border;
-    font-size: 2em;
+    font-size: 2.5em;
     font-family: 'Noto Sans KR', sans-serif;
     font-weight: 900;
 }
@@ -34,9 +32,9 @@
 .subtitle{
     text-align: right;
     color: white;
-    margin-top: 220px;
-    margin-right: 15px;
-    font-size: 1em;
+    padding-top: 200px;
+    padding-right: 15px;
+    font-size: 1.1em;
     font-family: 'Noto Sans KR', sans-serif;
 }
 
@@ -45,19 +43,22 @@
 }
 
 .starbBnt{
+    height: 100%;
     width: 100%;
     background: linear-gradient(to right, #f44404, black);
     border: none; 
     border-radius: 15px;
-    margin: 10px;
     font-family: 'Noto Sans KR', sans-serif;
     border-style: solid;
     border-color: black;
     text-align: left;
     font-weight: 900;
     font-size: 1.3em;
-    padding: 20px;
     color: black;
+}
+
+.starbBnt span{
+    padding-left: 20px;
 }
 
 .starbBnt:hover{
