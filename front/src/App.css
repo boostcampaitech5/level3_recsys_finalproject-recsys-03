@@ -29,20 +29,20 @@
   color: #61dafb;
 }
 
-.page{
+.page {
   height: 750px;
   margin: 0 auto;
   width: min(100%, 400px);
   position: relative;
 }
 
-.contents{
+.contents {
   height: 680px;
   width: 100%;
 }
 
-.footer{
-  position : absolute;
+.footer {
+  position: absolute;
   height: 70px;
   width: 100%;
   bottom: 0;

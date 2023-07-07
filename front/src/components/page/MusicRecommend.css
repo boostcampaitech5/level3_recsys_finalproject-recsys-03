@@ -44,9 +44,19 @@ h2 {
   color: black;
 }
 
+.retry:hover {
+  color: white;
+  fill: white;
+}
+
 .share {
   background: #f44404;
   color: black;
+}
+
+.share:hover {
+  color: white;
+  fill: white;
 }
 
 .buttons button {

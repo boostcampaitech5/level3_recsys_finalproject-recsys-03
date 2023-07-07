@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, createRef } from 'react';
 import MusicSelector from './MusicSelector';
 import './MusicRecommend.css';
 import YouTubeVideo from './YouTubeVideo';
@@ -46,9 +46,11 @@ export default class MusicRecommend extends PureComponent {
   constructor(props) {
     super(props);
 
+    this.youTubeVideoRef = createRef();
+
     this.onSlideChange = (e) => {
-      // eslint-disable-next-line no-unused-vars
       const songInfo = songInfos[e.target.swiper.realIndex];
+      this.youTubeVideoRef.current.changeVideoId(songInfo.videoYtId);
     };
   }
 
@@ -66,7 +68,10 @@ export default class MusicRecommend extends PureComponent {
             onSlideChange={this.onSlideChange}
           />
           <h2>지금 노래를 들어보세요</h2>
-          <YouTubeVideo videoId="XHMdIA6bEOE" />
+          <YouTubeVideo
+            ref={this.youTubeVideoRef}
+            videoId={songInfos[0].videoYtId}
+          />
         </div>
         <div className="footer">
           <div className="buttons">

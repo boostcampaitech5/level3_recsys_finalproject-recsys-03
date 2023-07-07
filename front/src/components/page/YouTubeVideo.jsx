@@ -4,8 +4,23 @@ import YouTube from 'react-youtube';
 import './YouTubeVideo.css';
 
 export default class YouTubeVideo extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      videoId: props.videoId,
+    };
+  }
+
+  // eslint-disable-next-line react/no-unused-class-component-methods
+  changeVideoId(videoId) {
+    this.setState({
+      videoId,
+    });
+  }
+
   render() {
-    const { videoId } = this.props;
+    const { videoId } = this.state;
     return (
       <div className="YouTubeVideo">
         <YouTube
