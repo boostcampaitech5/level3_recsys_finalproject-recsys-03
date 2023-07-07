@@ -24,21 +24,28 @@ function CropPage() {
 
   return (
     <div>
-      <div className="page-title">이미지를 잘라주세요.</div>
-      <div className="container-cropper">
-        <div className="cropper">
-          <Cropper
-            image={imgurl}
-            crop={crop}
-            zoom={zoom}
-            aspect={3 / 3}
-            onCropChange={setCrop}
-            onCropComplete={onCropComplete}
-            onZoomChange={setZoom}
-          />
+      <div className="header">
+        <h1 className="title">이미지를 편집해주세요</h1>
+        <h3 className="subtitle">박스를 움직여 원하는 영역을 지정해주세요</h3>
+      </div>
+
+      <div className="contents">
+        <div className="container-cropper">
+          <div className="cropper">
+            <Cropper
+              image={imgurl}
+              crop={crop}
+              zoom={zoom}
+              aspect={3 / 3}
+              onCropChange={setCrop}
+              onCropComplete={onCropComplete}
+              onZoomChange={setZoom}
+            />
+          </div>
         </div>
       </div>
-      <div className="buttons">
+
+      <div className="footer">
         <button type="button" onClick={() => navigate(-1)}>
           다시 선택
         </button>

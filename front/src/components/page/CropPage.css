@@ -1,10 +1,17 @@
-
 .page-title {
     color: white
 }
 
-.container-cropper {
+.header h1 {
+  color: white;
+  margin: 0;
+  font-size: 1.8em;
+}
 
+.header h3 {
+  color: white;
+  font-size: 1em;
+  font-weight: 400;
 }
 
 .cropper {
