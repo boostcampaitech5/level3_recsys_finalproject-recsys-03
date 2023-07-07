@@ -2,11 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import YouTube from 'react-youtube';
 
-// function onReady(event) {
-//   // access to player in all event handlers via event.target
-//   // event.target.playVideo();
-// }
-
 export default class YouTubeVideo extends PureComponent {
   render() {
     const { videoId } = this.props;
@@ -23,7 +18,6 @@ export default class YouTubeVideo extends PureComponent {
           },
           host: 'https://www.youtube-nocookie.com',
         }}
-        // onReady={onReady}
       />
     );
   }
