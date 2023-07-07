@@ -54,16 +54,21 @@ export default class MusicRecommend extends PureComponent {
   render() {
     return (
       <div className="MusicRecommend">
-        <div className="header">
-          <h1>일상의 노래를 찾았어요!</h1>
-          <h3>당신의 일상과 취향을 모두 반영했어요</h3>
-        </div>
+        <div className="contents">
+          <div className="header">
+            <h1>일상의 노래를 찾았어요!</h1>
+            <h3>당신의 일상과 취향을 모두 반영했어요</h3>
+          </div>
 
-        <MusicSelector
-          songInfos={songInfos}
-          onSlideChange={this.onSlideChange}
-        />
-        <button type="button">결과 공유하기</button>
+          <MusicSelector
+            songInfos={songInfos}
+            onSlideChange={this.onSlideChange}
+          />
+        </div>
+        <div className="footer">
+          <button type="button">다시하기</button>
+          <button type="button">결과 공유하기</button>
+        </div>
       </div>
     );
   }
