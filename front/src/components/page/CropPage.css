@@ -41,27 +41,18 @@
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 10px;
   height: 100%;
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
 }
 
 .CropPage .retry {
+  width: 100%;
   background: #e3e3e3;
-  color: black;
-}
-
-.CropPage .retry:hover {
-  color: white;
-  fill: white;
 }
 
 .CropPage .next {
+  width: 100%;
   background: #f44404;
-  color: black;
-}
-
-.CropPage .next:hover {
-  color: white;
-  fill: white;
 }
 
 .CropPage .buttons button {

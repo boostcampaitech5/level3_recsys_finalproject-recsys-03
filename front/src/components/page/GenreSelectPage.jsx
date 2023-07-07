@@ -96,7 +96,7 @@ class GenreSelectorPage extends PureComponent {
         </div>
         <div className="footer">
           <button className="next" onClick={() => this.goNext()} type="button">
-            다음으로
+            <span>다음으로</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="35"

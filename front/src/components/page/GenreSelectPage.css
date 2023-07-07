@@ -60,29 +60,14 @@
 }
 
 .GenreSelectPage .footer button {
-  height: 100%;
-  border: none;
-  border-radius: 15px;
   width: 90%;
-  font-weight: 900;
-  font-size: 1.3em;
-  color: black;
   text-align: left;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
   padding: 20px;
 }
 
 .GenreSelectPage .next {
   background: #f44404;
   color: black;
-}
-
-.GenreSelectPage .next:hover {
-  color: white;
-  fill: white;
 }
 
 .GenreSelectPage .next svg {

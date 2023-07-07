@@ -16,7 +16,7 @@
   font-weight: 400;
 }
 
-.guideBox {
+.UploadPage .guideBox {
   height: 60%;
   width: 90%;
   background-color: #e3e3e3;
@@ -24,9 +24,9 @@
   margin: auto;
 }
 
-.uploadBnt {
-  padding: 17px 0 17px 0;
+.UploadPage .uploadBnt {
   width: 90%;
+  height: 100%;
   margin: auto;
   background-color: #f44404;
   border-radius: 15px;
@@ -35,9 +35,20 @@
   font-weight: 900;
   font-size: 1.3em;
   color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.uploadBnt svg {
+.UploadPage .uploadBnt:hover {
+  color: white;
+}
+
+.UploadPage .uploadBnt:hover svg {
+  color: white;
+}
+
+.UploadPage .uploadBnt svg {
   color: black;
   font-size: 1.3em;
 }
