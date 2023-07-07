@@ -12,7 +12,7 @@ function ImageUploadPage() {
     navigate('/crop', {
       state: {
         url: Imgurl,
-        genres: info.selectedGenreTypes,
+        genres: info.genres,
       },
     });
   };

@@ -11,14 +11,14 @@
   font-weight: 400;
 }
 
-h2 {
+.MusicRecommend h2 {
   color: white;
   margin: 0;
   margin-bottom: 10px;
   font-size: 1.3em;
 }
 
-.footer button {
+.MusicRecommend .footer button {
   height: 100%;
   border: none;
   border-radius: 15px;
@@ -27,7 +27,7 @@ h2 {
   color: black;
 }
 
-.buttons {
+.MusicRecommend .buttons {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 10px;
@@ -35,27 +35,27 @@ h2 {
   width: 100%;
 }
 
-.retry {
+.MusicRecommend .retry {
   background: #e3e3e3;
   color: black;
 }
 
-.retry:hover {
+.MusicRecommend .retry:hover {
   color: white;
   fill: white;
 }
 
-.share {
+.MusicRecommend .share {
   background: #f44404;
   color: black;
 }
 
-.share:hover {
+.MusicRecommend .share:hover {
   color: white;
   fill: white;
 }
 
-.buttons button {
+.MusicRecommend .buttons button {
   display: flex;
   align-items: center;
   justify-content: center;
