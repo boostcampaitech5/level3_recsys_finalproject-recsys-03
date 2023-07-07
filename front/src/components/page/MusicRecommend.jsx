@@ -1,42 +1,43 @@
 import React, { PureComponent } from 'react';
 import MusicSelector from './MusicSelector';
 import './MusicRecommend.css';
+import YouTubeVideo from './YouTubeVideo';
 
 const songInfos = [
   {
     videoYtId: 'XHMdIA6bEOE',
     src: '/dummy-1.jpg',
-    musicTitle: '짱구는 못말려 오프닝',
+    musicTitle: '짱구는 못말려 오프닝1',
     artistName: '아이브',
   },
   {
     videoYtId: '_sQhN4dLC60',
     src: '/dummy-1.jpg',
-    musicTitle: '첫사랑',
+    musicTitle: '첫사랑2',
     artistName: '버스커 버스커',
   },
   {
     videoYtId: 'y5MAgMVwfFs',
     src: '/dummy-1.jpg',
-    musicTitle: '좋다고 말해',
+    musicTitle: '좋다고 말해3',
     artistName: '볼빨간사춘기',
   },
   {
     videoYtId: 'XHMdIA6bEOE',
     src: '/dummy-1.jpg',
-    musicTitle: '짱구는 못말려 오프닝',
+    musicTitle: '짱구는 못말려 오프닝4',
     artistName: '아이브',
   },
   {
     videoYtId: '_sQhN4dLC60',
     src: '/dummy-1.jpg',
-    musicTitle: '첫사랑',
+    musicTitle: '첫사랑5',
     artistName: '버스커 버스커',
   },
   {
     videoYtId: 'y5MAgMVwfFs',
     src: '/dummy-1.jpg',
-    musicTitle: '좋다고 말해',
+    musicTitle: '좋다고 말해6',
     artistName: '볼빨간사춘기',
   },
 ];
@@ -64,10 +65,34 @@ export default class MusicRecommend extends PureComponent {
             songInfos={songInfos}
             onSlideChange={this.onSlideChange}
           />
+          <h2>지금 노래를 들어보세요</h2>
+          <YouTubeVideo videoId="XHMdIA6bEOE" />
         </div>
         <div className="footer">
-          <button type="button">다시하기</button>
-          <button type="button">결과 공유하기</button>
+          <div className="buttons">
+            <button className="retry" type="button">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="35"
+                viewBox="0 -960 960 960"
+                width="35"
+              >
+                <path d="M480-160q-133 0-226.5-93.5T160-480q0-133 93.5-226.5T480-800q85 0 149 34.5T740-671v-129h60v254H546v-60h168q-38-60-97-97t-137-37q-109 0-184.5 75.5T220-480q0 109 75.5 184.5T480-220q83 0 152-47.5T728-393h62q-29 105-115 169t-195 64Z" />
+              </svg>
+              다시하기
+            </button>
+            <button className="share" type="button">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="35"
+                viewBox="0 -960 960 960"
+                width="35"
+              >
+                <path d="M220-40q-24 0-42-18t-18-42v-509q0-24 18-42t42-18h169v60H220v509h520v-509H569v-60h171q24 0 42 18t18 42v509q0 24-18 42t-42 18H220Zm229-307v-457l-88 88-43-43 161-161 161 161-43 43-88-88v457h-60Z" />
+              </svg>
+              공유하기
+            </button>
+          </div>
         </div>
       </div>
     );

@@ -38,8 +38,8 @@ export default class MusicSelector extends PureComponent {
         centered-slides="true"
         slides-per-view="2"
         coverflow-effect-rotate="0"
-        coverflow-effect-stretch="0"
-        coverflow-effect-depth="600"
+        coverflow-effect-stretch="55"
+        coverflow-effect-depth="100"
         coverflow-effect-modifier="1"
       >
         {songInfos.map((songInfo) => (
@@ -49,8 +49,11 @@ export default class MusicSelector extends PureComponent {
                 src={process.env.PUBLIC_URL + songInfo.src}
                 alt={`${songInfo.musicTitle} 엘범 이미지`}
               />
-              <h className="songTitle">{songInfo.musicTitle}</h>
-              <p className="artistName">{songInfo.artistName}</p>
+              <div className="songDetail">
+                <p className="songTitle">{songInfo.musicTitle}</p>
+                <p className="artistName">{songInfo.artistName}</p>
+                <p className="playTime">00:11</p>
+              </div>
             </div>
           </swiper-slide>
         ))}
