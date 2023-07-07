@@ -1,0 +1,43 @@
+.UploadPage{
+    width: 100%;
+    height: 100%;
+}
+  
+.header h1 {
+    color: white;
+    margin: 0;
+    font-size: 1.8em;
+}
+  
+.header h3 {
+    color: white;
+    margin: 0.5em 0 4.5em 0;
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.guideBox{
+    height: 60%;
+    width: 90%;
+    background-color: #E3E3E3;
+    border-radius: 15px;
+    margin: auto;
+}
+
+.uploadBnt {
+    padding: 17px 0 17px 0;
+    width: 90%;
+    margin: auto;
+    background-color: #f44404;
+    border-radius: 15px;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-align: center;
+    font-weight: 900;
+    font-size: 1.3em;
+    color: black;
+};
+
+.uploadBnt svg{
+    color: black;
+    font-size: 1.3em;
+}
