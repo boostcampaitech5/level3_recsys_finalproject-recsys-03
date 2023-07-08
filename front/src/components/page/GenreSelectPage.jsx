@@ -49,17 +49,6 @@ class GenreSelectorPage extends PureComponent {
     this.selectButtons = genres.map(() => createRef());
   }
 
-  onSubmit() {
-    const { navigate } = this.props;
-
-    const selectedGenreTypes = this.getSelectedGenreTypes();
-    navigate('/upload', {
-      state: {
-        genres: selectedGenreTypes,
-      },
-    });
-  }
-
   getSelectedGenreTypes() {
     const selectedGenreTypes = [];
 
@@ -72,30 +61,41 @@ class GenreSelectorPage extends PureComponent {
     return selectedGenreTypes;
   }
 
+  goNext() {
+    const { navigate } = this.props;
+
+    const selectedGenreTypes = this.getSelectedGenreTypes();
+    navigate('/upload', {
+      state: {
+        genres: selectedGenreTypes,
+      },
+    });
+  }
+
   render() {
     return (
       <div className="GenreSelectPage">
-        <div className="header">
-          <h1>당신의 취향을 알려주세요</h1>
-          <h3>AI가 당신의 취향을 고려해서 노래를 찾아드릴게요</h3>
-        </div>
-        <div className="GenreSelectorWrapper">
-          <div className="GenreSelector">
-            {genres.map((genre, index) => (
-              <SelectButton ref={this.selectButtons[index]}>
-                <img
-                  src={process.env.PUBLIC_URL + genre.img}
-                  alt={genre.type}
-                />
-                <p>{genre.type}</p>
-              </SelectButton>
-            ))}
+        <div className="content">
+          <div className="header">
+            <h1>당신의 취향을 알려주세요</h1>
+            <h3>AI가 당신의 취향을 고려해서 노래를 찾아드릴게요</h3>
           </div>
-          <button
-            className="NextButton"
-            onClick={() => this.onSubmit()}
-            type="submit"
-          >
+          <div className="GenreSelectorWrapper">
+            <div className="GenreSelector">
+              {genres.map((genre, index) => (
+                <SelectButton ref={this.selectButtons[index]}>
+                  <img
+                    src={process.env.PUBLIC_URL + genre.img}
+                    alt={genre.type}
+                  />
+                  <p>{genre.type}</p>
+                </SelectButton>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="footer">
+          <button className="next" onClick={() => this.goNext()} type="button">
             <span>다음으로</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -32,31 +32,16 @@
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 10px;
   height: 100%;
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
 }
 
 .MusicRecommend .retry {
+  width: 100%;
   background: #e3e3e3;
-  color: black;
-}
-
-.MusicRecommend .retry:hover {
-  color: white;
-  fill: white;
 }
 
 .MusicRecommend .share {
+  width: 100%;
   background: #f44404;
-  color: black;
-}
-
-.MusicRecommend .share:hover {
-  color: white;
-  fill: white;
-}
-
-.MusicRecommend .buttons button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }

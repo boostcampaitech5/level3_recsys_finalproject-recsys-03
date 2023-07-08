@@ -59,24 +59,17 @@
   color: black;
 }
 
-.GenreSelectPage .NextButton {
-  border: none;
-  margin: 10px 0;
-  width: 100%;
-  height: 3em;
-  border-radius: 15px;
-  background: #f44404;
-  font-size: 1.3em;
-  font-weight: 900;
-  display: flex;
-  align-items: center;
+.GenreSelectPage .footer button {
+  width: 90%;
+  text-align: left;
   padding: 20px;
 }
 
-.GenreSelectPage .NextButton span {
+.GenreSelectPage .next {
+  background: #f44404;
   color: black;
 }
 
-.GenreSelectPage .NextButton svg {
+.GenreSelectPage .next svg {
   margin-left: auto;
 }
