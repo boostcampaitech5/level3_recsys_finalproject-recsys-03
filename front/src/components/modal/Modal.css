@@ -1,0 +1,114 @@
+.modalBackground {
+  z-index: 10;
+  position: fixed;
+  width: min(100%, 400px);
+  height: 6000px;
+  background-color: rgba(176, 176, 176, 0.3);
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: modal-bg-show 0.4s;
+}
+
+.modalContainer {
+  height: 9.3%;
+  width: 70%;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  text-align: center;
+  flex-direction: column;
+  padding: 25px;
+  margin: auto;
+  margin-top: 20px;
+  animation: modal-show 0.4s;
+}
+
+.modalContainer .title {
+  display: inline-block;
+  text-align: center;
+  align-items: center;
+  margin-top: 10px;
+  color: black;
+  font-size: 10px;
+  width: 100%;
+}
+
+.titleCloseBtn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.titleCloseBtn button {
+  background-color: transparent;
+  border: none;
+  font-size: 25px;
+  cursor: pointer;
+  margin-top: -17px;
+  margin-right: -17px;
+}
+
+.modalContainer .body {
+  flex: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.7rem;
+  text-align: center;
+}
+
+.modalContainer .bottom {
+  flex: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.downloadBnt {
+  border: none;
+  padding: 15px 0 15px 0;
+  width: 80%;
+  margin-top: 6.5px;
+  background-color: #f44404;
+  border-radius: 15px;
+  font-family: 'Noto Sans KR', sans-serif;
+  text-align: center;
+  align-items: center;
+  font-weight: 900;
+  font-size: 1.2em;
+  color: black;
+}
+
+.cardImg {
+  margin-top: -12px;
+  width: 100%;
+}
+
+/* .modalBackground .bottom svg {
+  margin: auto;
+} */
+
+.downloadBnt:hover {
+  color: white;
+  fill: white;
+}
+
+@keyframes modal-show {
+  from {
+    opacity: 0;
+    margin-top: -30px;
+  }
+  to {
+    opacity: 1;
+    margin-top: 20px;
+  }
+}
+@keyframes modal-bg-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
