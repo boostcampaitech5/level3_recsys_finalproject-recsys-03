@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import MusicSelector from './MusicSelector';
 import './MusicRecommend.css';
 import YouTubeVideo from './YouTubeVideo';
+import Modal from '../modal/Modal';
 
 const songInfos = [
   {
@@ -49,6 +50,9 @@ class MusicRecommend extends PureComponent {
     super(props);
 
     this.youTubeVideoRef = createRef();
+    this.state = {
+      modalOpen: false,
+    };
 
     this.onSlideChange = (e) => {
       const songInfo = songInfos[e.target.swiper.realIndex];
@@ -56,16 +60,31 @@ class MusicRecommend extends PureComponent {
     };
   }
 
+  setModalOpen(modalOpen) {
+    this.setState({
+      modalOpen,
+    });
+  }
+
   goMainPage() {
     const { navigate } = this.props;
-
     navigate('/');
   }
 
   render() {
+    const { modalOpen } = this.state;
     return (
       <div className="MusicRecommend">
         <div className="contents">
+          <div>
+            {modalOpen && (
+              <Modal
+                setOpenModal={() => {
+                  this.setModalOpen();
+                }}
+              />
+            )}
+          </div>
           <div className="header">
             <h1>일상의 노래를 찾았어요!</h1>
             <h3>당신의 일상과 취향을 모두 반영했어요</h3>
@@ -98,7 +117,13 @@ class MusicRecommend extends PureComponent {
               </svg>
               다시하기
             </button>
-            <button className="share" type="button">
+            <button
+              className="share"
+              type="button"
+              onClick={() => {
+                this.setModalOpen(true);
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="35"
