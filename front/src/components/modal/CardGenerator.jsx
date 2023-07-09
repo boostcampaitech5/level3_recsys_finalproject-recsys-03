@@ -26,10 +26,8 @@ class CardGenerator extends Component {
     // const dateString = `${year}.${month}.${day}`;
 
     const backgroundImgTag = new Image();
-    const queryImgTag = new Image();
 
     backgroundImgTag.src = `${process.env.PUBLIC_URL}/background-music-card.png`;
-    queryImgTag.src = imgUrl;
 
     backgroundImgTag.width = canvas.width;
     backgroundImgTag.height =
@@ -43,6 +41,10 @@ class CardGenerator extends Component {
         backgroundImgTag.width,
         backgroundImgTag.height
       );
+
+      const queryImgTag = new Image();
+      queryImgTag.src = imgUrl;
+
       // user img
       queryImgTag.onload = () => {
         const cornerRadius = 15; // radi
