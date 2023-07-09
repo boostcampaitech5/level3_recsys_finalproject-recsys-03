@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import defaultImg from '../../dummy512.jpg';
+import backgroundMusicCardImg from '../../background-music-card.png';
 
 const drawBackgroundMusicCard = (canvas, ctx, onLoadFinished) => {
   const backgroundImgTag = new Image();
-  backgroundImgTag.src = `${process.env.PUBLIC_URL}/background-music-card.png`;
+  backgroundImgTag.src = backgroundMusicCardImg;
 
   backgroundImgTag.width = canvas.width;
   backgroundImgTag.height =
