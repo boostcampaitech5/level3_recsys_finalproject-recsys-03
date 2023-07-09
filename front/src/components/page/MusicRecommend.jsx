@@ -26,22 +26,22 @@ const songInfos = [
     artistName: '볼빨간사춘기',
   },
   {
-    videoYtId: 'XHMdIA6bEOE',
+    videoYtId: 'NbKH4iZqq1Y',
     src: '/dummy-1.jpg',
-    musicTitle: '짱구는 못말려 오프닝4',
-    artistName: '아이브',
+    musicTitle: 'Drowning',
+    artistName: 'WOODZ',
   },
   {
-    videoYtId: '_sQhN4dLC60',
+    videoYtId: '2Kff0U8w-aU',
     src: '/dummy-1.jpg',
-    musicTitle: '첫사랑5',
-    artistName: '버스커 버스커',
+    musicTitle: 'OMG',
+    artistName: 'NewJeans',
   },
   {
-    videoYtId: 'y5MAgMVwfFs',
+    videoYtId: 'j1uXcHwLhHM',
     src: '/dummy-1.jpg',
-    musicTitle: '좋다고 말해6',
-    artistName: '볼빨간사춘기',
+    musicTitle: '사건의 지평선',
+    artistName: '윤하',
   },
 ];
 
