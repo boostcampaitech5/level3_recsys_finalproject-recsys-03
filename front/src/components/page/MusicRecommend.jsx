@@ -75,6 +75,7 @@ class MusicRecommend extends PureComponent {
           <div>
             {modalOpen && (
               <Modal
+                imgUrl={imgUrl}
                 setOpenModal={() => {
                   this.setModalOpen();
                 }}

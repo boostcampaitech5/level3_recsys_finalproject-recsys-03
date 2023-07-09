@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import defaultImg from '../../dummy512.jpg';
 
 class CardGenerator extends Component {
   constructor(props) {
@@ -7,6 +9,8 @@ class CardGenerator extends Component {
   }
 
   componentDidMount() {
+    const { imgUrl } = this.props;
+
     const canvas = this.canvasRef.current;
     // origin: 525
     canvas.width = 525;
@@ -25,7 +29,8 @@ class CardGenerator extends Component {
     const inner = new Image();
 
     image.src = `${process.env.PUBLIC_URL}/background-music-card.png`;
-    inner.src = `${process.env.PUBLIC_URL}/dummy-5.jpg`;
+    inner.src = imgUrl;
+
     image.width = canvas.width;
     image.height = image.width + image.width * 0.68;
     image.onload = () => {
@@ -133,5 +138,13 @@ class CardGenerator extends Component {
     );
   }
 }
+
+CardGenerator.defaultProps = {
+  imgUrl: defaultImg,
+};
+
+CardGenerator.propTypes = {
+  imgUrl: PropTypes.string,
+};
 
 export default CardGenerator;
