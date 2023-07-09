@@ -1,45 +1,40 @@
 import React, { PureComponent, createRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import MusicSelector from './MusicSelector';
 import './MusicRecommend.css';
 import YouTubeVideo from './YouTubeVideo';
 import Modal from '../modal/Modal';
+import defaultImg from '../../dummy512.jpg';
 
 const songInfos = [
   {
     videoYtId: 'XHMdIA6bEOE',
-    src: '/dummy-1.jpg',
     musicTitle: '짱구는 못말려 오프닝1',
     artistName: '아이브',
   },
   {
     videoYtId: '_sQhN4dLC60',
-    src: '/dummy-1.jpg',
     musicTitle: '첫사랑2',
     artistName: '버스커 버스커',
   },
   {
     videoYtId: 'y5MAgMVwfFs',
-    src: '/dummy-1.jpg',
     musicTitle: '좋다고 말해3',
     artistName: '볼빨간사춘기',
   },
   {
     videoYtId: 'XHMdIA6bEOE',
-    src: '/dummy-1.jpg',
     musicTitle: '짱구는 못말려 오프닝4',
     artistName: '아이브',
   },
   {
     videoYtId: '_sQhN4dLC60',
-    src: '/dummy-1.jpg',
     musicTitle: '첫사랑5',
     artistName: '버스커 버스커',
   },
   {
     videoYtId: 'y5MAgMVwfFs',
-    src: '/dummy-1.jpg',
     musicTitle: '좋다고 말해6',
     artistName: '볼빨간사춘기',
   },
@@ -72,6 +67,7 @@ class MusicRecommend extends PureComponent {
   }
 
   render() {
+    const { imgSrc } = this.props;
     const { modalOpen } = this.state;
     return (
       <div className="MusicRecommend">
@@ -92,6 +88,7 @@ class MusicRecommend extends PureComponent {
 
           <MusicSelector
             songInfos={songInfos}
+            imgSrc={imgSrc}
             onSlideChange={this.onSlideChange}
           />
           <h2>지금 노래를 들어보세요</h2>
@@ -143,11 +140,19 @@ class MusicRecommend extends PureComponent {
 
 MusicRecommend.propTypes = {
   navigate: PropTypes.func.isRequired,
+  imgSrc: PropTypes.string.isRequired,
 };
 
 export default function MusicRecommendWrapper(props) {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  return <MusicRecommend {...props} navigate={navigate} />;
+  return (
+    <MusicRecommend
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...props}
+      navigate={navigate}
+      imgSrc={location.state?.url || defaultImg}
+    />
+  );
 }

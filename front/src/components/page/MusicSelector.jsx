@@ -25,7 +25,7 @@ export default class MusicSelector extends PureComponent {
   }
 
   render() {
-    const { songInfos } = this.props;
+    const { songInfos, imgSrc } = this.props;
 
     return (
       <swiper-container
@@ -45,10 +45,7 @@ export default class MusicSelector extends PureComponent {
         {songInfos.map((songInfo) => (
           <swiper-slide>
             <div className="songCard">
-              <img
-                src={process.env.PUBLIC_URL + songInfo.src}
-                alt={`${songInfo.musicTitle} 엘범 이미지`}
-              />
+              <img src={imgSrc} alt={`${songInfo.musicTitle} 엘범 이미지`} />
               <div className="songDetail">
                 <p className="songTitle">{songInfo.musicTitle}</p>
                 <p className="artistName">{songInfo.artistName}</p>
@@ -72,4 +69,5 @@ MusicSelector.propTypes = {
     },
   ]).isRequired,
   onSlideChange: PropTypes.func.isRequired,
+  imgSrc: PropTypes.string.isRequired,
 };

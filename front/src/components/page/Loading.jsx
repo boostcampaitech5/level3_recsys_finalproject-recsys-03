@@ -1,12 +1,21 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './Loading.css';
 
 function Loading() {
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const { url, genres } = location.state;
+
   const naviateToMusicRec = () => {
     setTimeout(() => {
-      navigate('/music-rec');
+      navigate('/music-rec', {
+        state: {
+          url,
+          genres,
+        },
+      });
     }, 5000);
   };
   useEffect(() => {
