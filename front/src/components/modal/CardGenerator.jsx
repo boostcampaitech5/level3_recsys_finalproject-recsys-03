@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class CanvasExample extends Component {
+class CardGenerator extends Component {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
@@ -16,6 +16,7 @@ class CanvasExample extends Component {
     canvas.height = height;
     const ctx = canvas.getContext('2d');
 
+    // get date
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0');
@@ -136,4 +137,4 @@ class CanvasExample extends Component {
   }
 }
 
-export default CanvasExample;
+export default CardGenerator;
