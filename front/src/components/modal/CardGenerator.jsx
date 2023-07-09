@@ -25,24 +25,33 @@ class CardGenerator extends Component {
     // const day = String(today.getDate()).padStart(2, '0');
     // const dateString = `${year}.${month}.${day}`;
 
-    const image = new Image();
-    const inner = new Image();
+    const backgroundImgTag = new Image();
+    const queryImgTag = new Image();
 
-    image.src = `${process.env.PUBLIC_URL}/background-music-card.png`;
-    inner.src = imgUrl;
+    backgroundImgTag.src = `${process.env.PUBLIC_URL}/background-music-card.png`;
+    queryImgTag.src = imgUrl;
 
-    image.width = canvas.width;
-    image.height = image.width + image.width * 0.68;
-    image.onload = () => {
+    backgroundImgTag.width = canvas.width;
+    backgroundImgTag.height =
+      backgroundImgTag.width + backgroundImgTag.width * 0.68;
+    backgroundImgTag.onload = () => {
       // background
-      ctx.drawImage(image, 0, 0, image.width, image.height);
+      ctx.drawImage(
+        backgroundImgTag,
+        0,
+        0,
+        backgroundImgTag.width,
+        backgroundImgTag.height
+      );
       // user img
-      inner.onload = () => {
+      queryImgTag.onload = () => {
         const cornerRadius = 15; // radi
-        const x = image.width - image.width * 0.939;
-        const y = image.height - image.height * 0.932;
-        const innerwidth = image.width - image.width * 0.118;
-        const innerheight = image.width - image.width * 0.118;
+        const x = backgroundImgTag.width - backgroundImgTag.width * 0.939;
+        const y = backgroundImgTag.height - backgroundImgTag.height * 0.932;
+        const innerwidth =
+          backgroundImgTag.width - backgroundImgTag.width * 0.118;
+        const innerheight =
+          backgroundImgTag.width - backgroundImgTag.width * 0.118;
 
         ctx.beginPath();
         ctx.moveTo(x + cornerRadius, y);
@@ -76,7 +85,7 @@ class CardGenerator extends Component {
 
         ctx.clip();
 
-        ctx.drawImage(inner, x, y, innerwidth, innerheight);
+        ctx.drawImage(queryImgTag, x, y, innerwidth, innerheight);
       };
       // font color
       ctx.fillStyle = 'white';
@@ -90,19 +99,23 @@ class CardGenerator extends Component {
       // );
 
       // title
-      ctx.font = `${image.width - image.width * 0.918}px Arial`;
+      ctx.font = `${
+        backgroundImgTag.width - backgroundImgTag.width * 0.918
+      }px Arial`;
       ctx.fillText(
         `세렝게티처럼`,
-        image.width - image.width * 0.903,
-        image.height - image.height * 0.293
+        backgroundImgTag.width - backgroundImgTag.width * 0.903,
+        backgroundImgTag.height - backgroundImgTag.height * 0.293
       );
 
       // artist
-      ctx.font = `${image.width - image.width * 0.9543}px Arial`;
+      ctx.font = `${
+        backgroundImgTag.width - backgroundImgTag.width * 0.9543
+      }px Arial`;
       ctx.fillText(
         `By. 조용필`,
-        image.width - image.width * 0.903,
-        image.height - image.height * 0.25
+        backgroundImgTag.width - backgroundImgTag.width * 0.903,
+        backgroundImgTag.height - backgroundImgTag.height * 0.25
       );
     };
   }
