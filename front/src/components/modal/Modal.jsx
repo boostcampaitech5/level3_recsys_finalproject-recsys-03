@@ -3,7 +3,7 @@ import './Modal.css';
 import PropTypes from 'prop-types';
 import CardGen from './CardGenerator';
 
-function Modal({ setOpenModal, imgUrl }) {
+function Modal({ setOpenModal, imgUrl, artistName, musicTitle }) {
   return (
     <div className="modalBackground">
       <div className="modalContainer">
@@ -25,7 +25,11 @@ function Modal({ setOpenModal, imgUrl }) {
             </svg>
           </button>
         </div>
-        <CardGen imgUrl={imgUrl} />
+        <CardGen
+          imgUrl={imgUrl}
+          musicTitle={musicTitle}
+          artistName={artistName}
+        />
       </div>
     </div>
   );
@@ -34,6 +38,8 @@ function Modal({ setOpenModal, imgUrl }) {
 Modal.propTypes = {
   setOpenModal: PropTypes.bool.isRequired,
   imgUrl: PropTypes.string.isRequired,
+  artistName: PropTypes.string.isRequired,
+  musicTitle: PropTypes.string.isRequired,
 };
 
 export default Modal;

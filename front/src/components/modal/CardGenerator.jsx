@@ -78,7 +78,7 @@ class CardGenerator extends Component {
   }
 
   componentDidMount() {
-    const { imgUrl } = this.props;
+    const { imgUrl, artistName, musicTitle } = this.props;
 
     const canvas = this.canvasRef.current;
     // origin: 525
@@ -111,7 +111,7 @@ class CardGenerator extends Component {
         backgroundImgTag.width - backgroundImgTag.width * 0.918
       }px Arial`;
       ctx.fillText(
-        `세렝게티처럼`,
+        musicTitle,
         backgroundImgTag.width - backgroundImgTag.width * 0.903,
         backgroundImgTag.height - backgroundImgTag.height * 0.293
       );
@@ -121,7 +121,7 @@ class CardGenerator extends Component {
         backgroundImgTag.width - backgroundImgTag.width * 0.9543
       }px Arial`;
       ctx.fillText(
-        `By. 조용필`,
+        `By. ${artistName}`,
         backgroundImgTag.width - backgroundImgTag.width * 0.903,
         backgroundImgTag.height - backgroundImgTag.height * 0.25
       );
@@ -164,10 +164,14 @@ class CardGenerator extends Component {
 
 CardGenerator.defaultProps = {
   imgUrl: defaultImg,
+  artistName: '아티스트 이름',
+  musicTitle: '음악 제목',
 };
 
 CardGenerator.propTypes = {
   imgUrl: PropTypes.string,
+  artistName: PropTypes.string,
+  musicTitle: PropTypes.string,
 };
 
 export default CardGenerator;
