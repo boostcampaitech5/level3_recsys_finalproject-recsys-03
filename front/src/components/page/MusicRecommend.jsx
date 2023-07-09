@@ -67,7 +67,7 @@ class MusicRecommend extends PureComponent {
   }
 
   render() {
-    const { imgSrc } = this.props;
+    const { imgUrl } = this.props;
     const { modalOpen } = this.state;
     return (
       <div className="MusicRecommend">
@@ -88,7 +88,7 @@ class MusicRecommend extends PureComponent {
 
           <MusicSelector
             songInfos={songInfos}
-            imgSrc={imgSrc}
+            imgUrl={imgUrl}
             onSlideChange={this.onSlideChange}
           />
           <h2>지금 노래를 들어보세요</h2>
@@ -138,9 +138,13 @@ class MusicRecommend extends PureComponent {
   }
 }
 
+MusicRecommend.defaultProps = {
+  imgUrl: defaultImg,
+};
+
 MusicRecommend.propTypes = {
   navigate: PropTypes.func.isRequired,
-  imgSrc: PropTypes.string.isRequired,
+  imgUrl: PropTypes.string,
 };
 
 export default function MusicRecommendWrapper(props) {
@@ -152,7 +156,7 @@ export default function MusicRecommendWrapper(props) {
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
       navigate={navigate}
-      imgSrc={location.state?.url || defaultImg}
+      imgUrl={location.state?.url}
     />
   );
 }
