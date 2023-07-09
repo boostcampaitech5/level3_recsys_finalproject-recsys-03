@@ -2,6 +2,75 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import defaultImg from '../../dummy512.jpg';
 
+const drawBackgroundMusicCard = (canvas, ctx, onLoadFinished) => {
+  const backgroundImgTag = new Image();
+  backgroundImgTag.src = `${process.env.PUBLIC_URL}/background-music-card.png`;
+
+  backgroundImgTag.width = canvas.width;
+  backgroundImgTag.height =
+    backgroundImgTag.width + backgroundImgTag.width * 0.68;
+
+  backgroundImgTag.onload = () => {
+    // background
+    ctx.drawImage(
+      backgroundImgTag,
+      0,
+      0,
+      backgroundImgTag.width,
+      backgroundImgTag.height
+    );
+
+    onLoadFinished(backgroundImgTag);
+  };
+};
+
+const drawQueryImage = (canvas, ctx, url, backgroundImgTag) => {
+  const queryImgTag = new Image();
+  queryImgTag.src = url;
+
+  queryImgTag.onload = () => {
+    const cornerRadius = 15; // radi
+    const x = backgroundImgTag.width - backgroundImgTag.width * 0.939;
+    const y = backgroundImgTag.height - backgroundImgTag.height * 0.932;
+    const queryWidth = backgroundImgTag.width - backgroundImgTag.width * 0.118;
+    const queryHeight = backgroundImgTag.width - backgroundImgTag.width * 0.118;
+
+    ctx.beginPath();
+    ctx.moveTo(x + cornerRadius, y);
+    ctx.lineTo(x + queryWidth - cornerRadius, y);
+    ctx.arcTo(
+      x + queryWidth,
+      y,
+      x + queryWidth,
+      y + cornerRadius,
+      cornerRadius
+    );
+    ctx.lineTo(x + queryWidth, y + queryHeight - cornerRadius);
+    ctx.arcTo(
+      x + queryWidth,
+      y + queryHeight,
+      x + queryWidth - cornerRadius,
+      y + queryHeight,
+      cornerRadius
+    );
+    ctx.lineTo(x + cornerRadius, y + queryHeight);
+    ctx.arcTo(
+      x,
+      y + queryHeight,
+      x,
+      y + queryHeight - cornerRadius,
+      cornerRadius
+    );
+    ctx.lineTo(x, y + cornerRadius);
+    ctx.arcTo(x, y, x + cornerRadius, y, cornerRadius);
+    ctx.closePath();
+
+    ctx.clip();
+
+    ctx.drawImage(queryImgTag, x, y, queryWidth, queryHeight);
+  };
+};
+
 class CardGenerator extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +85,6 @@ class CardGenerator extends Component {
     canvas.width = 525;
     // origin: 884
     canvas.height = 884;
-    const ctx = canvas.getContext('2d');
 
     // get date
     // const today = new Date();
@@ -25,73 +93,11 @@ class CardGenerator extends Component {
     // const day = String(today.getDate()).padStart(2, '0');
     // const dateString = `${year}.${month}.${day}`;
 
-    const backgroundImgTag = new Image();
+    const ctx = canvas.getContext('2d');
+    // font color
+    ctx.fillStyle = 'white';
 
-    backgroundImgTag.src = `${process.env.PUBLIC_URL}/background-music-card.png`;
-
-    backgroundImgTag.width = canvas.width;
-    backgroundImgTag.height =
-      backgroundImgTag.width + backgroundImgTag.width * 0.68;
-    backgroundImgTag.onload = () => {
-      // background
-      ctx.drawImage(
-        backgroundImgTag,
-        0,
-        0,
-        backgroundImgTag.width,
-        backgroundImgTag.height
-      );
-
-      const queryImgTag = new Image();
-      queryImgTag.src = imgUrl;
-
-      // user img
-      queryImgTag.onload = () => {
-        const cornerRadius = 15; // radi
-        const x = backgroundImgTag.width - backgroundImgTag.width * 0.939;
-        const y = backgroundImgTag.height - backgroundImgTag.height * 0.932;
-        const innerwidth =
-          backgroundImgTag.width - backgroundImgTag.width * 0.118;
-        const innerheight =
-          backgroundImgTag.width - backgroundImgTag.width * 0.118;
-
-        ctx.beginPath();
-        ctx.moveTo(x + cornerRadius, y);
-        ctx.lineTo(x + innerwidth - cornerRadius, y);
-        ctx.arcTo(
-          x + innerwidth,
-          y,
-          x + innerwidth,
-          y + cornerRadius,
-          cornerRadius
-        );
-        ctx.lineTo(x + innerwidth, y + innerheight - cornerRadius);
-        ctx.arcTo(
-          x + innerwidth,
-          y + innerheight,
-          x + innerwidth - cornerRadius,
-          y + innerheight,
-          cornerRadius
-        );
-        ctx.lineTo(x + cornerRadius, y + innerheight);
-        ctx.arcTo(
-          x,
-          y + innerheight,
-          x,
-          y + innerheight - cornerRadius,
-          cornerRadius
-        );
-        ctx.lineTo(x, y + cornerRadius);
-        ctx.arcTo(x, y, x + cornerRadius, y, cornerRadius);
-        ctx.closePath();
-
-        ctx.clip();
-
-        ctx.drawImage(queryImgTag, x, y, innerwidth, innerheight);
-      };
-      // font color
-      ctx.fillStyle = 'white';
-
+    drawBackgroundMusicCard(canvas, ctx, (backgroundImgTag) => {
       // // date
       // ctx.font = `${image.width - image.width * 0.962}px Arial`;
       // ctx.fillText(
@@ -119,7 +125,9 @@ class CardGenerator extends Component {
         backgroundImgTag.width - backgroundImgTag.width * 0.903,
         backgroundImgTag.height - backgroundImgTag.height * 0.25
       );
-    };
+
+      drawQueryImage(canvas, ctx, imgUrl, backgroundImgTag);
+    });
   }
 
   handleDownload = () => {
