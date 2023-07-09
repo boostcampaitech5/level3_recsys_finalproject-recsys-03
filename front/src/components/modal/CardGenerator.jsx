@@ -8,20 +8,18 @@ class CardGenerator extends Component {
 
   componentDidMount() {
     const canvas = this.canvasRef.current;
-    const parentContainer = canvas.parentNode;
-    const { width, height } = parentContainer.getBoundingClientRect();
     // origin: 525
-    canvas.width = width;
+    canvas.width = 525;
     // origin: 884
-    canvas.height = height;
+    canvas.height = 884;
     const ctx = canvas.getContext('2d');
 
     // get date
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
-    const dateString = `${year}.${month}.${day}`;
+    // const today = new Date();
+    // const year = today.getFullYear();
+    // const month = String(today.getMonth() + 1).padStart(2, '0');
+    // const day = String(today.getDate()).padStart(2, '0');
+    // const dateString = `${year}.${month}.${day}`;
 
     const image = new Image();
     const inner = new Image();
@@ -78,13 +76,13 @@ class CardGenerator extends Component {
       // font color
       ctx.fillStyle = 'white';
 
-      // date
-      ctx.font = `${image.width - image.width * 0.962}px Arial`;
-      ctx.fillText(
-        `PHOTO ${dateString}`,
-        image.width - image.width * 0.4114,
-        image.height - image.height * 0.946
-      );
+      // // date
+      // ctx.font = `${image.width - image.width * 0.962}px Arial`;
+      // ctx.fillText(
+      //   `PHOTO ${dateString}`,
+      //   image.width - image.width * 0.4114,
+      //   image.height - image.height * 0.946
+      // );
 
       // title
       ctx.font = `${image.width - image.width * 0.918}px Arial`;
@@ -104,7 +102,6 @@ class CardGenerator extends Component {
     };
   }
 
-  // img save
   handleDownload = () => {
     const canvas = this.canvasRef.current;
 
@@ -121,7 +118,7 @@ class CardGenerator extends Component {
     return (
       <>
         <div className="title">
-          <canvas className="cardImg" ref={this.canvasRef} />
+          <canvas ref={this.canvasRef} style={{ width: '100%' }} />
         </div>
         <div className="bottom">
           <button
