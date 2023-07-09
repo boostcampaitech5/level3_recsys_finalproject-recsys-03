@@ -24,19 +24,19 @@ const songInfos = [
     artistName: '볼빨간사춘기',
   },
   {
-    videoYtId: 'XHMdIA6bEOE',
-    musicTitle: '짱구는 못말려 오프닝4',
-    artistName: '아이브',
+    videoYtId: 'NbKH4iZqq1Y',
+    musicTitle: 'Drowning',
+    artistName: 'WOODZ',
   },
   {
-    videoYtId: '_sQhN4dLC60',
-    musicTitle: '첫사랑5',
-    artistName: '버스커 버스커',
+    videoYtId: '2Kff0U8w-aU',
+    musicTitle: 'OMG',
+    artistName: 'NewJeans',
   },
   {
-    videoYtId: 'y5MAgMVwfFs',
-    musicTitle: '좋다고 말해6',
-    artistName: '볼빨간사춘기',
+    videoYtId: 'j1uXcHwLhHM',
+    musicTitle: '사건의 지평선',
+    artistName: '윤하',
   },
 ];
 

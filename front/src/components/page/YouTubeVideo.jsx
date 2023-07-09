@@ -24,6 +24,7 @@ export default class YouTubeVideo extends PureComponent {
     return (
       <div className="YouTubeVideo">
         <YouTube
+          key={videoId}
           videoId={videoId}
           opts={{
             width: '320px',

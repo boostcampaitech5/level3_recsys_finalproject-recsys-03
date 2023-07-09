@@ -43,7 +43,7 @@ export default class MusicSelector extends PureComponent {
         coverflow-effect-modifier="1"
       >
         {songInfos.map((songInfo) => (
-          <swiper-slide>
+          <swiper-slide key={songInfo.videoYtId}>
             <div className="songCard">
               <img src={imgUrl} alt={`${songInfo.musicTitle} 엘범 이미지`} />
               <div className="songDetail">
@@ -60,13 +60,13 @@ export default class MusicSelector extends PureComponent {
 }
 
 MusicSelector.propTypes = {
-  songInfos: PropTypes.shape([
-    {
+  songInfos: PropTypes.arrayOf(
+    PropTypes.shape({
       videoYtId: PropTypes.string,
       musicTitle: PropTypes.string,
       artistName: PropTypes.string,
-    },
-  ]).isRequired,
+    })
+  ).isRequired,
   onSlideChange: PropTypes.func.isRequired,
   imgUrl: PropTypes.string.isRequired,
 };
