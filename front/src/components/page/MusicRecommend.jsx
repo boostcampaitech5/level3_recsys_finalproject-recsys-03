@@ -1,45 +1,40 @@
 import React, { PureComponent, createRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import MusicSelector from './MusicSelector';
 import './MusicRecommend.css';
 import YouTubeVideo from './YouTubeVideo';
 import Modal from '../modal/Modal';
+import defaultImg from '../../dummy512.jpg';
 
 const songInfos = [
   {
     videoYtId: 'XHMdIA6bEOE',
-    src: '/dummy-1.jpg',
     musicTitle: '짱구는 못말려 오프닝1',
     artistName: '아이브',
   },
   {
     videoYtId: '_sQhN4dLC60',
-    src: '/dummy-1.jpg',
     musicTitle: '첫사랑2',
     artistName: '버스커 버스커',
   },
   {
     videoYtId: 'y5MAgMVwfFs',
-    src: '/dummy-1.jpg',
     musicTitle: '좋다고 말해3',
     artistName: '볼빨간사춘기',
   },
   {
     videoYtId: 'NbKH4iZqq1Y',
-    src: '/dummy-1.jpg',
     musicTitle: 'Drowning',
     artistName: 'WOODZ',
   },
   {
     videoYtId: '2Kff0U8w-aU',
-    src: '/dummy-1.jpg',
     musicTitle: 'OMG',
     artistName: 'NewJeans',
   },
   {
     videoYtId: 'j1uXcHwLhHM',
-    src: '/dummy-1.jpg',
     musicTitle: '사건의 지평선',
     artistName: '윤하',
   },
@@ -52,11 +47,18 @@ class MusicRecommend extends PureComponent {
     this.youTubeVideoRef = createRef();
     this.state = {
       modalOpen: false,
+      songInfo: songInfos[0],
     };
 
     this.onSlideChange = (e) => {
-      const songInfo = songInfos[e.target.swiper.realIndex];
-      this.youTubeVideoRef.current.changeVideoId(songInfo.videoYtId);
+      this.setState((state) => ({
+        modalOpen: state.modalOpen,
+        songInfo: songInfos[e.target.swiper.realIndex],
+      }));
+
+      this.youTubeVideoRef.current.changeVideoId(
+        songInfos[e.target.swiper.realIndex].videoYtId
+      );
     };
   }
 
@@ -72,13 +74,17 @@ class MusicRecommend extends PureComponent {
   }
 
   render() {
-    const { modalOpen } = this.state;
+    const { imgUrl } = this.props;
+    const { modalOpen, songInfo } = this.state;
     return (
       <div className="MusicRecommend">
         <div className="contents">
           <div>
             {modalOpen && (
               <Modal
+                imgUrl={imgUrl}
+                artistName={songInfo.artistName}
+                musicTitle={songInfo.musicTitle}
                 setOpenModal={() => {
                   this.setModalOpen();
                 }}
@@ -92,12 +98,13 @@ class MusicRecommend extends PureComponent {
 
           <MusicSelector
             songInfos={songInfos}
+            imgUrl={imgUrl}
             onSlideChange={this.onSlideChange}
           />
           <h2>지금 노래를 들어보세요</h2>
           <YouTubeVideo
             ref={this.youTubeVideoRef}
-            videoId={songInfos[0].videoYtId}
+            videoId={songInfos.videoYtId}
           />
         </div>
         <div className="footer">
@@ -141,13 +148,25 @@ class MusicRecommend extends PureComponent {
   }
 }
 
+MusicRecommend.defaultProps = {
+  imgUrl: defaultImg,
+};
+
 MusicRecommend.propTypes = {
   navigate: PropTypes.func.isRequired,
+  imgUrl: PropTypes.string,
 };
 
 export default function MusicRecommendWrapper(props) {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  return <MusicRecommend {...props} navigate={navigate} />;
+  return (
+    <MusicRecommend
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...props}
+      navigate={navigate}
+      imgUrl={location.state?.url}
+    />
+  );
 }

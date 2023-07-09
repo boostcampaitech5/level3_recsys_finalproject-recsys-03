@@ -24,7 +24,12 @@ function CropPage() {
   const navigate = useNavigate();
   const naviagteToNext = () => {
     // sending data(cropped img, genres) must be added here
-    navigate('/loading');
+    navigate('/loading', {
+      state: {
+        url: croppedImage,
+        genres: info.genres,
+      },
+    });
   };
   const goUploadPage = () => {
     // sending data(cropped img, genres) must be added here
