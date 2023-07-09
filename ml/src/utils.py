@@ -1,16 +1,17 @@
 from typing import Optional, Tuple
 import os
+import ast
 import torch
 import wandb
 import dotenv
 import random
+import urllib
+import datasets
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
+from PIL import Image
 from datetime import datetime
-from datasets import Dataset
-from datasets import (
-    load_dataset,
-)
 
 
 def set_seed(seed) -> None:
@@ -43,8 +44,8 @@ def init_wandb(config, k: Optional[int] = None, group: Optional[int] = None) -> 
     )
 
 
-def load_huggingface_dataset(seed: int = 42, num_samples: int = 100, name: str = "beans", split: str = "train") -> Dataset:
-    dataset = load_dataset(name, split=split)
+def load_huggingface_dataset(seed: int = 42, num_samples: int = 100, name: str = "beans", split: str = "train") -> datasets.Dataset:
+    dataset = datasets.load_dataset(name, split=split)
     return dataset.shuffle(seed=seed).select(range(num_samples))
 
 
@@ -76,3 +77,46 @@ def plot_images(images, labels, id2label, k) -> None:
             ax.set_title("Similar Image # " + str(i) + "\nLabel: {}".format(id2label[label_id]))
         plt.imshow(np.array(image).astype("int"))
         plt.axis("off")
+
+
+def str2list(data: pd.DataFrame, columns: list) -> None:
+    for col in columns:
+        data[col] = data[col].apply(lambda x: ast.literal_eval(x))
+
+
+def generate_weather_df(df: pd.DataFrame) -> pd.DataFrame:
+    df["w1"] = df.apply(lambda x: 1 if "봄" in x["tag_weather"] else 0, axis=1)
+    df["w2"] = df.apply(lambda x: 1 if "여름" in x["tag_weather"] else 0, axis=1)
+    df["w3"] = df.apply(lambda x: 1 if "가을" in x["tag_weather"] else 0, axis=1)
+    df["w4"] = df.apply(lambda x: 1 if "겨울" in x["tag_weather"] else 0, axis=1)
+    df["w5"] = df.apply(lambda x: 1 if "우중충한날" in x["tag_weather"] else 0, axis=1)
+
+    cols = [
+        "playlist_id",
+        "playlist_img_url",
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5",
+    ]
+    weather_df = df[df["tag_weather_cnt"] > 0][cols]
+
+    return weather_df
+
+
+def read_image(url: str):
+    image = Image.open(urllib.request.urlretrieve(url)[0]).convert("RGB")
+    return image
+
+
+def train_val_test_split(dataset: datasets.Dataset) -> Tuple[datasets.Dataset, datasets.Dataset, datasets.Dataset]:
+    train_test_splits = dataset.train_test_split(test_size=0.1)
+    train = train_test_splits["train"]
+    test = train_test_splits["test"]
+
+    train_val_splits = train.train_test_split(test_size=0.1)
+    train = train_val_splits["train"]
+    val = train_val_splits["test"]
+
+    return train, val, test
