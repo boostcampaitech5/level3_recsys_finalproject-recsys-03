@@ -1,0 +1,6 @@
+# path to train data directory
+data_dir: ./input/data/
+# path to output directory
+output_dir: ./output/
+# 
+csv_file: playlists_0709_v2.csv
