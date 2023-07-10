@@ -63,10 +63,6 @@ class MusicRecommend extends PureComponent {
         modalOpen: state.modalOpen,
         songInfo: songInfos[e.target.swiper.realIndex],
       }));
-
-      this.youTubeVideoRef.current.changeVideoId(
-        songInfos[e.target.swiper.realIndex].videoYtId
-      );
     };
   }
 
@@ -112,7 +108,7 @@ class MusicRecommend extends PureComponent {
           <h2>지금 노래를 들어보세요</h2>
           <YouTubeVideo
             ref={this.youTubeVideoRef}
-            videoId={songInfos.videoYtId}
+            videoId={songInfo.videoYtId}
           />
         </div>
         <div className="footer">
