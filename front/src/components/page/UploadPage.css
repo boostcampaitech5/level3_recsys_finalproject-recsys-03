@@ -17,11 +17,47 @@
 }
 
 .UploadPage .guideBox {
-  height: 60%;
+  height: 63%;
   width: 90%;
   background-color: #e3e3e3;
   border-radius: 15px;
   margin: auto;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.UploadPage .exImg {
+  display: flex;
+  margin-top: 1%;
+  justify-content: center;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.UploadPage .imgSet {
+  width: 28%;
+  border-radius: 15px;
+  margin-right: 3%;
+}
+.exImg img:last-child {
+  margin-right: 0;
+}
+
+.guideBox p {
+  font-family: 'Noto Sans KR', sans-serif;
+  margin-top: 6%;
+  margin-bottom: 3%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 0.85em;
+  text-align: center;
+  width: 85%;
 }
 
 .UploadPage .uploadBnt {
