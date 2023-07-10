@@ -1,5 +1,12 @@
 seed: 42
 
-defaults:
-  - _self_
-  - path: default.yaml
+# path to train data directory
+data_dir: ./input/data/
+# path to output directory
+output_dir: ./output/
+# train data file name
+train_file: playlists.csv
+# tag data file name
+tag_file: new_tags.csv
+# tag type for dataset(mood/sit/weather)
+tag_type: sit
