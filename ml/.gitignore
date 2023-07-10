@@ -6,10 +6,6 @@ __pycache__
 /input
 /output
 
-#vscode
-/.vscode
-.vscode
-
 # MacOS
 .DS_Store
 
@@ -21,3 +17,6 @@ key
 
 # hydra
 /outputs
+
+# wandb
+/wandb

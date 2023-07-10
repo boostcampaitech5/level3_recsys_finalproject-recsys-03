@@ -1,30 +1,29 @@
 import numpy as np
 import torch
+import torch.nn as nn
 import torch.optim as optim
-import torch.nn.functional as F
 import lightning as L
 from transformers import AutoModelForImageClassification
-
-
-NUM_LABELS = 3
-ID2LABEL = {0: "angular_leaf_spot", 1: "bean_rust", 2: "healthy"}
-LABEL2ID = {"angular_leaf_spot": 0, "bean_rust": 1, "healthy": 2}
+from sklearn.metrics import accuracy_score
 
 
 class TagClassifier(L.LightningModule):
-    def __init__(self, config):
+    def __init__(self, config, num_labels: int, id2label: dict, label2id: dict):
         super().__init__()
         self.backbone = config.model.backbone
         self.model = AutoModelForImageClassification.from_pretrained(
             self.backbone,
-            num_labels=NUM_LABELS,
-            id2label=ID2LABEL,
-            label2id=LABEL2ID,
+            num_labels=num_labels,
+            id2label=id2label,
+            label2id=label2id,
             ignore_mismatched_sizes=True,
         )
+        self.loss_fn = nn.BCEWithLogitsLoss()
+        self.sigmoid = nn.Sigmoid()
         self.config = config
         self.batch_size = config.data.batch_size
         self.lr = config.model.lr
+        self.threshold = config.model.threshold
         self.train_step_outputs = []
         self.shared_eval_step_outputs = []
         self.save_hyperparameters(ignore=["model"])
@@ -83,13 +82,13 @@ class TagClassifier(L.LightningModule):
         return optimizer
 
     def _compute_loss(self, logits, labels):
-        loss = F.cross_entropy(logits, labels)
+        loss = self.loss_fn(logits, labels)
         return loss
 
     def _compute_score(self, logits, labels):
-        preds = logits.argmax(-1)
-        correct = (preds == labels).sum().item()
-        score = correct / self.batch_size
+        probs = self.sigmoid(logits.cpu())
+        preds = np.where(probs > self.threshold, 1, 0)
+        score = accuracy_score(labels.cpu().numpy(), preds)
         return score
 
     def _shared_eval_step(self, batch, batch_idx, prefix: str):

@@ -44,12 +44,12 @@ class Trainer:
 
     def _build_ckpt_callback(self) -> ModelCheckpoint:
         ckpt_callback = ModelCheckpoint(
-            dirpath=self.output_dir,
+            dirpath=os.path.join(self.output_dir, self.name),
             filename=self.name,
-            monitor="val_score",
+            monitor="val_loss",
             save_last=False,
             save_top_k=1,
-            mode="max",
+            mode="min",
             verbose=True,
         )
         return ckpt_callback
