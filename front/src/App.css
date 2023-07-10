@@ -63,8 +63,20 @@
   margin: 0 auto;
 }
 
+.footer button svg:nth-of-type(1) {
+  margin-right: 5px;
+}
+
+.footer button svg:nth-of-type(2) {
+  margin-left: 5px;
+}
+
 .footer button:hover {
   color: white;
+}
+
+.footer svg {
+  font-size: 1.2em;
 }
 
 @keyframes App-logo-spin {
