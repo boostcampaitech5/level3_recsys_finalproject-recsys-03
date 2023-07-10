@@ -15,16 +15,17 @@ const songInfos = [
     albumTitle: '짱구 1기',
   },
   {
-    videoYtId: '_sQhN4dLC60',
-    musicTitle: '첫사랑2',
-    artistName: '버스커 버스커',
-    albumTitle: '버스커 버스커 1집',
+    videoYtId: 'Sq_mS6xWpvk',
+    musicTitle: 'Kiss Goodnightrrrrrrrrrr',
+    artistName: 'I Dont Know How But They Found Meeeee',
+    albumTitle: 'Razzmatazz',
   },
   {
-    videoYtId: 'y5MAgMVwfFs',
-    musicTitle: '좋다고 말해3',
-    artistName: '볼빨간사춘기',
-    albumTitle: 'Full Album RED PLANET',
+    videoYtId: 'A1tZgPAcpjE',
+    musicTitle:
+      '사랑하긴 했었나요 스쳐가는 인연이었나요 짧지않은 우리 함께했던 시간들이 자꾸 내 마음을 가둬두네',
+    artistName: '잔나비 잔나비 잔미잔미 잔나비 잔나비 잔미잔미',
+    albumTitle: '봉춤을 추네',
   },
   {
     videoYtId: 'NbKH4iZqq1Y',
