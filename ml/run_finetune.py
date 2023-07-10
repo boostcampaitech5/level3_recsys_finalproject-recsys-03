@@ -19,7 +19,7 @@ def main(config) -> None:
     init_wandb(config)
 
     datamodule = DataModule(config)
-    tag_classifier = TagClassifier(config)
+    tag_classifier = TagClassifier(config, datamodule.num_labels, datamodule.id2label, datamodule.label2id)
     trainer = Trainer(config, tag_classifier, datamodule)
 
     trainer.train()
