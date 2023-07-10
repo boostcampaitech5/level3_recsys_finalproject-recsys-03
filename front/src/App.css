@@ -53,7 +53,7 @@
   height: 100%;
   text-align: center;
   font-weight: 900;
-  font-size: 1.3em;
+  font-size: 1.1em;
   color: black;
   display: flex;
   border: none;
@@ -63,13 +63,20 @@
   margin: 0 auto;
 }
 
+.footer button svg:nth-of-type(1) {
+  margin-right: 5px;
+}
+
+.footer button svg:nth-of-type(2) {
+  margin-left: 5px;
+}
+
 .footer button:hover {
   color: white;
 }
 
-.footer button:hover svg {
-  color: white;
-  fill: white;
+.footer svg {
+  font-size: 1.2em;
 }
 
 @keyframes App-logo-spin {
