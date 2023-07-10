@@ -8,6 +8,7 @@ import WrongImg3 from '../../wrong3.jpeg';
 import GoodImg1 from '../../good1.jpeg';
 import GoodImg2 from '../../good2.jpg';
 import GoodImg3 from '../../good3.JPG';
+import heic2any from 'heic2any';
 
 function ImageUploadPage() {
   const location = useLocation();
@@ -25,15 +26,34 @@ function ImageUploadPage() {
 
   const insertImg = (e) => {
     const reader = new FileReader();
+    const image = e.target.files[0];
 
-    if (e.target.files[0]) {
-      reader.readAsDataURL(e.target.files[0]);
+    // check data is inputted
+    if (image) {
+      reader.readAsDataURL(image);
     }
 
-    reader.onloadend = () => {
+    // check image type is heic and send it to next page
+    reader.onloadend = async () => {
       const previewImgUrl = reader.result;
+      let url = URL.createObjectURL(image);
+
       if (previewImgUrl) {
-        naviagteToNext(e.target.files[0]);
+        if (
+          image.type.indexOf('image/heic') !== -1 ||
+          image.type.indexOf('image/heif') !== -1
+        ) {
+          const blobURL = URL.createObjectURL(image);
+          const blobRes = await fetch(blobURL);
+          const blob = await blobRes.blob();
+          const conversionResult = await heic2any({
+            blob,
+            toType: 'image/jpeg',
+            quality: 1,
+          });
+          url = URL.createObjectURL(conversionResult);
+        }
+        naviagteToNext(url);
       }
     };
   };
@@ -101,7 +121,7 @@ function ImageUploadPage() {
         <input
           type="file"
           id="file"
-          accept="image/png, image/jpg, image/jpeg, image/gif"
+          accept="image/png, image/jpg, image/jpeg, image/gif, image/heic, image/heif"
           onChange={(e) => insertImg(e)}
           style={{ display: 'none' }}
         />

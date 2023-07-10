@@ -69,7 +69,7 @@
   font-family: 'Noto Sans KR', sans-serif;
   text-align: center;
   font-weight: 900;
-  font-size: 1.3em;
+  font-size: 1.1em;
   color: black;
   display: flex;
   align-items: center;
@@ -86,5 +86,5 @@
 
 .UploadPage .uploadBnt svg {
   color: black;
-  font-size: 1.3em;
+  margin-left: 5px;
 }

@@ -23,7 +23,6 @@
   border: none;
   border-radius: 15px;
   font-weight: 900;
-  font-size: 1.3em;
   color: black;
 }
 
@@ -41,7 +40,7 @@
   background: #e3e3e3;
 }
 
-.MusicRecommend .share {
+.MusicRecommend .save {
   width: 100%;
   background: #f44404;
 }

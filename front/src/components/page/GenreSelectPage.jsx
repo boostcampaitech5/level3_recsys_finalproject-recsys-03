@@ -1,5 +1,6 @@
 import React, { PureComponent, createRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FiChevronsRight } from 'react-icons/fi';
 import PropTypes from 'prop-types';
 import './GenreSelectPage.css';
 import SelectButton from './SelectButton';
@@ -97,14 +98,7 @@ class GenreSelectorPage extends PureComponent {
         <div className="footer">
           <button className="next" onClick={() => this.goNext()} type="button">
             <span>다음으로</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="35"
-              viewBox="0 -960 960 960"
-              width="35"
-            >
-              <path d="m242-200 210-280-210-280h74l210 280-210 280h-74Zm252 0 210-280-210-280h74l210 280-210 280h-74Z" />
-            </svg>
+            <FiChevronsRight />
           </button>
         </div>
       </div>
