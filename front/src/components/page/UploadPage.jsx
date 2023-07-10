@@ -4,7 +4,7 @@ import { FiUpload } from 'react-icons/fi';
 import './UploadPage.css';
 import WrongImg1 from '../../wrong1.jpg';
 import WrongImg2 from '../../wrong2.jpeg';
-import WrongImg3 from '../../wrong4.jpg';
+import WrongImg3 from '../../wrong3.jpeg';
 import GoodImg1 from '../../good1.jpeg';
 import GoodImg2 from '../../good2.jpg';
 import GoodImg3 from '../../good3.JPG';
