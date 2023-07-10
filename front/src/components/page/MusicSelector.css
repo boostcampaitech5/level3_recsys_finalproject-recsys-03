@@ -30,7 +30,7 @@ swiper-slide {
   margin-top: 10px;
 }
 
-.songDetail p {
+.songCard .songDetail p {
   display: block;
   white-space: nowrap;
   overflow: hidden;
@@ -38,19 +38,19 @@ swiper-slide {
   width: 100%;
 }
 
-.songTitle {
+.songCard .songTitle {
   font-size: 0.5em;
   font-weight: 700;
   margin: 0;
 }
 
-.artistName {
+.songCard .artistName {
   font-size: 0.2em;
   font-weight: 400;
   margin: 0;
 }
 
-.playTime {
+.songCard .albumTitle {
   font-size: 0.2em;
   font-weight: 400;
   margin: 0;

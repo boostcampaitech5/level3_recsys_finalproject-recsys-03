@@ -12,31 +12,37 @@ const songInfos = [
     videoYtId: 'XHMdIA6bEOE',
     musicTitle: '짱구는 못말려 오프닝1',
     artistName: '아이브',
+    albumTitle: '짱구 1기',
   },
   {
     videoYtId: '_sQhN4dLC60',
     musicTitle: '첫사랑2',
     artistName: '버스커 버스커',
+    albumTitle: '버스커 버스커 1집',
   },
   {
     videoYtId: 'y5MAgMVwfFs',
     musicTitle: '좋다고 말해3',
     artistName: '볼빨간사춘기',
+    albumTitle: 'Full Album RED PLANET',
   },
   {
     videoYtId: 'NbKH4iZqq1Y',
     musicTitle: 'Drowning',
     artistName: 'WOODZ',
+    albumTitle: 'OO-LI',
   },
   {
     videoYtId: '2Kff0U8w-aU',
     musicTitle: 'OMG',
     artistName: 'NewJeans',
+    albumTitle: "NewJeans 'OMG'",
   },
   {
     videoYtId: 'j1uXcHwLhHM',
     musicTitle: '사건의 지평선',
     artistName: '윤하',
+    albumTitle: 'END THEORY : Final Edition',
   },
 ];
 

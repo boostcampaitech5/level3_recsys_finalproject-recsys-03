@@ -49,7 +49,7 @@ export default class MusicSelector extends PureComponent {
               <div className="songDetail">
                 <p className="songTitle">{songInfo.musicTitle}</p>
                 <p className="artistName">{songInfo.artistName}</p>
-                <p className="playTime">00:11</p>
+                <p className="albumTitle">{songInfo.albumTitle}</p>
               </div>
             </div>
           </swiper-slide>
@@ -65,6 +65,7 @@ MusicSelector.propTypes = {
       videoYtId: PropTypes.string,
       musicTitle: PropTypes.string,
       artistName: PropTypes.string,
+      albumTitle: PropTypes.string,
     })
   ).isRequired,
   onSlideChange: PropTypes.func.isRequired,
