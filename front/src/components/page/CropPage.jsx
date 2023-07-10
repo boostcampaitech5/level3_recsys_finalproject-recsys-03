@@ -52,6 +52,7 @@ function CropPage() {
         <div className="container-cropper">
           <div className="cropper">
             <Cropper
+              objectFit="cover"
               image={imgurl}
               crop={crop}
               zoom={zoom}
