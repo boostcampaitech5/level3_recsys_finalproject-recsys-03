@@ -3,11 +3,12 @@ import os
 import numpy as np
 import torch
 import lightning as L
-from datasets import Dataset, load_dataset
+import datasets
 from torch.utils.data import DataLoader
 from transformers import AutoImageProcessor
 import albumentations as A
 from albumentations.pytorch.transforms import ToTensorV2
+from src.utils import train_val_test_split
 
 
 class DataModule(L.LightningDataModule):
@@ -17,29 +18,23 @@ class DataModule(L.LightningDataModule):
         self.backbone = config.model.backbone
         self.batch_size = config.data.batch_size
         self.num_workers = config.data.num_workers
+        self.data_dir = config.path.data_dir
+        self.train_file = config.path.train_file
         self.output_dir = config.path.output_dir
         self.name = config.wandb.name
 
-        self.train_dataset: Optional[Dataset] = None
-        self.val_dataset: Optional[Dataset] = None
-        self.test_dataset: Optional[Dataset] = None
+        self.dataset: datasets.Dataset = datasets.load_from_disk(os.path.join(self.data_dir, self.train_file))
+        self.labels: list = [label for label in self.dataset.features.keys() if label not in ["playlist_id", "playlist_img_url", "image"]]
 
-        self.id2label: Optional[dict] = None
-        self.label2id: Optional[dict] = None
-        self.num_labels: Optional[int] = None
+        self.train_dataset: Optional[datasets.Dataset] = None
+        self.val_dataset: Optional[datasets.Dataset] = None
+        self.test_dataset: Optional[datasets.Dataset] = None
 
         self._train_transforms: Optional[A.Compose] = None
         self._eval_transforms: Optional[A.Compose] = None
 
     def prepare_data(self) -> None:
-        train_dataset, self.test_dataset = load_dataset("beans", split=["train", "test"])
-        splits = train_dataset.train_test_split(test_size=0.1)
-        self.train_dataset = splits["train"]
-        self.val_dataset = splits["test"]
-
-        self.id2label = {id: label for id, label in enumerate(self.train_dataset.features["labels"].names)}
-        self.label2id = {label: id for id, label in self.id2label.items()}
-        self.num_labels = len(self.id2label)
+        self.train_dataset, self.val_dataset, self.test_dataset = train_val_test_split(self.dataset)
 
     def setup(self, stage: Optional[str] = None):
         processor = AutoImageProcessor.from_pretrained(self.backbone)
@@ -72,17 +67,27 @@ class DataModule(L.LightningDataModule):
         self.val_dataset.set_transform(self.preprocess_eval)
         self.test_dataset.set_transform(self.preprocess_eval)
 
+    def _transform_label(self, examples):
+        label_batch = {label: examples[label] for label in self.labels}
+        label_matrix = np.zeros((len(examples["image"]), (self.num_labels)))
+        for idx, label in enumerate(self.labels):
+            label_matrix[:, idx] = label_batch[label]
+        return label_matrix.tolist()
+
     def preprocess_train(self, examples):
         examples["pixel_values"] = [self._train_transforms(image=np.array(image))["image"] for image in examples["image"]]
+        examples["labels"] = self._transform_label(examples)
         return examples
 
     def preprocess_eval(self, examples):
         examples["pixel_values"] = [self._eval_transforms(image=np.array(image))["image"] for image in examples["image"]]
+        examples["labels"] = self._transform_label(examples)
         return examples
 
     def save_hf_processor(self, processor):
-        path = os.path.join(self.output_dir, self.name + "_huggingface")
-        processor.save_pretrained(path)
+        dirpath = os.path.join(self.output_dir, self.name)
+        filename = self.name + "_huggingface"
+        processor.save_pretrained(os.path.join(dirpath, filename))
 
     def collate_fn(self, examples):
         pixel_values = torch.stack([example["pixel_values"] for example in examples])
@@ -100,3 +105,15 @@ class DataModule(L.LightningDataModule):
     def test_dataloader(self) -> DataLoader:
         loader = DataLoader(self.test_dataset, shuffle=False, num_workers=self.num_workers, collate_fn=self.collate_fn, batch_size=self.batch_size)
         return loader
+
+    @property
+    def num_labels(self):
+        return len(self.labels)
+
+    @property
+    def id2label(self):
+        return {id: label for id, label in enumerate(self.labels)}
+
+    @property
+    def label2id(self):
+        return {label: id for id, label in enumerate(self.labels)}
