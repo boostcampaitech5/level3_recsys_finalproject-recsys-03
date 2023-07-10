@@ -10,7 +10,7 @@ function CropPage() {
 
   const location = useLocation();
   const info = { ...location.state };
-  const [imgurl] = useState(() => URL.createObjectURL(info.url));
+  const [imgurl] = useState(info.url);
   const [croppedImage, setCroppedImage] = useState();
 
   const onCropComplete = useCallback(
