@@ -1,5 +1,6 @@
 import React, { PureComponent, createRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { FiRotateCcw, FiSave } from 'react-icons/fi';
 import PropTypes from 'prop-types';
 import MusicSelector from './MusicSelector';
 import './MusicRecommend.css';
@@ -15,16 +16,17 @@ const songInfos = [
     albumTitle: '짱구 1기',
   },
   {
-    videoYtId: '_sQhN4dLC60',
-    musicTitle: '첫사랑2',
-    artistName: '버스커 버스커',
-    albumTitle: '버스커 버스커 1집',
+    videoYtId: 'Sq_mS6xWpvk',
+    musicTitle: 'Kiss Goodnightrrrrrrrrrr',
+    artistName: 'I Dont Know How But They Found Meeeee',
+    albumTitle: 'Razzmatazz',
   },
   {
-    videoYtId: 'y5MAgMVwfFs',
-    musicTitle: '좋다고 말해3',
-    artistName: '볼빨간사춘기',
-    albumTitle: 'Full Album RED PLANET',
+    videoYtId: 'A1tZgPAcpjE',
+    musicTitle:
+      '사랑하긴 했었나요 스쳐가는 인연이었나요 짧지않은 우리 함께했던 시간들이 자꾸 내 마음을 가둬두네',
+    artistName: '잔나비 잔나비 잔미잔미 잔나비 잔나비 잔미잔미',
+    albumTitle: '봉춤을 추네',
   },
   {
     videoYtId: 'NbKH4iZqq1Y',
@@ -120,32 +122,18 @@ class MusicRecommend extends PureComponent {
               type="button"
               onClick={() => this.goMainPage()}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="35"
-                viewBox="0 -960 960 960"
-                width="35"
-              >
-                <path d="M480-160q-133 0-226.5-93.5T160-480q0-133 93.5-226.5T480-800q85 0 149 34.5T740-671v-129h60v254H546v-60h168q-38-60-97-97t-137-37q-109 0-184.5 75.5T220-480q0 109 75.5 184.5T480-220q83 0 152-47.5T728-393h62q-29 105-115 169t-195 64Z" />
-              </svg>
+              <FiRotateCcw />
               다시하기
             </button>
             <button
-              className="share"
+              className="save"
               type="button"
               onClick={() => {
                 this.setModalOpen(true);
               }}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="35"
-                viewBox="0 -960 960 960"
-                width="35"
-              >
-                <path d="M220-40q-24 0-42-18t-18-42v-509q0-24 18-42t42-18h169v60H220v509h520v-509H569v-60h171q24 0 42 18t18 42v509q0 24-18 42t-42 18H220Zm229-307v-457l-88 88-43-43 161-161 161 161-43 43-88-88v457h-60Z" />
-              </svg>
-              공유하기
+              <FiSave />
+              저장하기
             </button>
           </div>
         </div>

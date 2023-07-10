@@ -14,7 +14,7 @@
   height: 9.3%;
   width: 70%;
   border-radius: 15px;
-  background-color: white;
+  background-color: black;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   text-align: center;
   flex-direction: column;
@@ -76,7 +76,7 @@
   text-align: center;
   align-items: center;
   font-weight: 900;
-  font-size: 1.2em;
+  font-size: 1.1em;
   color: black;
 }
 

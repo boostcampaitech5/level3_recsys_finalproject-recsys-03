@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import defaultImg from '../../dummy512.jpg';
-import backgroundMusicCardImg from '../../background-music-card.png';
+import backgroundMusicCardImg from '../../white_background.png';
 
 const drawBackgroundMusicCard = (canvas, ctx, onLoadFinished) => {
   const backgroundImgTag = new Image();
@@ -87,6 +87,11 @@ class CardGenerator extends Component {
     // origin: 884
     canvas.height = 884;
 
+    let newmusicTitle = musicTitle;
+    let newartistName = artistName;
+    const musicTitleThreshold = canvas.width - canvas.width * 0.25;
+    const artistNameThreshold = canvas.width + canvas.width * 0.15;
+
     // get date
     // const today = new Date();
     // const year = today.getFullYear();
@@ -96,7 +101,7 @@ class CardGenerator extends Component {
 
     const ctx = canvas.getContext('2d');
     // font color
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = 'black';
 
     drawBackgroundMusicCard(canvas, ctx, (backgroundImgTag) => {
       // // date
@@ -111,18 +116,61 @@ class CardGenerator extends Component {
       ctx.font = `${
         backgroundImgTag.width - backgroundImgTag.width * 0.918
       }px Arial`;
+
+      if (ctx.measureText(newmusicTitle).width > musicTitleThreshold) {
+        let left = 0;
+        let right = newmusicTitle.length;
+        let mid;
+        let nowWidth;
+
+        while (left <= right) {
+          mid = Math.ceil((left + right) / 2);
+          nowWidth = ctx.measureText(
+            newmusicTitle.substring(0, mid).concat('...')
+          ).width;
+          if (nowWidth <= musicTitleThreshold) {
+            left = mid + 1;
+          }
+          if (nowWidth > musicTitleThreshold) {
+            right = mid - 1;
+          }
+        }
+        newmusicTitle = newmusicTitle.substring(0, left).concat('...');
+      }
+
       ctx.fillText(
-        musicTitle,
+        newmusicTitle,
         backgroundImgTag.width - backgroundImgTag.width * 0.903,
         backgroundImgTag.height - backgroundImgTag.height * 0.293
       );
+
+      if (ctx.measureText(newartistName).width > artistNameThreshold) {
+        let left = 0;
+        let right = newartistName.length;
+        let mid;
+        let nowWidth;
+
+        while (left <= right) {
+          mid = Math.ceil((left + right) / 2);
+          nowWidth = ctx.measureText(
+            newartistName.substring(0, mid).concat('...')
+          ).width;
+          if (nowWidth <= artistNameThreshold) {
+            left = mid + 1;
+          }
+          if (nowWidth > artistNameThreshold) {
+            right = mid - 1;
+          }
+        }
+        newartistName = newartistName.substring(0, left).concat('...');
+      }
 
       // artist
       ctx.font = `${
         backgroundImgTag.width - backgroundImgTag.width * 0.9543
       }px Arial`;
       ctx.fillText(
-        `By. ${artistName}`,
+        `By. ${newartistName}`,
         backgroundImgTag.width - backgroundImgTag.width * 0.903,
         backgroundImgTag.height - backgroundImgTag.height * 0.25
       );
