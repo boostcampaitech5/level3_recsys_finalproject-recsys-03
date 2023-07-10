@@ -67,11 +67,6 @@
   color: white;
 }
 
-.footer button:hover svg {
-  color: white;
-  fill: white;
-}
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { FiCheckSquare, FiRotateCcw } from 'react-icons/fi';
 import Cropper from 'react-easy-crop';
 import './CropPage.css';
 import getCroppedImg from '../../utils/cropImage';
@@ -73,14 +74,7 @@ function CropPage() {
             type="button"
             onClick={() => goUploadPage()}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="35"
-              viewBox="0 -960 960 960"
-              width="35"
-            >
-              <path d="M480-160q-133 0-226.5-93.5T160-480q0-133 93.5-226.5T480-800q85 0 149 34.5T740-671v-129h60v254H546v-60h168q-38-60-97-97t-137-37q-109 0-184.5 75.5T220-480q0 109 75.5 184.5T480-220q83 0 152-47.5T728-393h62q-29 105-115 169t-195 64Z" />
-            </svg>
+            <FiRotateCcw />
             다시선택
           </button>
           <button
@@ -88,14 +82,7 @@ function CropPage() {
             type="button"
             onClick={() => naviagteToNext()}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="35"
-              viewBox="0 -960 960 960"
-              width="35"
-            >
-              <path d="M220-40q-24 0-42-18t-18-42v-509q0-24 18-42t42-18h169v60H220v509h520v-509H569v-60h171q24 0 42 18t18 42v509q0 24-18 42t-42 18H220Zm229-307v-457l-88 88-43-43 161-161 161 161-43 43-88-88v457h-60Z" />
-            </svg>
+            <FiCheckSquare />
             결과 보기
           </button>
         </div>
