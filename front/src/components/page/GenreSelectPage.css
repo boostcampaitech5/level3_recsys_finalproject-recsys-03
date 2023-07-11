@@ -42,23 +42,6 @@
   grid-row-gap: 20px;
 }
 
-.GenreSelector .SelectButton {
-  border-radius: 20px;
-  border: none;
-  background: white;
-  padding: 10px;
-}
-
-.GenreSelector .SelectButton img {
-  border-radius: 10px;
-  width: 100%;
-}
-
-.GenreSelector .SelectButton p {
-  margin: 10px 0 0 0;
-  color: black;
-}
-
 .GenreSelectPage .footer button {
   width: 90%;
   text-align: left;
@@ -72,4 +55,18 @@
 
 .GenreSelectPage .next svg {
   margin-left: auto;
+}
+
+.GenreSelectPage .genreBox {
+  margin: 0.5em;
+  border-radius: 20px;
+}
+
+.GenreSelectPage .genreBox p {
+  color: white;
+  margin: 10px 0 0 0;
+}
+
+.GenreSelectPage .genreBox .SelectButton {
+  /* height: 100px; */
 }
