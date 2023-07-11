@@ -14,6 +14,7 @@
   font-size: 1em;
   font-weight: 400;
 }
+
 .CropPage .cropper {
   position: relative;
   width: 100%;
@@ -21,8 +22,8 @@
 }
 
 .CropPage .container-cropper {
-  height: 60%;
-  width: 90%;
+  height: 360px;
+  width: 360px;
   background-color: #e3e3e3;
   margin: auto;
 }
