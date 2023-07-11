@@ -109,3 +109,46 @@ def train_val_test_split(dataset: datasets.Dataset) -> Tuple[datasets.Dataset, d
     val = train_val_splits["test"]
 
     return train, val, test
+
+
+def get_empty_img(df: pd.DataFrame) -> List[int]:
+    error_idx = []
+    for idx in df.index:
+        try:
+            sliced_url = df.at[idx, "playlist_img_url"][:-22]
+            image = read_image(sliced_url)
+        except:
+            error_idx.append(idx)
+    return error_idx
+
+
+def tag_uniques(tag_col: pd.Series) -> List[str]:
+    tag_list = []
+    for tag in tag_col:
+        tag_list += tag
+    tag_list = list(set(tag_list))
+    return tag_list
+
+
+def get_ocr_result(df: pd.DataFrame) -> List[str]:
+    ocr_result = []
+    err_list = []
+    print("-----------------------OCR for Editor's Choice-----------------------")
+    for i, url in enumerate(tqdm(df.playlist_img_url)):
+        try:
+            image = read_image(url, mode="L")
+            text = pt.image_to_string(image)
+            ocr_result.append(text)
+        except:
+            err_list.append(i)
+            ocr_result.append("error_img")
+            pass
+    return ocr_result
+
+
+def get_editors_choice(ocr_result: List[str]) -> List[int]:
+    editors_choice = []
+    for i, txt in enumerate(ocr_result):
+        if bool(re.search("EDITOR", txt)):
+            editors_choice.append(i)
+    return editors_choice
