@@ -1,2 +1,5 @@
 seed: 42
-name: "work-04_143901"
+name: work-10_123820
+data_dir: ./input/data
+output_dir: ./output/
+tag_type: weather #choice = [weather, mood , sit]
