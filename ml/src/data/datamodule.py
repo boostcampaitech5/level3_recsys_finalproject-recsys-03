@@ -18,12 +18,12 @@ class DataModule(L.LightningDataModule):
         self.backbone = config.model.backbone
         self.batch_size = config.data.batch_size
         self.num_workers = config.data.num_workers
+        self.tag_type = config.data.tag_type
         self.data_dir = config.path.data_dir
-        self.train_file = config.path.train_file
         self.output_dir = config.path.output_dir
         self.name = config.wandb.name
 
-        self.dataset: datasets.Dataset = datasets.load_from_disk(os.path.join(self.data_dir, self.train_file))
+        self.dataset: datasets.Dataset = datasets.load_from_disk(os.path.join(self.data_dir, f"{self.tag_type}_dataset"))
         self.labels: list = [label for label in self.dataset.features.keys() if label not in ["playlist_id", "playlist_img_url", "image"]]
 
         self.train_dataset: Optional[datasets.Dataset] = None
