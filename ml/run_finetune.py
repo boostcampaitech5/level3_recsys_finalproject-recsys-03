@@ -14,7 +14,7 @@ from src.utils import (
 def main(config) -> None:
     set_seed(config.seed)
     config.timestamp = get_timestamp()
-    config.wandb.name = f"work-{config.timestamp}"
+    config.wandb.name = f"{config.data.tag_type}-{config.timestamp}"
     login_wandb()
     init_wandb(config)
 
