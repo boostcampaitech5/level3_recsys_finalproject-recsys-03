@@ -87,30 +87,16 @@ def str2list(data: pd.DataFrame, columns: list) -> None:
         data[col] = data[col].apply(lambda x: ast.literal_eval(x))
 
 
-def generate_weather_df(df: pd.DataFrame) -> pd.DataFrame:
-    df["w1"] = df.apply(lambda x: 1 if "봄" in x["tag_weather"] else 0, axis=1)
-    df["w2"] = df.apply(lambda x: 1 if "여름" in x["tag_weather"] else 0, axis=1)
-    df["w3"] = df.apply(lambda x: 1 if "가을" in x["tag_weather"] else 0, axis=1)
-    df["w4"] = df.apply(lambda x: 1 if "겨울" in x["tag_weather"] else 0, axis=1)
-    df["w5"] = df.apply(lambda x: 1 if "우중충한날" in x["tag_weather"] else 0, axis=1)
-
-    cols = [
-        "playlist_id",
-        "playlist_img_url",
-        "w1",
-        "w2",
-        "w3",
-        "w4",
-        "w5",
-    ]
-    weather_df = df[df["tag_weather_cnt"] > 0][cols]
-
-    return weather_df
-
-
-def read_image(url: str):
-    image = Image.open(urllib.request.urlretrieve(url)[0]).convert("RGB")
+def read_image(url: str, mode: str = "RGB"):
+    image = Image.open(urllib.request.urlretrieve(url)[0]).convert(mode)
     return image
+
+
+def read_data(file_name: str) -> pd.DataFrame:
+    df = pd.read_csv(file_name, keep_default_na=False)
+    df.columns = [col.lower() for col in df.columns]
+    str2list(df, ["playlist_songs", "playlist_tags"])
+    return df
 
 
 def train_val_test_split(dataset: datasets.Dataset) -> Tuple[datasets.Dataset, datasets.Dataset, datasets.Dataset]:
