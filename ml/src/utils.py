@@ -1,4 +1,4 @@
-from typing import Optional, Tuple
+import re
 import os
 import ast
 import torch
@@ -9,9 +9,12 @@ import urllib
 import datasets
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 from PIL import Image
+from tqdm import tqdm
+import pytesseract as pt
 from datetime import datetime
+import matplotlib.pyplot as plt
+from typing import Optional, Tuple, List
 
 
 def set_seed(seed) -> None:
