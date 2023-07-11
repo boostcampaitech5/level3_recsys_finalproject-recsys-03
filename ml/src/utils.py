@@ -1,4 +1,4 @@
-from typing import Optional, Tuple
+import re
 import os
 import ast
 import torch
@@ -9,9 +9,12 @@ import urllib
 import datasets
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 from PIL import Image
+from tqdm import tqdm
+import pytesseract as pt
 from datetime import datetime
+import matplotlib.pyplot as plt
+from typing import Optional, Tuple, List
 
 
 def set_seed(seed) -> None:
@@ -84,30 +87,16 @@ def str2list(data: pd.DataFrame, columns: list) -> None:
         data[col] = data[col].apply(lambda x: ast.literal_eval(x))
 
 
-def generate_weather_df(df: pd.DataFrame) -> pd.DataFrame:
-    df["w1"] = df.apply(lambda x: 1 if "봄" in x["tag_weather"] else 0, axis=1)
-    df["w2"] = df.apply(lambda x: 1 if "여름" in x["tag_weather"] else 0, axis=1)
-    df["w3"] = df.apply(lambda x: 1 if "가을" in x["tag_weather"] else 0, axis=1)
-    df["w4"] = df.apply(lambda x: 1 if "겨울" in x["tag_weather"] else 0, axis=1)
-    df["w5"] = df.apply(lambda x: 1 if "우중충한날" in x["tag_weather"] else 0, axis=1)
-
-    cols = [
-        "playlist_id",
-        "playlist_img_url",
-        "w1",
-        "w2",
-        "w3",
-        "w4",
-        "w5",
-    ]
-    weather_df = df[df["tag_weather_cnt"] > 0][cols]
-
-    return weather_df
-
-
-def read_image(url: str):
-    image = Image.open(urllib.request.urlretrieve(url)[0]).convert("RGB")
+def read_image(url: str, mode: str = "RGB"):
+    image = Image.open(urllib.request.urlretrieve(url)[0]).convert(mode)
     return image
+
+
+def read_data(file_name: str) -> pd.DataFrame:
+    df = pd.read_csv(file_name, keep_default_na=False)
+    df.columns = [col.lower() for col in df.columns]
+    str2list(df, ["playlist_songs", "playlist_tags"])
+    return df
 
 
 def train_val_test_split(dataset: datasets.Dataset) -> Tuple[datasets.Dataset, datasets.Dataset, datasets.Dataset]:
@@ -120,3 +109,46 @@ def train_val_test_split(dataset: datasets.Dataset) -> Tuple[datasets.Dataset, d
     val = train_val_splits["test"]
 
     return train, val, test
+
+
+def get_empty_img(df: pd.DataFrame) -> List[int]:
+    error_idx = []
+    for idx in df.index:
+        try:
+            sliced_url = df.at[idx, "playlist_img_url"][:-22]
+            image = read_image(sliced_url)
+        except:
+            error_idx.append(idx)
+    return error_idx
+
+
+def tag_uniques(tag_col: pd.Series) -> List[str]:
+    tag_list = []
+    for tag in tag_col:
+        tag_list += tag
+    tag_list = list(set(tag_list))
+    return tag_list
+
+
+def get_ocr_result(df: pd.DataFrame) -> List[str]:
+    ocr_result = []
+    err_list = []
+    print("-----------------------OCR for Editor's Choice-----------------------")
+    for i, url in enumerate(tqdm(df.playlist_img_url)):
+        try:
+            image = read_image(url, mode="L")
+            text = pt.image_to_string(image)
+            ocr_result.append(text)
+        except:
+            err_list.append(i)
+            ocr_result.append("error_img")
+            pass
+    return ocr_result
+
+
+def get_editors_choice(ocr_result: List[str]) -> List[int]:
+    editors_choice = []
+    for i, txt in enumerate(ocr_result):
+        if bool(re.search("EDITOR", txt)):
+            editors_choice.append(i)
+    return editors_choice

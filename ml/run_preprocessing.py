@@ -2,35 +2,34 @@ import os
 import hydra
 import datasets
 import pandas as pd
-from src.utils import set_seed, generate_weather_df, read_image
+from src.utils import set_seed, read_image
+from src.preprocess import preprocess_data, generate_df
 
 
 def main(config) -> None:
     # set
     set_seed(config.seed)
 
-    # csv to pd.DataFrame (version == playlists_0709_v2.csv)
-    data_dir = config.path.data_dir
-    csv_file = config.path.csv_file
-    df = pd.read_csv(os.path.join(data_dir, csv_file))
+    # csv to pd.DataFrame (version == playlists.csv)
+    data_dir = config.data_dir
+    train_file = config.train_file
+    tag_file = config.tag_file
+    tag_type = config.tag_type
 
     # generate subset dataset (tag == [weather, situation, mood])
-    weather_subset = generate_weather_df(df)
-    # mood_subset = generate_mood_df(df)
+    pd.set_option("mode.chained_assignment", None)
+    df = preprocess_data(data_dir, train_file, tag_file)
+    data = generate_df(df, tag_type)
 
     # pd.DataFrame to datasets.Dataset
-    weather_dataset = datasets.Dataset.from_pandas(weather_subset)
-    # mood_dataset = datasets.Dataset.from_pandas(mood_subset)
+    dataset = datasets.Dataset.from_pandas(data)
 
     # map url to PIL.Image
-    weather_dataset = weather_dataset.map(lambda x: {"image": read_image(x["playlist_img_url"][:-22])})
-    # mood_dataset = mood_dataset.map(lambda x: {"image": read_image(x["playlist_img_url"][:-22])})
+    dataset = dataset.map(lambda x: {"image": read_image(x["playlist_img_url"][:-22])})
 
     # save dataset
-    weather_dataset = weather_dataset.remove_columns("__index_level_0__")
-    weather_dataset.save_to_disk(os.path.join(data_dir, "weather_dataset"))
-    # mood_dataset = mood_dataset.remove_columns("__index_level_0__")
-    # mood_dataset.save_to_disk(os.path.join(data_dir, "mood_dataset"))
+    dataset = dataset.remove_columns("__index_level_0__")
+    dataset.save_to_disk(os.path.join(data_dir, f"{tag_type}_dataset"))
 
 
 @hydra.main(version_base="1.2", config_path="configs/preprocessing", config_name="config.yaml")
