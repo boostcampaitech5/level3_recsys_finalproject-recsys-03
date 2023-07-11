@@ -2,5 +2,3 @@
 data_dir: ./input/data/
 # path to output directory
 output_dir: ./output/
-# train data file name
-train_file: weather_dataset
