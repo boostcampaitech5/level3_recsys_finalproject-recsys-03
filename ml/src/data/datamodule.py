@@ -106,6 +106,10 @@ class DataModule(L.LightningDataModule):
         loader = DataLoader(self.test_dataset, shuffle=False, num_workers=self.num_workers, collate_fn=self.collate_fn, batch_size=self.batch_size)
         return loader
 
+    def predict_dataloader(self) -> DataLoader:
+        loader = DataLoader(self.test_dataset, shuffle=False, num_workers=self.num_workers, collate_fn=self.collate_fn, batch_size=self.batch_size)
+        return loader
+
     @property
     def num_labels(self):
         return len(self.labels)
