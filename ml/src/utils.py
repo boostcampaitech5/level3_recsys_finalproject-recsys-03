@@ -152,3 +152,15 @@ def get_editors_choice(ocr_result: List[str]) -> List[int]:
         if bool(re.search("EDITOR", txt)):
             editors_choice.append(i)
     return editors_choice
+
+
+def concat(data_dir: str, tag_type:str) -> datasets:
+    data_path = os.path.join(data_dir, f"{tag_type}_dataset")
+    dir_list = os.listdir(data_path)
+    for i, dir in enumerate(dir_list):
+        if i == 0:
+            dataset = datasets.load_from_disk(os.path.join(data_dir, f"{tag_type}_dataset", dir))
+        else:
+            d_set = datasets.load_from_disk(os.path.join(data_dir, f"{tag_type}_dataset", dir))
+            dataset = datasets.concatenate_datasets([dataset, d_set])
+    return dataset
