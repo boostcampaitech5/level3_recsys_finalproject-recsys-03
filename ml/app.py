@@ -26,7 +26,7 @@ def main():
 
     labels = [label for label in dataset.features.keys() if label not in ["playlist_id", "playlist_img_url", "image", "embeddings"]]
 
-    st.title("임베딩 벡터 유사도 기반 이미지 검색 시스템 데모")
+    st.title("image search engine streamlit prototype")
     user_input = st.file_uploader("이미지 파일을 업로드하세요.", type=["jpg", "jpeg", "png"])
 
     if user_input is not None:
