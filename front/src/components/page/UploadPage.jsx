@@ -3,11 +3,11 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { FiUpload } from 'react-icons/fi';
 import './UploadPage.css';
 import WrongImg1 from '../../wrong1.jpg';
-import WrongImg2 from '../../wrong2.jpeg';
-import WrongImg3 from '../../wrong3.jpeg';
-import GoodImg1 from '../../good1.jpeg';
+import WrongImg2 from '../../wrong2.jpg';
+import WrongImg3 from '../../wrong3.jpg';
+import GoodImg1 from '../../good1.jpg';
 import GoodImg2 from '../../good2.jpg';
-import GoodImg3 from '../../good3.JPG';
+import GoodImg3 from '../../good3.jpg';
 
 function ImageUploadPage() {
   const location = useLocation();
@@ -85,9 +85,8 @@ function ImageUploadPage() {
             <img className="imgSet" src={WrongImg3} alt="shaking" />
           </div>
           <p>
-            너무 흐릿한 사진, 형태를 알아볼 수 없을 정도로 <br />
-            흔들리거나 너무 확대해서 찍은 사진은 결과가 <br />잘 안 나올 수도
-            있어요
+            배경이 잘 보이지 않는 사진은 <br />
+            결과가 정확하지 않을 수도 있어요
           </p>
         </div>
       </div>
