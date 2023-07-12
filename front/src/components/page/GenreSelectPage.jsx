@@ -3,42 +3,51 @@ import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './GenreSelectPage.css';
 import SelectButton from './SelectButton';
+import popImg from '../../imgs/pop.jpg';
+import rockImg from '../../imgs/rock.jpg';
+import kpopImg from '../../imgs/kpop.jpg';
+import indieImg from '../../imgs/indie.jpg';
+import danceImg from '../../imgs/dance.jpg';
+import hippopImg from '../../imgs/hippop.jpg';
+import balladeImg from '../../imgs/ballade.jpg';
+import randbImg from '../../imgs/r&b.jpg';
+import etcImg from '../../imgs/etc.jpg';
 
 const genres = [
   {
-    img: './dummy-1.jpg',
+    img: popImg,
     type: 'POP',
   },
   {
-    img: './dummy-2.jpg',
+    img: kpopImg,
     type: 'K-POP',
   },
   {
-    img: './dummy-3.jpg',
+    img: rockImg,
     type: '락',
   },
   {
-    img: './dummy-1.jpg',
+    img: indieImg,
     type: '인디',
   },
   {
-    img: './dummy-2.jpg',
+    img: danceImg,
     type: '댄스',
   },
   {
-    img: './dummy-3.jpg',
+    img: hippopImg,
     type: '랩/힙합',
   },
   {
-    img: './dummy-3.jpg',
+    img: balladeImg,
     type: '발라드',
   },
   {
-    img: './dummy-3.jpg',
+    img: randbImg,
     type: 'R&B',
   },
   {
-    img: './dummy-3.jpg',
+    img: etcImg,
     type: '기타',
   },
 ];
@@ -83,13 +92,14 @@ class GenreSelectorPage extends PureComponent {
           <div className="GenreSelectorWrapper">
             <div className="GenreSelector">
               {genres.map((genre, index) => (
-                <SelectButton ref={this.selectButtons[index]}>
-                  <img
-                    src={process.env.PUBLIC_URL + genre.img}
-                    alt={genre.type}
+                <div className="genreBox">
+                  <SelectButton
+                    key={genre.type}
+                    ref={this.selectButtons[index]}
+                    img={genre.img}
                   />
                   <p>{genre.type}</p>
-                </SelectButton>
+                </div>
               ))}
             </div>
           </div>

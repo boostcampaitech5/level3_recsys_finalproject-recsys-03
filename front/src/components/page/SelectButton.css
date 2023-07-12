@@ -1,7 +1,28 @@
-.SelectButton.selected {
-  border: solid #f44404;
+.SelectButton {
+  position: relative;
 }
 
-.SelectButton {
-  margin: 0.5em;
+.SelectButton input {
+  width: 100%;
+  height: 0;
+  padding-top: 100%;
+  background-size: 101% 101%;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  border: none;
+}
+
+.SelectButton input + .CheckButton {
+  display: none;
+  position: absolute;
+  top: -6px;
+  right: -6px;
+}
+
+.SelectButton input.selected {
+  box-shadow: 0 0 0 1.5px #f44404 inset;
+}
+
+.SelectButton input.selected + .CheckButton {
+  display: block;
 }
