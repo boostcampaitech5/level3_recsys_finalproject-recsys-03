@@ -74,8 +74,10 @@ class TagClassifier(L.LightningModule):
 
     @torch.no_grad()
     def predict_step(self, batch, batch_idx):
-        """TODO"""
-        return
+        pixel_values = batch["pixel_values"]
+        logits = self(pixel_values)
+        probs = self.sigmoid(logits.cpu())
+        return probs
 
     def configure_optimizers(self):
         optimizer = optim.AdamW(self.model.parameters(), lr=self.lr)

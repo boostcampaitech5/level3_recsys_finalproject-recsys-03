@@ -154,6 +154,32 @@ def get_editors_choice(ocr_result: List[str]) -> List[int]:
     return editors_choice
 
 
+def generate_predict_result_csv(config, probs: list[torch.Tensor], dataset: datasets.Dataset, labels: list[str]) -> None:
+    probs = np.concatenate(probs)
+    df = pd.DataFrame(probs, columns=[f"prob_{label}" for label in labels])
+
+    for label in labels:
+        label_values = []
+        for i in range(probs.shape[0]):
+            label_values.append(dataset[i][label])
+        df[label] = label_values
+
+    ids = []
+    urls = []
+    for i in range(probs.shape[0]):
+        ids.append(dataset[i]["playlist_id"])
+        urls.append(dataset[i]["playlist_img_url"])
+
+    df["id"] = ids
+    df["url"] = urls
+
+    df = df[["id", "url"] + [f"prob_{label}" for label in labels] + labels]
+
+    dirpath = os.path.join(config.path.output_dir, config.wandb.name)
+    filename = f"{config.wandb.name}_predict_result.csv"
+    df.to_csv(os.path.join(dirpath, filename), index=False)
+
+    
 def concat(data_dir: str, tag_type:str) -> datasets:
     data_path = os.path.join(data_dir, f"{tag_type}_dataset")
     dir_list = os.listdir(data_path)
