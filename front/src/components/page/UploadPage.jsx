@@ -8,6 +8,7 @@ import WrongImg2 from '../../wrong2.jpg';
 import WrongImg3 from '../../wrong3.jpg';
 import GoodImg1 from '../../good1.jpg';
 import GoodImg2 from '../../good2.jpg';
+import GoodImg3 from '../../good3.jpg';
 
 function ImageUploadPage() {
   const location = useLocation();

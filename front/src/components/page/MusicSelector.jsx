@@ -12,14 +12,14 @@ export default class MusicSelector extends PureComponent {
 
   componentDidMount() {
     this.swiperElRef.current.addEventListener(
-      'slidechange',
+      'realindexchange',
       this.onSlideChange
     );
   }
 
   componentWillUnmount() {
     this.swiperElRef.current.removeEventListener(
-      'slidechange',
+      'realindexchange',
       this.onSlideChange
     );
   }
