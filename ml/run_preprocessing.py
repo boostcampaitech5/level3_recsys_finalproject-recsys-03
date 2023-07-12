@@ -2,7 +2,7 @@ import os
 import hydra
 import datasets
 import pandas as pd
-from src.utils import set_seed, read_image
+from src.utils import set_seed, read_image, get_timestamp
 from src.preprocess import preprocess_data, generate_df
 
 
@@ -29,7 +29,7 @@ def main(config) -> None:
 
     # save dataset
     dataset = dataset.remove_columns("__index_level_0__")
-    dataset.save_to_disk(os.path.join(data_dir, f"{tag_type}_dataset"))
+    dataset.save_to_disk(os.path.join(data_dir, f"{tag_type}_dataset/{get_timestamp()}"))
 
 
 @hydra.main(version_base="1.2", config_path="configs/preprocessing", config_name="config.yaml")
