@@ -178,3 +178,15 @@ def generate_predict_result_csv(config, probs: list[torch.Tensor], dataset: data
     dirpath = os.path.join(config.path.output_dir, config.wandb.name)
     filename = f"{config.wandb.name}_predict_result.csv"
     df.to_csv(os.path.join(dirpath, filename), index=False)
+
+    
+def concat(data_dir: str, tag_type:str) -> datasets:
+    data_path = os.path.join(data_dir, f"{tag_type}_dataset")
+    dir_list = os.listdir(data_path)
+    for i, dir in enumerate(dir_list):
+        if i == 0:
+            dataset = datasets.load_from_disk(os.path.join(data_dir, f"{tag_type}_dataset", dir))
+        else:
+            d_set = datasets.load_from_disk(os.path.join(data_dir, f"{tag_type}_dataset", dir))
+            dataset = datasets.concatenate_datasets([dataset, d_set])
+    return dataset

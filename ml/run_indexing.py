@@ -5,6 +5,7 @@ from transformers import AutoImageProcessor, AutoModel
 from src.utils import (
     set_seed,
     encode,
+    concat
 )
 
 
@@ -24,7 +25,7 @@ def main(config) -> None:
     processor = AutoImageProcessor.from_pretrained(ckpt)
     model = AutoModel.from_pretrained(ckpt)
     # load dataset
-    dataset = datasets.load_from_disk(os.path.join(data_dir, f"{tag_type}_dataset"))
+    dataset = concat(data_dir, tag_type)
     # encode
     dataset_with_embeddings = dataset.map(lambda x: {"embeddings": encode(x["image"], processor, model)})
     # add faiss index
