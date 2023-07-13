@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import logo from './logo.png';
+import logo from './imgs/logo.png';
 
 export default class Home extends PureComponent {
   render() {

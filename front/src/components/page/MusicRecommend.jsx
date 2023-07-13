@@ -6,7 +6,7 @@ import MusicSelector from './MusicSelector';
 import './MusicRecommend.css';
 import YouTubeVideo from './YouTubeVideo';
 import Modal from '../modal/Modal';
-import defaultImg from '../../dummy512.jpg';
+import defaultImg from '../../imgs/dummy512.jpg';
 
 const songInfos = [
   {
