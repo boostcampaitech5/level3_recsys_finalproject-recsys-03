@@ -6,6 +6,7 @@ import GenreSelector from './components/page/GenreSelectPage';
 import MusicRecommend from './components/page/MusicRecommend';
 import ImageUploader from './components/page/UploadPage';
 import ImgCropper from './components/page/CropPage';
+import NotFound from './components/page/NotFound';
 import './App.css';
 
 export default (
@@ -19,6 +20,7 @@ export default (
           <Route path="/loading" element={<Loading />} />
           <Route path="/genre-select" element={<GenreSelector />} />
           <Route path="/music-rec" element={<MusicRecommend />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>
