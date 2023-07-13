@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import defaultImg from '../../dummy512.jpg';
-import backgroundMusicCardImg from '../../white_background.png';
+import defaultImg from '../../imgs/dummy512.jpg';
+import backgroundMusicCardImg from '../../imgs/white_background.png';
 
 const drawBackgroundMusicCard = (canvas, ctx, onLoadFinished) => {
   const backgroundImgTag = new Image();
