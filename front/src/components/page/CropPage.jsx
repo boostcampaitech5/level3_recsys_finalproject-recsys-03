@@ -4,6 +4,7 @@ import { FiCheckSquare, FiRotateCcw } from 'react-icons/fi';
 import Cropper from 'react-easy-crop';
 import './CropPage.css';
 import getCroppedImg from '../../utils/cropImage';
+import requestRecommendMusic from '../../requests/RecommendMusicRequest';
 
 function CropPage() {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -24,14 +25,18 @@ function CropPage() {
 
   const navigate = useNavigate();
   const naviagteToNext = () => {
-    // sending data(cropped img, genres) must be added here
-    navigate('/loading', {
-      state: {
-        url: croppedImage,
-        genres: info.genres,
-      },
+    navigate('/loading');
+
+    requestRecommendMusic(croppedImage, info.genres).then(({ songs }) => {
+      navigate('/music-rec', {
+        state: {
+          url: croppedImage,
+          songs,
+        },
+      });
     });
   };
+
   const goUploadPage = () => {
     // sending data(cropped img, genres) must be added here
     navigate('/upload', {

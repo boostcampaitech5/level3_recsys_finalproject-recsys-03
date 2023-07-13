@@ -8,43 +8,48 @@ import YouTubeVideo from './YouTubeVideo';
 import Modal from '../modal/Modal';
 import defaultImg from '../../dummy512.jpg';
 
-const songInfos = [
+const defaultSongs = [
   {
-    videoYtId: 'XHMdIA6bEOE',
-    musicTitle: '짱구는 못말려 오프닝1',
-    artistName: '아이브',
-    albumTitle: '짱구 1기',
+    song_id: 1,
+    youtube_id: 'XHMdIA6bEOE',
+    song_title: '음악1',
+    artist_name: '아이브',
+    album_title: '짱구 1기',
   },
   {
-    videoYtId: 'Sq_mS6xWpvk',
-    musicTitle: 'Kiss Goodnightrrrrrrrrrr',
-    artistName: 'I Dont Know How But They Found Meeeee',
-    albumTitle: 'Razzmatazz',
+    song_id: 2,
+    youtube_id: 'Sq_mS6xWpvk',
+    song_title: '음악2',
+    artist_name: 'I Dont Know How But They Found Meeeee',
+    album_title: 'Razzmatazz',
   },
   {
-    videoYtId: 'A1tZgPAcpjE',
-    musicTitle:
-      '사랑하긴 했었나요 스쳐가는 인연이었나요 짧지않은 우리 함께했던 시간들이 자꾸 내 마음을 가둬두네',
-    artistName: '잔나비 잔나비 잔미잔미 잔나비 잔나비 잔미잔미',
-    albumTitle: '봉춤을 추네',
+    song_id: 3,
+    youtube_id: 'A1tZgPAcpjE',
+    song_title: '음악3',
+    artist_name: '잔나비 잔나비 잔미잔미 잔나비 잔나비 잔미잔미',
+    album_title: '봉춤을 추네',
   },
   {
-    videoYtId: 'NbKH4iZqq1Y',
-    musicTitle: 'Drowning',
-    artistName: 'WOODZ',
-    albumTitle: 'OO-LI',
+    song_id: 4,
+    youtube_id: 'NbKH4iZqq1Y',
+    song_title: '음악4',
+    artist_name: 'WOODZ',
+    album_title: 'OO-LI',
   },
   {
-    videoYtId: '2Kff0U8w-aU',
-    musicTitle: 'OMG',
-    artistName: 'NewJeans',
-    albumTitle: "NewJeans 'OMG'",
+    song_id: 5,
+    youtube_id: '2Kff0U8w-aU',
+    song_title: '음악5',
+    artist_name: 'NewJeans',
+    album_title: "NewJeans 'OMG'",
   },
   {
-    videoYtId: 'j1uXcHwLhHM',
-    musicTitle: '사건의 지평선',
-    artistName: '윤하',
-    albumTitle: 'END THEORY : Final Edition',
+    song_id: 6,
+    youtube_id: 'j1uXcHwLhHM',
+    song_title: '음악6',
+    artist_name: '윤하',
+    album_title: 'END THEORY : Final Edition',
   },
 ];
 
@@ -52,16 +57,18 @@ class MusicRecommend extends PureComponent {
   constructor(props) {
     super(props);
 
+    const { songs } = this.props;
+
     this.youTubeVideoRef = createRef();
     this.state = {
       modalOpen: false,
-      songInfo: songInfos[0],
+      song: songs[0],
     };
 
     this.onSlideChange = (e) => {
       this.setState((state) => ({
         modalOpen: state.modalOpen,
-        songInfo: songInfos[e.target.swiper.realIndex],
+        song: songs[e.target.swiper.realIndex],
       }));
     };
   }
@@ -78,8 +85,8 @@ class MusicRecommend extends PureComponent {
   }
 
   render() {
-    const { imgUrl } = this.props;
-    const { modalOpen, songInfo } = this.state;
+    const { imgUrl, songs } = this.props;
+    const { modalOpen, song } = this.state;
     return (
       <div className="MusicRecommend">
         <div className="contents">
@@ -87,8 +94,8 @@ class MusicRecommend extends PureComponent {
             {modalOpen && (
               <Modal
                 imgUrl={imgUrl}
-                artistName={songInfo.artistName}
-                musicTitle={songInfo.musicTitle}
+                artist_name={song.artist_name}
+                song_title={song.song_title}
                 setOpenModal={() => {
                   this.setModalOpen();
                 }}
@@ -101,15 +108,12 @@ class MusicRecommend extends PureComponent {
           </div>
 
           <MusicSelector
-            songInfos={songInfos}
+            songs={songs}
             imgUrl={imgUrl}
             onSlideChange={this.onSlideChange}
           />
           <h2>지금 노래를 들어보세요</h2>
-          <YouTubeVideo
-            ref={this.youTubeVideoRef}
-            videoId={songInfo.videoYtId}
-          />
+          <YouTubeVideo ref={this.youTubeVideoRef} videoId={song.youtube_id} />
         </div>
         <div className="footer">
           <div className="buttons">
@@ -140,11 +144,21 @@ class MusicRecommend extends PureComponent {
 
 MusicRecommend.defaultProps = {
   imgUrl: defaultImg,
+  songs: defaultSongs,
 };
 
 MusicRecommend.propTypes = {
   navigate: PropTypes.func.isRequired,
   imgUrl: PropTypes.string,
+  songs: PropTypes.arrayOf(
+    PropTypes.shape({
+      song_id: PropTypes.int,
+      song_title: PropTypes.string,
+      artist_name: PropTypes.string,
+      album_title: PropTypes.string,
+      youtube_id: PropTypes.string,
+    })
+  ),
 };
 
 export default function MusicRecommendWrapper(props) {
@@ -157,6 +171,7 @@ export default function MusicRecommendWrapper(props) {
       {...props}
       navigate={navigate}
       imgUrl={location.state?.url}
+      songs={location.state?.songs}
     />
   );
 }

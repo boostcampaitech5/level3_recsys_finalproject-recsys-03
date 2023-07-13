@@ -25,7 +25,7 @@ export default class MusicSelector extends PureComponent {
   }
 
   render() {
-    const { songInfos, imgUrl } = this.props;
+    const { songs, imgUrl } = this.props;
 
     return (
       <swiper-container
@@ -42,14 +42,14 @@ export default class MusicSelector extends PureComponent {
         coverflow-effect-depth="100"
         coverflow-effect-modifier="1"
       >
-        {songInfos.map((songInfo) => (
-          <swiper-slide key={songInfo.videoYtId}>
+        {songs.map((song) => (
+          <swiper-slide key={song.song_id}>
             <div className="songCard">
-              <img src={imgUrl} alt={`${songInfo.musicTitle} 엘범 이미지`} />
+              <img src={imgUrl} alt={`${song.song_title} 엘범 이미지`} />
               <div className="songDetail">
-                <p className="songTitle">{songInfo.musicTitle}</p>
-                <p className="artistName">{songInfo.artistName}</p>
-                <p className="albumTitle">{songInfo.albumTitle}</p>
+                <p className="songTitle">{song.song_title}</p>
+                <p className="artistName">{song.artist_name}</p>
+                <p className="albumTitle">{song.album_title}</p>
               </div>
             </div>
           </swiper-slide>
@@ -60,12 +60,13 @@ export default class MusicSelector extends PureComponent {
 }
 
 MusicSelector.propTypes = {
-  songInfos: PropTypes.arrayOf(
+  songs: PropTypes.arrayOf(
     PropTypes.shape({
-      videoYtId: PropTypes.string,
-      musicTitle: PropTypes.string,
-      artistName: PropTypes.string,
-      albumTitle: PropTypes.string,
+      song_id: PropTypes.int,
+      song_title: PropTypes.string,
+      artist_name: PropTypes.string,
+      album_title: PropTypes.string,
+      youtube_id: PropTypes.string,
     })
   ).isRequired,
   onSlideChange: PropTypes.func.isRequired,
