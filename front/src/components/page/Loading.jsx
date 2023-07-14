@@ -1,30 +1,7 @@
-import React, { useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React from 'react';
 import './Loading.css';
 
 function Loading() {
-  const navigate = useNavigate();
-
-  const location = useLocation();
-  const { url, genres } = location.state;
-
-  const naviateToMusicRec = () => {
-    setTimeout(() => {
-      navigate('/music-rec', {
-        state: {
-          url,
-          genres,
-        },
-      });
-    }, 5000);
-  };
-  useEffect(() => {
-    naviateToMusicRec();
-    return () => {
-      clearTimeout(naviateToMusicRec);
-    };
-  });
-
   return (
     <div className="contents">
       <div className="Loading-div">
@@ -44,4 +21,5 @@ function Loading() {
     </div>
   );
 }
+
 export default Loading;
