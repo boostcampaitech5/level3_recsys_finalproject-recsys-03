@@ -137,6 +137,7 @@ def get_ocr_result(df: pd.DataFrame) -> List[str]:
     for i, url in enumerate(tqdm(df.playlist_img_url)):
         try:
             image = read_image(url, mode="L")
+            image = image.crop((38,40,102,80))
             text = pt.image_to_string(image)
             ocr_result.append(text)
         except:
