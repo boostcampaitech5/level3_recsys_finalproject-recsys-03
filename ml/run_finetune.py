@@ -10,14 +10,15 @@ from src.utils import (
     get_timestamp,
     login_wandb,
     init_wandb,
+    upload_HFHub
 )
 
 
 def main(config) -> None:
     set_seed(config.seed)
     config.timestamp = get_timestamp()
-    config.wandb.name = f"{config.data.tag_type}-{config.timestamp}"
-    dirpath=os.path.join(config.path.output_dir, config.wandb.name)
+    name = f"{config.data.tag_type}-{config.timestamp}"
+    dirpath=os.path.join(config.path.output_dir, name)
     login_wandb()
     init_wandb(config)
 
@@ -27,14 +28,8 @@ def main(config) -> None:
 
     trainer.train()
     trainer.test()
-
-    api = HfApi()
-    api.upload_folder(
-        folder_path=dirpath,
-        path_in_repo = config.wandb.name,
-        repo_id = "RecDol/PL_Multilabel",
-        commit_message = f"upload: {config.wandb.name}"
-    )
+    
+    upload_HFHub(name, dirpath)
 
     wandb.finish()
 
