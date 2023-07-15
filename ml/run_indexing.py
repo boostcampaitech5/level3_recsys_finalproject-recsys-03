@@ -15,15 +15,14 @@ def main(config) -> None:
     data_dir = config.data_dir
     output_dir = config.output_dir
     tag_type = config.tag_type
+    repo = f"RecDol/{name}"
+    subfolder = f"{name}/{name}_huggingface"
     save_dir = os.path.join(output_dir, name)
     set_seed(config.seed)
 
     # init model
-    ckpt_dirpath = os.path.join(output_dir, name)
-    ckpt_filename = f"{name}_huggingface"
-    ckpt = os.path.join(ckpt_dirpath, ckpt_filename)
-    processor = AutoImageProcessor.from_pretrained(ckpt)
-    model = AutoModel.from_pretrained(ckpt)
+    processor = AutoImageProcessor.from_pretrained(repo, subfolder = subfolder)
+    model = AutoModel.from_pretrained(repo, subfolder = subfolder)
     # load dataset
     dataset = concat(data_dir, tag_type)
     # encode

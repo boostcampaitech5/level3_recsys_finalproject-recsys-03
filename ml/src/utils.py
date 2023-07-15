@@ -14,6 +14,7 @@ from tqdm import tqdm
 import pytesseract as pt
 from datetime import datetime
 import matplotlib.pyplot as plt
+from huggingface_hub import HfApi
 from typing import Optional, Tuple, List
 
 
@@ -191,3 +192,21 @@ def concat(data_dir: str, tag_type:str) -> datasets:
             d_set = datasets.load_from_disk(os.path.join(data_dir, f"{tag_type}_dataset", dir))
             dataset = datasets.concatenate_datasets([dataset, d_set])
     return dataset
+
+
+def upload_HFHub(name: str, dirpath:str)-> None:
+    api = HfApi()
+    repo_id = f"RecDol/{name}"
+
+    api.create_repo(
+        repo_id = repo_id,
+        repo_type = "model",
+        private = True
+    )
+
+    api.upload_folder(
+        folder_path=dirpath,
+        path_in_repo = name,
+        repo_id = repo_id,
+        commit_message = f"upload: {name}"
+    )
