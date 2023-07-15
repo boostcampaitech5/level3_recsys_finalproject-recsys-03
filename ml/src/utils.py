@@ -14,6 +14,7 @@ from tqdm import tqdm
 import pytesseract as pt
 from datetime import datetime
 import matplotlib.pyplot as plt
+from huggingface_hub import HfApi
 from typing import Optional, Tuple, List
 
 
@@ -137,6 +138,7 @@ def get_ocr_result(df: pd.DataFrame) -> List[str]:
     for i, url in enumerate(tqdm(df.playlist_img_url)):
         try:
             image = read_image(url, mode="L")
+            image = image.crop((38,40,102,80))
             text = pt.image_to_string(image)
             ocr_result.append(text)
         except:
@@ -190,3 +192,21 @@ def concat(data_dir: str, tag_type:str) -> datasets:
             d_set = datasets.load_from_disk(os.path.join(data_dir, f"{tag_type}_dataset", dir))
             dataset = datasets.concatenate_datasets([dataset, d_set])
     return dataset
+
+
+def upload_HFHub(name: str, dirpath:str)-> None:
+    api = HfApi()
+    repo_id = f"RecDol/{name}"
+
+    api.create_repo(
+        repo_id = repo_id,
+        repo_type = "model",
+        private = True
+    )
+
+    api.upload_folder(
+        folder_path=dirpath,
+        path_in_repo = name,
+        repo_id = repo_id,
+        commit_message = f"upload: {name}"
+    )
