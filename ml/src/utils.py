@@ -138,7 +138,7 @@ def get_ocr_result(df: pd.DataFrame) -> List[str]:
     for i, url in enumerate(tqdm(df.playlist_img_url)):
         try:
             image = read_image(url, mode="L")
-            image = image.crop((38,40,102,80))
+            image = image.crop((38, 40, 102, 80))
             text = pt.image_to_string(image)
             ocr_result.append(text)
         except:
@@ -181,32 +181,26 @@ def generate_predict_result_csv(config, probs: list[torch.Tensor], dataset: data
     filename = f"{config.wandb.name}_predict_result.csv"
     df.to_csv(os.path.join(dirpath, filename), index=False)
 
-    
-def concat(data_dir: str, tag_type:str) -> datasets:
+
+def read_dataset(data_dir: str, tag_type: str) -> datasets.Dataset:
     data_path = os.path.join(data_dir, f"{tag_type}_dataset")
     dir_list = os.listdir(data_path)
-    for i, dir in enumerate(dir_list):
-        if i == 0:
-            dataset = datasets.load_from_disk(os.path.join(data_dir, f"{tag_type}_dataset", dir))
-        else:
-            d_set = datasets.load_from_disk(os.path.join(data_dir, f"{tag_type}_dataset", dir))
-            dataset = datasets.concatenate_datasets([dataset, d_set])
+
+    dsets: List[Optional[datasets.Dataset]] = []
+    for _, dir in enumerate(dir_list):
+        cur_dataset = datasets.load_from_disk(os.path.join(data_path, dir))
+        dsets.append(cur_dataset)
+
+    dataset = datasets.concatenate_datasets(dsets)
     return dataset
 
 
-def upload_HFHub(name: str, dirpath:str)-> None:
+def upload_HFHub(config) -> None:
+    output_dir = config.path.output_dir
+    name = config.wandb.name
     api = HfApi()
     repo_id = f"RecDol/{name}"
 
-    api.create_repo(
-        repo_id = repo_id,
-        repo_type = "model",
-        private = True
-    )
+    api.create_repo(repo_id=repo_id, repo_type="model", private=True)
 
-    api.upload_folder(
-        folder_path=dirpath,
-        path_in_repo = name,
-        repo_id = repo_id,
-        commit_message = f"upload: {name}"
-    )
+    api.upload_folder(folder_path=os.path.join(output_dir, name), path_in_repo=name, repo_id=repo_id, commit_message=f"upload: {name}")
