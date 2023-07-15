@@ -1,12 +1,12 @@
-import uvicorn
-from fastapi import FastAPI, UploadFile, File, Depends
-from dto.RecommendMusicRequest import RecommendMusicRequest
-from dto.RecommendMusicResponse import RecommendMusicResponse, RecommendMusic
+from fastapi import APIRouter, UploadFile, File, Depends
 
-app = FastAPI()
+from src.router.dto.RecommendMusicRequest import RecommendMusicRequest
+from src.router.dto.RecommendMusicResponse import RecommendMusicResponse, RecommendMusic
+
+router = APIRouter()
 
 
-@app.post("/recommendMusic")
+@router.post("/recommendMusic")
 async def recommend_music(
     image: UploadFile = File(...), data: RecommendMusicRequest = Depends(RecommendMusicRequest.as_form)
 ) -> RecommendMusicResponse:
@@ -32,7 +32,3 @@ async def recommend_music(
     ]
 
     return RecommendMusicResponse(songs=songs)
-
-
-if __name__ == "__main__":
-    uvicorn.run(app, port="30010")
