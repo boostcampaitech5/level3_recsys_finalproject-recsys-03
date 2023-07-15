@@ -6,21 +6,13 @@ from huggingface_hub import HfApi
 from src.data.datamodule import DataModule
 from src.model.tag_classifier import TagClassifier
 from src.trainer import Trainer
-from src.utils import (
-    set_seed,
-    get_timestamp,
-    login_wandb,
-    init_wandb,
-    generate_predict_result_csv,
-    upload_HFHub
-)
+from src.utils import set_seed, get_timestamp, login_wandb, init_wandb, generate_predict_result_csv, upload_HFHub
 
 
 def main(config) -> None:
     set_seed(config.seed)
     config.timestamp = get_timestamp()
-    name = f"{config.data.tag_type}-{config.timestamp}"
-    dirpath=os.path.join(config.path.output_dir, name)
+    config.wandb.name = f"{config.data.tag_type}-{config.timestamp}"
     login_wandb()
     init_wandb(config)
 
@@ -30,12 +22,12 @@ def main(config) -> None:
 
     trainer.train()
     trainer.test()
-    
-    upload_HFHub(name, dirpath)
 
     if config.trainer.inference:
         probs: list[torch.Tensor] = trainer.predict()
         generate_predict_result_csv(config, probs, datamodule.test_dataset, datamodule.labels)
+
+    upload_HFHub(config)
 
     wandb.finish()
 
