@@ -1,5 +1,6 @@
 import os
 import hydra
+import torch
 import wandb
 from huggingface_hub import HfApi
 from src.data.datamodule import DataModule
@@ -10,6 +11,7 @@ from src.utils import (
     get_timestamp,
     login_wandb,
     init_wandb,
+    generate_predict_result_csv,
     upload_HFHub
 )
 
@@ -30,6 +32,10 @@ def main(config) -> None:
     trainer.test()
     
     upload_HFHub(name, dirpath)
+
+    if config.trainer.inference:
+        probs: list[torch.Tensor] = trainer.predict()
+        generate_predict_result_csv(config, probs, datamodule.test_dataset, datamodule.labels)
 
     wandb.finish()
 
