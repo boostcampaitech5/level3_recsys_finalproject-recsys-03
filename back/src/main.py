@@ -1,17 +1,15 @@
-import bentoml
-from bentoml.io import Multipart, JSON
-from PIL.Image import Image
-
+import uvicorn
+from fastapi import FastAPI, UploadFile, File, Depends
 from dto.RecommendMusicRequest import RecommendMusicRequest
 from dto.RecommendMusicResponse import RecommendMusicResponse, RecommendMusic
 
-svc = bentoml.Service("name", runners=[])
+app = FastAPI()
 
 
-@svc.api(
-    input=Multipart(image=bentoml.io.Image(), data=JSON(pydantic_model=RecommendMusicRequest)), output=JSON(pydantic_model=RecommendMusicResponse)
-)
-def recommendMusic(image: Image, data: RecommendMusicRequest) -> dict[str,]:
+@app.post("/recommendMusic")
+async def recommend_music(
+    image: UploadFile = File(...), data: RecommendMusicRequest = Depends(RecommendMusicRequest.as_form)
+) -> RecommendMusicResponse:
     songs = [
         RecommendMusic(song_id=1, youtube_id="XHMdIA6bEOE", song_title="짱구는 못말려 오프닝1", artist_name="아이브", album_title="짱구 1기"),
         RecommendMusic(
@@ -34,3 +32,7 @@ def recommendMusic(image: Image, data: RecommendMusicRequest) -> dict[str,]:
     ]
 
     return RecommendMusicResponse(songs=songs)
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, port="30010")
