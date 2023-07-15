@@ -1,4 +1,5 @@
 import hydra
+import torch
 import wandb
 from src.data.datamodule import DataModule
 from src.model.tag_classifier import TagClassifier
@@ -8,6 +9,7 @@ from src.utils import (
     get_timestamp,
     login_wandb,
     init_wandb,
+    generate_predict_result_csv,
 )
 
 
@@ -24,6 +26,10 @@ def main(config) -> None:
 
     trainer.train()
     trainer.test()
+
+    if config.trainer.inference:
+        probs: list[torch.Tensor] = trainer.predict()
+        generate_predict_result_csv(config, probs, datamodule.test_dataset, datamodule.labels)
 
     wandb.finish()
 
