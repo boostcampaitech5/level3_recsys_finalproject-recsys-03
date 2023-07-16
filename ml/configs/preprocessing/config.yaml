@@ -4,6 +4,8 @@ seed: 42
 data_dir: ./input/data/
 # path to output directory
 output_dir: ./output/
+# path to template image directory
+temp_dir: ./input/template/
 # train data file name
 train_file: playlists.csv
 # tag data file name
