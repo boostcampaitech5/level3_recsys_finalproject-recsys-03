@@ -1,14 +1,12 @@
+import os
 import hydra
+import torch
 import wandb
+from huggingface_hub import HfApi
 from src.data.datamodule import DataModule
 from src.model.tag_classifier import TagClassifier
 from src.trainer import Trainer
-from src.utils import (
-    set_seed,
-    get_timestamp,
-    login_wandb,
-    init_wandb,
-)
+from src.utils import set_seed, get_timestamp, login_wandb, init_wandb, generate_predict_result_csv, upload_HFHub
 
 
 def main(config) -> None:
@@ -24,6 +22,12 @@ def main(config) -> None:
 
     trainer.train()
     trainer.test()
+
+    if config.trainer.inference:
+        probs: list[torch.Tensor] = trainer.predict()
+        generate_predict_result_csv(config, probs, datamodule.test_dataset, datamodule.labels)
+
+    upload_HFHub(config)
 
     wandb.finish()
 

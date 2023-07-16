@@ -8,7 +8,7 @@ from torch.utils.data import DataLoader
 from transformers import AutoImageProcessor
 import albumentations as A
 from albumentations.pytorch.transforms import ToTensorV2
-from src.utils import train_val_test_split
+from src.utils import train_val_test_split, read_dataset
 
 
 class DataModule(L.LightningDataModule):
@@ -23,7 +23,7 @@ class DataModule(L.LightningDataModule):
         self.output_dir = config.path.output_dir
         self.name = config.wandb.name
 
-        self.dataset: datasets.Dataset = datasets.load_from_disk(os.path.join(self.data_dir, f"{self.tag_type}_dataset"))
+        self.dataset: datasets.Dataset = read_dataset(self.data_dir, self.tag_type)
         self.labels: list = [label for label in self.dataset.features.keys() if label not in ["playlist_id", "playlist_img_url", "image"]]
 
         self.train_dataset: Optional[datasets.Dataset] = None
