@@ -10,10 +10,7 @@ export default async function requestRecommendMusic(imageUrl, genres) {
 
   const formData = new FormData();
   formData.append('image', imageBlob);
-  formData.append(
-    'data',
-    new Blob([JSON.stringify({ genres })], { type: 'application/json' })
-  );
+  formData.append('genres', genres);
 
   return axios
     .post(`/api/recommendMusic`, formData, {
