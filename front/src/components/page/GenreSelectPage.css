@@ -4,6 +4,7 @@
   height: 100vh;
   margin: 0 auto;
   width: min(100%, 25em);
+  color: white;
 }
 
 .header {
@@ -11,13 +12,11 @@
 }
 
 .header h1 {
-  color: white;
   margin: 0;
   font-size: 1.8em;
 }
 
 .header h3 {
-  color: white;
   margin: 0.5em 0 0 0;
   font-size: 1em;
   font-weight: 400;
@@ -38,8 +37,6 @@
   width: 100%;
   margin: 0 auto;
   margin-top: 0.5em;
-  margin-bottom: 2em;
-  grid-row-gap: 20px;
 }
 
 .GenreSelectPage .footer button {
@@ -58,15 +55,28 @@
 }
 
 .GenreSelectPage .genreBox {
-  margin: 0.5em;
+  margin: 1em;
   border-radius: 20px;
 }
 
 .GenreSelectPage .genreBox p {
-  color: white;
   margin: 10px 0 0 0;
 }
 
-.GenreSelectPage .genreBox .SelectButton {
-  /* height: 100px; */
+.GenreSelectPage input[type='checkbox'] {
+  width: 20px;
+  height: 20px;
+
+  vertical-align: middle;
+  accent-color: #f44004;
+}
+
+.GenreSelectPage input[type='checkbox'] + label {
+  margin-left: 5px;
+  vertical-align: middle;
+  font-size: 1.1em;
+}
+
+.GenreSelectPage .GenreSelector.disabled {
+  color: rgb(129, 129, 129);
 }

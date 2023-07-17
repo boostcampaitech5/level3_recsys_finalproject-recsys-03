@@ -57,13 +57,18 @@ class GenreSelectorPage extends PureComponent {
   constructor(props) {
     super(props);
     this.selectButtons = genres.map(() => createRef());
+    this.genreSelectorRef = createRef();
+    this.state = {
+      selectedNoMatter: false,
+    };
   }
 
   getSelectedGenreTypes() {
+    const { selectedNoMatter } = this.state;
     const selectedGenreTypes = [];
 
     this.selectButtons.forEach((selectButton, index) => {
-      if (selectButton.current.state.isSelected) {
+      if (selectedNoMatter || selectButton.current.state.isSelected) {
         selectedGenreTypes.push(genres[index].type);
       }
     });
@@ -75,6 +80,12 @@ class GenreSelectorPage extends PureComponent {
     const { navigate } = this.props;
 
     const selectedGenreTypes = this.getSelectedGenreTypes();
+
+    if (selectedGenreTypes.length === 0) {
+      alert('장르를 선택해야 합니다');
+      return;
+    }
+
     navigate('/upload', {
       state: {
         genres: selectedGenreTypes,
@@ -82,7 +93,33 @@ class GenreSelectorPage extends PureComponent {
     });
   }
 
+  toggleNoMatter() {
+    const { selectedNoMatter } = this.state;
+    const newSelectedNoMatter = !selectedNoMatter;
+
+    this.setState(
+      {
+        selectedNoMatter: newSelectedNoMatter,
+      },
+      () => {
+        this.selectButtons.forEach((selectButton) => {
+          if (newSelectedNoMatter) {
+            selectButton.current.disable();
+          } else {
+            selectButton.current.enable();
+          }
+        });
+      }
+    );
+
+    if (newSelectedNoMatter)
+      this.genreSelectorRef.current.classList.add('disabled');
+    else this.genreSelectorRef.current.classList.remove('disabled');
+  }
+
   render() {
+    const { selectedNoMatter } = this.state;
+
     return (
       <div className="GenreSelectPage">
         <div className="content">
@@ -91,7 +128,7 @@ class GenreSelectorPage extends PureComponent {
             <h3>AI가 당신의 취향을 고려해서 노래를 찾아드릴게요</h3>
           </div>
           <div className="GenreSelectorWrapper">
-            <div className="GenreSelector">
+            <div className="GenreSelector" ref={this.genreSelectorRef}>
               {genres.map((genre, index) => (
                 <div className="genreBox">
                   <SelectButton
@@ -103,6 +140,16 @@ class GenreSelectorPage extends PureComponent {
                 </div>
               ))}
             </div>
+          </div>
+          <div className="noMatterWrapper">
+            <input
+              type="checkbox"
+              name="no-matter"
+              id="no-matter"
+              checked={selectedNoMatter}
+              onChange={() => this.toggleNoMatter()}
+            />
+            <label htmlFor="no-matter">상관없음</label>
           </div>
         </div>
         <div className="footer">
