@@ -50,8 +50,8 @@ export default class SelectButton extends PureComponent {
   };
 
   render() {
-    const { img } = this.props;
-    const { enabled } = this.state;
+    const { img, canSelect } = this.props;
+    const { enabled, isSelected } = this.state;
 
     return (
       <div className="SelectButton">
@@ -60,6 +60,10 @@ export default class SelectButton extends PureComponent {
           style={{ backgroundImage: `url('${img}')` }}
           type="button"
           onClick={() => {
+            if (!isSelected && !canSelect()) {
+              return;
+            }
+
             this.setSelected();
           }}
           disabled={!enabled}
@@ -72,6 +76,10 @@ export default class SelectButton extends PureComponent {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           onClick={() => {
+            if (!isSelected && !canSelect()) {
+              return;
+            }
+
             this.setSelected();
           }}
         >
@@ -88,4 +96,5 @@ export default class SelectButton extends PureComponent {
 
 SelectButton.propTypes = {
   img: PropTypes.string.isRequired,
+  canSelect: PropTypes.func.isRequired,
 };

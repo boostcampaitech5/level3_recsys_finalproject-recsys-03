@@ -76,6 +76,16 @@ class GenreSelectorPage extends PureComponent {
     return selectedGenreTypes;
   }
 
+  canSelectSelectButton() {
+    const selectedGenreTypes = this.getSelectedGenreTypes();
+
+    if (selectedGenreTypes.length >= 8) {
+      alert('8개까지 선택할 수 있습니다');
+      return false;
+    }
+    return true;
+  }
+
   goNext() {
     const { navigate } = this.props;
 
@@ -132,6 +142,7 @@ class GenreSelectorPage extends PureComponent {
               {genres.map((genre, index) => (
                 <div className="genreBox">
                   <SelectButton
+                    canSelect={() => this.canSelectSelectButton()}
                     key={genre.type}
                     ref={this.selectButtons[index]}
                     img={genre.img}
