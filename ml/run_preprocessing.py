@@ -3,7 +3,7 @@ import hydra
 import datasets
 import pandas as pd
 from src.utils import set_seed, read_image, get_timestamp
-from src.preprocess import preprocess_data, generate_df
+from src.preprocess import preprocess_data, generate_df, check_img_temp
 
 
 def main(config) -> None:
@@ -25,7 +25,7 @@ def main(config) -> None:
     dataset = datasets.Dataset.from_pandas(data)
 
     # map url to PIL.Image
-    dataset = dataset.map(lambda x: {"image": read_image(x["playlist_img_url"][:-22])})
+    dataset = dataset.map(lambda x: {"image": check_img_temp(x["playlist_img_url"][:-22], config.temp_dir)})
 
     # save dataset
     dataset = dataset.remove_columns("__index_level_0__")
