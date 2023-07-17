@@ -4,16 +4,16 @@ from PIL import Image
 from io import BytesIO
 from transformers import AutoImageProcessor, AutoModel
 
-
-class PlaylistExtractor:
+ 
+class PlaylistIdExtractor:
     def __init__(self, k: int):
         self.k = k
         self.set_path()
         self.load_dataset()
 
     def set_path(self):
-        self.CKPT_PATH = "./config/"
-        self.WEATHER_MODEL = os.path.join(self.CKPT_PATH, "weather-model/weather-11_060914/weather-11_060914_huggingface")
+        self.CKPT_PATH = "./configs/"
+        self.WEATHER_MODEL = os.path.join(self.CKPT_PATH, "weather/weather-17_061939_huggingface")
 
         self.DATASET_PATH = "./datasets/"
         self.WEATHER_DATA = os.path.join(self.DATASET_PATH, "weather_dataset")
@@ -39,4 +39,3 @@ class PlaylistExtractor:
         query_embedding = query_embedding.last_hidden_state[:, 0].detach().numpy().squeeze()
         scores, retrieved_examples = dataset.get_nearest_examples("embeddings", query_embedding, k=k)
         return scores, retrieved_examples
-

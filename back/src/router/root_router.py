@@ -2,7 +2,7 @@ from fastapi import APIRouter, UploadFile, File, Depends
 
 from src.router.dto.RecommendMusicRequest import RecommendMusicRequest
 from src.router.dto.RecommendMusicResponse import RecommendMusicResponse, RecommendMusic
-from src.infer.playlist import PlaylistExtractor
+from src.infer.playlist import PlaylistIdExtractor
 
 router = APIRouter()
 
@@ -14,7 +14,7 @@ async def recommend_music(
     pl_k = 3
     pl_ids = []
 
-    playlist = PlaylistExtractor(k=pl_k)
+    playlist = PlaylistIdExtractor(k=pl_k)
     pl_ids.extend(playlist.get_weather_playlist_id(image))
     # pl_ids.extend(playlist.get_mood_playlist_id(image))  # place for mood playlist id
     # pl_ids.extend(playlist.get_sit_playlist_id(image))  # place for situation playlist id
