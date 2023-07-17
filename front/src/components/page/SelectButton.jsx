@@ -8,13 +8,16 @@ export default class SelectButton extends PureComponent {
 
     this.state = {
       isSelected: false,
+      enabled: true,
     };
 
     this.buttonRef = createRef();
   }
 
   setSelected = () => {
-    const { isSelected } = this.state;
+    const { isSelected, enabled } = this.state;
+
+    if (!enabled) return;
 
     this.setState({
       isSelected: !isSelected,
@@ -27,8 +30,28 @@ export default class SelectButton extends PureComponent {
     }
   };
 
+  // eslint-disable-next-line react/no-unused-class-component-methods
+  enable = () => {
+    this.setState({
+      enabled: true,
+    });
+  };
+
+  // eslint-disable-next-line react/no-unused-class-component-methods
+  disable = () => {
+    const { isSelected } = this.state;
+    this.setState({
+      enabled: false,
+    });
+
+    if (isSelected) {
+      this.setSelected();
+    }
+  };
+
   render() {
-    const { img } = this.props;
+    const { img, canSelect } = this.props;
+    const { enabled, isSelected } = this.state;
 
     return (
       <div className="SelectButton">
@@ -37,8 +60,13 @@ export default class SelectButton extends PureComponent {
           style={{ backgroundImage: `url('${img}')` }}
           type="button"
           onClick={() => {
+            if (!isSelected && !canSelect()) {
+              return;
+            }
+
             this.setSelected();
           }}
+          disabled={!enabled}
         />
         <svg
           className="CheckButton"
@@ -48,6 +76,10 @@ export default class SelectButton extends PureComponent {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           onClick={() => {
+            if (!isSelected && !canSelect()) {
+              return;
+            }
+
             this.setSelected();
           }}
         >
@@ -64,4 +96,5 @@ export default class SelectButton extends PureComponent {
 
 SelectButton.propTypes = {
   img: PropTypes.string.isRequired,
+  canSelect: PropTypes.func.isRequired,
 };

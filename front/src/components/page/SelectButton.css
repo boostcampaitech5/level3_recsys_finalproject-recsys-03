@@ -26,3 +26,8 @@
 .SelectButton input.selected + .CheckButton {
   display: block;
 }
+
+.SelectButton input[disabled] {
+  background-color: rgba(0, 0, 0, 0.5);
+  background-blend-mode: multiply;
+}
