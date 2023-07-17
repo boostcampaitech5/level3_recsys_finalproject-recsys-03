@@ -1,5 +1,6 @@
 seed: 42
-name: work-10_123820
+repo_id: RecDol/PL_Multilabel
+name: weather-17_061939
 data_dir: ./input/data
 output_dir: ./output/
 tag_type: weather #choice = [weather, mood , sit]
