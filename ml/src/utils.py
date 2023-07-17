@@ -137,6 +137,7 @@ def get_ocr_result(df: pd.DataFrame) -> List[str]:
     print("-----------------------OCR for Editor's Choice-----------------------")
     for i, url in enumerate(tqdm(df.playlist_img_url)):
         try:
+            print(url)
             image = read_image(url, mode="L")
             image = image.crop((38, 40, 102, 80))
             text = pt.image_to_string(image)
@@ -197,10 +198,11 @@ def read_dataset(data_dir: str, tag_type: str) -> datasets.Dataset:
 
 def upload_HFHub(config) -> None:
     output_dir = config.path.output_dir
+    tag_type = config.data.tag_type
     name = config.wandb.name
     api = HfApi()
-    repo_id = f"RecDol/{name}"
+    repo_id = config.repo_id
 
-    api.create_repo(repo_id=repo_id, repo_type="model", private=True)
-
-    api.upload_folder(folder_path=os.path.join(output_dir, name), path_in_repo=name, repo_id=repo_id, commit_message=f"upload: {name}")
+    api.upload_folder(
+        folder_path=os.path.join(output_dir, name), path_in_repo=f"{tag_type}/{name}", repo_id=repo_id, commit_message=f"upload: {name}"
+    )
