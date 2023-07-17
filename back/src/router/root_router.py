@@ -6,20 +6,21 @@ from src.infer.playlist import PlaylistIdExtractor
 
 router = APIRouter()
 
+pl_k = 3
+song_k = 6  # song_k must be more than 6 or loop of silder must be False
+
+playlist = PlaylistIdExtractor(k=pl_k)
 
 @router.post("/recommendMusic")
 async def recommend_music(
     image: UploadFile = File(...), data: RecommendMusicRequest = Depends(RecommendMusicRequest.as_form)
 ) -> RecommendMusicResponse:
-    pl_k = 3
+    
     pl_ids = []
-
-    playlist = PlaylistIdExtractor(k=pl_k)
     pl_ids.extend(playlist.get_weather_playlist_id(image))
     # pl_ids.extend(playlist.get_mood_playlist_id(image))  # place for mood playlist id
     # pl_ids.extend(playlist.get_sit_playlist_id(image))  # place for situation playlist id
 
-    song_k = 6  # song_k must be more than 6 or loop of silder must be False
     # song_ids = get_songs_from_pls(pl_ids)
     # top_songs = get_top_songs_with_step_3(song_ids, side_info_like_genres)
 
