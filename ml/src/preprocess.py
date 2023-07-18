@@ -15,7 +15,7 @@ def temp1_mask(image):
     gray = 127
 
     mask = np.full((height, width), gray, dtype=np.int32)
-    image[y: y + height, x: x + width] = mask
+    image[y : y + height, x : x + width] = mask
     return image
 
 
@@ -26,13 +26,13 @@ def temp2_mask(image):
 
     _x, _width = 147, 440
     _y, _height = 464, 120
-    _gray = image[0,0]
+    _gray = image[0, 0]
 
     mask = np.full((height, width), gray, dtype=np.int32)
     name_mask = np.full((_height, _width), _gray, dtype=np.int32)
 
-    image[y: y + height, x: x + width] = mask
-    image[_y: _y + _height, _x: _x + _width] = name_mask
+    image[y : y + height, x : x + width] = mask
+    image[_y : _y + _height, _x : _x + _width] = name_mask
     return image
 
 
@@ -43,20 +43,20 @@ def temp3_mask(image):
 
     _x, _width = 140, 320
     _y, _height = 140, 320
-    inner_gray= 132
+    inner_gray = 132
 
     outer_mask = np.full((height, width), outer_gray, dtype=np.int32)
     inner_mask = np.full((_height, _width), inner_gray, dtype=np.int32)
 
-    image[y: y + height, x: x + width] = outer_mask
-    image[_y: _y + _height, _x: _x + _width] = inner_mask
+    image[y : y + height, x : x + width] = outer_mask
+    image[_y : _y + _height, _x : _x + _width] = inner_mask
     return image
 
 
 def cal_ssim(temp, image, mask_type):
     temp_shape = temp.shape
     resized_image = cv2.resize(image, temp_shape)
-    
+
     if mask_type == "temp_1":
         adjusted_image = temp1_mask(resized_image.copy())
     elif mask_type == "temp_2":
@@ -65,15 +65,14 @@ def cal_ssim(temp, image, mask_type):
         adjusted_image = temp3_mask(resized_image.copy())
     else:
         raise Exception(f"wrong mask_type! - {mask_type}")
-    
+
     (score, diff) = ssim(temp, adjusted_image, full=True)
     return score
 
 
 def check_img_temp(url: str, temp_dir: str):
-    
     TEMP_PATH = temp_dir
-    
+
     temp1_img = cv2.imread(os.path.join(TEMP_PATH, "template_1.jpg"))
     temp1_gray = cv2.cvtColor(temp1_img, cv2.COLOR_BGR2GRAY)
 
@@ -82,26 +81,26 @@ def check_img_temp(url: str, temp_dir: str):
 
     temp3_img = cv2.imread(os.path.join(TEMP_PATH, "template_3.jpg"))
     temp3_gray = cv2.cvtColor(temp3_img, cv2.COLOR_BGR2GRAY)
-    
+
     image_nparray = np.asarray(bytearray(requests.get(url).content), dtype=np.uint8)
     image = cv2.imdecode(image_nparray, cv2.IMREAD_COLOR)
     image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    
+
     temp1_sim_score = cal_ssim(temp1_gray, image_gray, "temp_1")
     temp2_sim_score = cal_ssim(temp2_gray, image_gray, "temp_2")
     temp3_sim_score = cal_ssim(temp3_gray, image_gray, "temp_3")
-    
+
     temp1_sim_threshold = 0.905
     temp2_sim_threshold = 0.915
     temp3_sim_threshold = 0.998
-    
+
     raw_image = read_image(url)
     if temp1_sim_score >= temp1_sim_threshold:
-        return raw_image.crop((215,138,527,452)).resize((600, 600))
+        return raw_image.crop((215, 138, 527, 452)).resize((600, 600))
     if temp2_sim_score >= temp2_sim_threshold:
-        return raw_image.crop((192,72,526,407)).resize((600, 600))
+        return raw_image.crop((192, 72, 526, 407)).resize((600, 600))
     if temp3_sim_score >= temp3_sim_threshold:
-        return raw_image.crop((142,141,457,456)).resize((600, 600))
+        return raw_image.crop((142, 141, 457, 456)).resize((600, 600))
 
     return raw_image
 
@@ -176,13 +175,11 @@ def del_rows(df: pd.DataFrame, del_list: List[int]) -> pd.DataFrame:
 
 
 def get_del_list(df: pd.DataFrame) -> List[int]:
-    ocr_result = get_ocr_result(df)
-    editors_choice = get_editors_choice(ocr_result)
     empty_imgs = get_empty_img(df)
 
     tagless = list(df[df.tag_cnt == 0].index)
 
-    del_list = list(set(editors_choice + empty_imgs + tagless))
+    del_list = list(set(empty_imgs + tagless))
     return del_list
 
 
