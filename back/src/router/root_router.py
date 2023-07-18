@@ -5,10 +5,9 @@ from src.router.dto.RecommendMusicRequest import RecommendMusicRequest
 from src.router.dto.RecommendMusicResponse import RecommendMusicResponse, RecommendMusic
 from src.infer.playlist import PlaylistIdExtractor
 from src.log.SetLogger import setLogger
-from src.log.CreateDirectory import createDirectory
+from SaveFile import save_file
 router = APIRouter()
 
-IMG_PATH = "outputs/userImgs/"
 logger = setLogger()
 
 pl_k = 3
@@ -20,15 +19,10 @@ playlist = PlaylistIdExtractor(k=pl_k)
 async def recommend_music(
     image: UploadFile = File(...), data: RecommendMusicRequest = Depends(RecommendMusicRequest.as_form)
 ) -> RecommendMusicResponse:
-    createDirectory(IMG_PATH)
+    
     session_id = str(uuid4()).replace("-","_")
     logger.info("Session ID : %s", session_id)
-
-    file_path = f"{IMG_PATH}{session_id}.jpg"
-    with open(file_path, "wb+") as file_object:
-        file_object.write(image.file.read())
-
-    logger.info("Img Path : %s", file_path)
+    save_file(session_id)
     logger.info("Genres : %s", data)
 
     pl_ids = []
