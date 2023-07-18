@@ -15,6 +15,7 @@ import pytesseract as pt
 from datetime import datetime
 import matplotlib.pyplot as plt
 from huggingface_hub import HfApi
+from huggingface_hub import Repository
 from typing import Optional, Tuple, List
 
 
@@ -184,11 +185,13 @@ def generate_predict_result_csv(config, probs: list[torch.Tensor], dataset: data
 
 
 def read_dataset(data_dir: str, tag_type: str) -> datasets.Dataset:
-    data_path = os.path.join(data_dir, f"{tag_type}_dataset")
+    Repository(local_dir=data_dir).git_pull()
+    data_path = os.path.join(data_dir, f"{tag_type}")
     dir_list = os.listdir(data_path)
 
     dsets: List[Optional[datasets.Dataset]] = []
     for _, dir in enumerate(dir_list):
+        print("path", os.path.join(data_path, dir))
         cur_dataset = datasets.load_from_disk(os.path.join(data_path, dir))
         dsets.append(cur_dataset)
 
@@ -201,7 +204,7 @@ def upload_HFHub(config) -> None:
     tag_type = config.data.tag_type
     name = config.wandb.name
     api = HfApi()
-    repo_id = config.repo_id
+    repo_id = config.model_repo_id
 
     api.upload_folder(
         folder_path=os.path.join(output_dir, name), path_in_repo=f"{tag_type}/{name}", repo_id=repo_id, commit_message=f"upload: {name}"
