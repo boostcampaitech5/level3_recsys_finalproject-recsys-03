@@ -2,11 +2,7 @@ import os
 import hydra
 import datasets
 from transformers import AutoImageProcessor, AutoModel
-from src.utils import (
-    set_seed,
-    encode,
-    concat
-)
+from src.utils import set_seed, encode, read_dataset
 
 
 def main(config) -> None:
@@ -15,16 +11,16 @@ def main(config) -> None:
     data_dir = config.data_dir
     output_dir = config.output_dir
     tag_type = config.tag_type
-    repo = f"RecDol/{name}"
-    subfolder = f"{name}/{name}_huggingface"
+    repo = config.repo_id
+    subfolder = f"{tag_type}/{name}/{name}_huggingface"
     save_dir = os.path.join(output_dir, name)
     set_seed(config.seed)
 
     # init model
-    processor = AutoImageProcessor.from_pretrained(repo, subfolder = subfolder)
-    model = AutoModel.from_pretrained(repo, subfolder = subfolder)
+    processor = AutoImageProcessor.from_pretrained(repo, subfolder=subfolder)
+    model = AutoModel.from_pretrained(repo, subfolder=subfolder)
     # load dataset
-    dataset = concat(data_dir, tag_type)
+    dataset = read_dataset(data_dir, tag_type)
     # encode
     dataset_with_embeddings = dataset.map(lambda x: {"embeddings": encode(x["image"], processor, model)})
     # add faiss index
