@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+const backendUrl = process.env.REACT_APP_BACKEND_HOST;
 const urlToBlob = async (url) => {
   const res = await fetch(url);
   return res.blob();
@@ -13,7 +14,7 @@ export default async function requestRecommendMusic(imageUrl, genres) {
   formData.append('genres', genres);
 
   return axios
-    .post(`/api/recommendMusic`, formData, {
+    .post(`${backendUrl}/recommendMusic`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
