@@ -1,6 +1,7 @@
 timestamp:
 seed: 42
-repo_id: RecDol/PL_Multilabel
+model_repo_id: RecDol/PL_Multilabel
+data_repo_id: RecDol/PLAYLIST
 
 defaults:
   - _self_
