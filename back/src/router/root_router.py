@@ -5,7 +5,7 @@ from src.router.dto.RecommendMusicRequest import RecommendMusicRequest
 from src.router.dto.RecommendMusicResponse import RecommendMusicResponse, RecommendMusic
 from src.infer.playlist import PlaylistIdExtractor
 from src.log.SetLogger import setLogger
-from SaveFile import save_file
+from . import SaveFile
 router = APIRouter()
 
 logger = setLogger()
@@ -22,7 +22,7 @@ async def recommend_music(
     
     session_id = str(uuid4()).replace("-","_")
     logger.info("Session ID : %s", session_id)
-    save_file(session_id)
+    SaveFile.save_file(session_id, image, logger)
     logger.info("Genres : %s", data)
 
     pl_ids = []
