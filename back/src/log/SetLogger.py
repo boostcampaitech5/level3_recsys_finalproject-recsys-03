@@ -35,5 +35,4 @@ logger_config = {
 def setLogger() -> logging.Logger:
     CreateDirectory.createDirectory(OUTPUT_PATH)
     logging.config.dictConfig(logger_config)
-    logger = logging.getLogger("fastapi")
-    return logger
+    return logging.getLogger("fastapi")
