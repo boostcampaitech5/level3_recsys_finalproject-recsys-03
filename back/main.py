@@ -6,7 +6,6 @@ from src.router import root_router
 from dotenv import load_dotenv
 
 load_dotenv(".env")
-origins =["*"]
 
 app = FastAPI()
 app.include_router(root_router.router)
