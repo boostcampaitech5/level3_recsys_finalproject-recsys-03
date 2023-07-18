@@ -2,7 +2,8 @@ import os
 import hydra
 import datasets
 import pandas as pd
-from src.utils import set_seed, read_image, get_timestamp
+from src.utils import set_seed
+from huggingface_hub import HfApi
 from src.preprocess import preprocess_data, generate_df, check_img_temp
 
 
@@ -15,6 +16,9 @@ def main(config) -> None:
     train_file = config.train_file
     tag_file = config.tag_file
     tag_type = config.tag_type
+    repo_id = config.repo_id
+    name = train_file[:-4]
+    save_dir = os.path.join(data_dir, f"{tag_file}_dataset/{name}")
 
     # generate subset dataset (tag == [weather, situation, mood])
     pd.set_option("mode.chained_assignment", None)
@@ -29,7 +33,13 @@ def main(config) -> None:
 
     # save dataset
     dataset = dataset.remove_columns("__index_level_0__")
-    dataset.save_to_disk(os.path.join(data_dir, f"{tag_type}_dataset/{get_timestamp()}"))
+    dataset.save_to_disk(save_dir)
+
+    # Upload to Huggingface Hub
+    api = HfApi()
+    api.upload_folder(
+        folder_path=save_dir, path_in_repo=f"{tag_type}/{name}", repo_id=repo_id, commit_message=f"upload dataset: {name}", repo_type="dataset"
+    )
 
 
 @hydra.main(version_base="1.2", config_path="configs/preprocessing", config_name="config.yaml")
