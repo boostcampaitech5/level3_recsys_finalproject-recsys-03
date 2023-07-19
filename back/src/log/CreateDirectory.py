@@ -6,4 +6,4 @@ def createDirectory(dir: str) -> None:
             os.makedirs(dir)
             print(f">>> {dir} is created !!!")
     except OSError:
-        print(f"[ERROR] Creating {dir} is failed !!!")
+        Exception("Creating %s is failed !!!", dir)
