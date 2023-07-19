@@ -5,7 +5,7 @@ from logging import Logger
 IMG_PATH = "outputs/userImgs/"
 
 
-def save_file(session_id: str, image: UploadFile, user_logger: Logger) -> str:
+def save_file(session_id: str, image: UploadFile) -> str:
     createDirectory(IMG_PATH)
 
     file_path = f"{IMG_PATH}{session_id}.jpg"
