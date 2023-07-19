@@ -25,9 +25,8 @@ async def recommend_music(
     session_id = str(uuid4()).replace("-", "_")
     img_path = save_file(session_id, image)
 
-
     pl_ids = []
-    pl_ids.extend(playlist.get_weather_playlist_id(image))
+    pl_ids.extend(playlist.get_weather_playlist_id(img_path))
     # pl_ids.extend(playlist.get_mood_playlist_id(image))  # place for mood playlist id
     # pl_ids.extend(playlist.get_sit_playlist_id(image))  # place for situation playlist id
 
