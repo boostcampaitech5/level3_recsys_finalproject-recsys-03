@@ -6,3 +6,4 @@ transformers==4.30.2
 pillow==8.4.0
 huggingface_hub==0.16.4
 datasets==2.13.1
+faiss_gpu==1.7.2

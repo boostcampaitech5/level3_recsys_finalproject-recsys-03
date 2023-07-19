@@ -9,7 +9,7 @@ router = APIRouter()
 pl_k = 3
 song_k = 6  # song_k must be more than 6 or loop of silder must be False
 
-playlist = PlaylistIdExtractor(k=pl_k)
+playlist = PlaylistIdExtractor(k=pl_k, is_data_pull=False)
 
 @router.post("/recommendMusic")
 async def recommend_music(
