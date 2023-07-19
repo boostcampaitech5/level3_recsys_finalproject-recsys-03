@@ -6,7 +6,7 @@ def create_dir(path: str) -> None:
         if not os.path.exists(path):
             os.makedirs(path)
     except OSError:
-        Exception("Creating %s is failed !!!", dir)
+        raise Exception(f"Creating {dir} is failed !!!")
 
 
 def get_first_dir(path: str) -> str:
