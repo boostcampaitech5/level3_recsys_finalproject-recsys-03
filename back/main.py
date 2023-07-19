@@ -3,6 +3,7 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.router import root_router
+from src.log import ExceptionHandler
 from dotenv import load_dotenv
 
 load_dotenv(".env")
@@ -16,7 +17,7 @@ app.add_middleware(
     allow_methods = ["*"],
     allow_headers=["*"]
 )
-
+ExceptionHandler.add_exception_handler(app)
 
 if __name__ == "__main__":
     uvicorn.run(app, host=os.environ["HOST"], port=int(os.environ["PORT"]))

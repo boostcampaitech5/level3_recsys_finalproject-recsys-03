@@ -10,4 +10,5 @@ class RecommendMusic(BaseModel):
 
 
 class RecommendMusicResponse(BaseModel):
+    session_id: str
     songs: list[RecommendMusic]
