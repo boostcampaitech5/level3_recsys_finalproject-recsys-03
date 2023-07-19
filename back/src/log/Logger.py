@@ -1,6 +1,8 @@
 import logging
 import logging.config
 from src.utils import create_dir
+from pythonjsonlogger import jsonlogger
+
 
 OUTPUT_PATH = "outputs/logs"
 USER_LOG_PATH = OUTPUT_PATH + "/user_log.log"
@@ -9,16 +11,22 @@ API_LOG_PATH = OUTPUT_PATH + "/api_log.log"
 logger_config = {
     "version": 1,
     "disable_existing_loggers": True,
-    "formatters": {"basic": {"format": "%(asctime)s | %(levelname)s - %(message)s"}},
+    "formatters": {
+        "basic": {"format": "%(asctime)s | %(levelname)s - %(message)s"},
+        "json": {
+            "()": "pythonjsonlogger.jsonlogger.JsonFormatter",
+            "format": "%(asctime)s %(levelname)s %(filename)s %(session_id)s %(Img Path)s %(Genres)s %(Playlist IDs)s %(Recommend Songs)s",
+        },
+    },
     "handlers": {
         "console": {"level": "DEBUG", "class": "logging.StreamHandler", "formatter": "basic"},
         "user_file": {
             "level": "INFO",
             "class": "logging.handlers.RotatingFileHandler",
             "mode": "a",
-            "formatter": "basic",
+            "formatter": "json",
+            "encoding": "utf-8",
             "filename": USER_LOG_PATH,
-            "encoding": "UTF-8",
             "maxBytes": 1e7,
             "backupCount": 100,
         },
@@ -27,8 +35,8 @@ logger_config = {
             "class": "logging.handlers.RotatingFileHandler",
             "mode": "a",
             "formatter": "basic",
+            "encoding": "utf-8",
             "filename": API_LOG_PATH,
-            "encoding": "UTF-8",
             "maxBytes": 1e7,
             "backupCount": 100,
         },
