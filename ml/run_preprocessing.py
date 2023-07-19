@@ -18,7 +18,7 @@ def main(config) -> None:
     tag_type = config.tag_type
     repo_id = config.repo_id
     name = train_file[:-4]
-    save_dir = os.path.join(data_dir, f"{tag_file}_dataset/{name}")
+    save_dir = os.path.join(data_dir, f"{tag_type}_dataset/{name}")
 
     # generate subset dataset (tag == [weather, situation, mood])
     pd.set_option("mode.chained_assignment", None)
