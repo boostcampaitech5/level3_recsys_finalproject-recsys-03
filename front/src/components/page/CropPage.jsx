@@ -27,14 +27,17 @@ function CropPage() {
   const naviagteToNext = () => {
     navigate('/loading');
 
-    requestRecommendMusic(croppedImage, info.genres).then(({ songs }) => {
-      navigate('/music-rec', {
-        state: {
-          url: croppedImage,
-          songs,
-        },
-      });
-    });
+    requestRecommendMusic(croppedImage, info.genres).then(
+      ({ SessionId, songs }) => {
+        navigate('/music-rec', {
+          state: {
+            url: croppedImage,
+            songs,
+            SessionId,
+          },
+        });
+      }
+    );
   };
 
   const goUploadPage = () => {

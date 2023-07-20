@@ -8,50 +8,54 @@ import YouTubeVideo from './YouTubeVideo';
 import Modal from '../modal/Modal';
 import defaultImg from '../../imgs/dummy512.jpg';
 
+const Serveyurl =
+  'https://docs.google.com/forms/d/e/1FAIpQLSf3iJv6ShZTjAbdVbo9DZVH1Z9YRluCKDW9EHlrYXj56ngGhA/viewform?entry.264447075=';
+
 const defaultSongs = [
   {
     song_id: 1,
     youtube_id: 'XHMdIA6bEOE',
     song_title: '음악1',
-    artist_name: '아이브',
-    album_title: '짱구 1기',
+    artist_name: '가수1',
+    album_title: '앨범1',
   },
   {
     song_id: 2,
     youtube_id: 'Sq_mS6xWpvk',
     song_title: '음악2',
-    artist_name: 'I Dont Know How But They Found Meeeee',
-    album_title: 'Razzmatazz',
+    artist_name: '가수가수가수가수가수가수가수가수2',
+    album_title: '앨범2',
   },
   {
     song_id: 3,
     youtube_id: 'A1tZgPAcpjE',
     song_title: '음악3',
-    artist_name: '잔나비 잔나비 잔미잔미 잔나비 잔나비 잔미잔미',
-    album_title: '봉춤을 추네',
+    artist_name: '가수3',
+    album_title: '앨범앨범앨범앨범앨범앨범앨범앨범3',
   },
   {
     song_id: 4,
     youtube_id: 'NbKH4iZqq1Y',
     song_title: '음악4',
-    artist_name: 'WOODZ',
-    album_title: 'OO-LI',
+    artist_name: '가수4',
+    album_title: '앨범4',
   },
   {
     song_id: 5,
     youtube_id: '2Kff0U8w-aU',
     song_title: '음악5',
-    artist_name: 'NewJeans',
-    album_title: "NewJeans 'OMG'",
+    artist_name: '가수5',
+    album_title: '앨범5',
   },
   {
     song_id: 6,
     youtube_id: 'j1uXcHwLhHM',
     song_title: '음악6',
-    artist_name: '윤하',
-    album_title: 'END THEORY : Final Edition',
+    artist_name: '가수6',
+    album_title: '앨범6',
   },
 ];
+const defaultId = -1;
 
 class MusicRecommend extends PureComponent {
   constructor(props) {
@@ -85,7 +89,7 @@ class MusicRecommend extends PureComponent {
   }
 
   render() {
-    const { imgUrl, songs } = this.props;
+    const { imgUrl, songs, sessionId } = this.props;
     const { modalOpen, song } = this.state;
     return (
       <div className="MusicRecommend">
@@ -136,6 +140,15 @@ class MusicRecommend extends PureComponent {
               저장하기
             </button>
           </div>
+          <button
+            className="servey"
+            onClick={() => {
+              window.open(Serveyurl + { sessionId });
+            }}
+            type="button"
+          >
+            <span>간단한 설문조사하고 커피 받기! ☕️</span>
+          </button>
         </div>
       </div>
     );
@@ -145,6 +158,7 @@ class MusicRecommend extends PureComponent {
 MusicRecommend.defaultProps = {
   imgUrl: defaultImg,
   songs: defaultSongs,
+  sessionId: defaultId,
 };
 
 MusicRecommend.propTypes = {
@@ -159,6 +173,7 @@ MusicRecommend.propTypes = {
       youtube_id: PropTypes.string,
     })
   ),
+  sessionId: PropTypes.string,
 };
 
 export default function MusicRecommendWrapper(props) {
@@ -172,6 +187,7 @@ export default function MusicRecommendWrapper(props) {
       navigate={navigate}
       imgUrl={location.state?.url}
       songs={location.state?.songs}
+      sessionId={location.state?.SessionId}
     />
   );
 }
