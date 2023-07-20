@@ -8,6 +8,8 @@ import YouTubeVideo from './YouTubeVideo';
 import Modal from '../modal/Modal';
 import defaultImg from '../../imgs/dummy512.jpg';
 
+const Serveyurl = 'https://forms.gle/Z9oefWiWsipZgy8W6';
+
 const defaultSongs = [
   {
     song_id: 1,
@@ -136,6 +138,15 @@ class MusicRecommend extends PureComponent {
               저장하기
             </button>
           </div>
+          <button
+            className="servey"
+            onClick={() => {
+              window.open(Serveyurl);
+            }}
+            type="button"
+          >
+            <span>간단한 설문조사하고 커피 받기! ☕️</span>
+          </button>
         </div>
       </div>
     );
