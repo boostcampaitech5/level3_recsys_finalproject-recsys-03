@@ -8,7 +8,8 @@ import YouTubeVideo from './YouTubeVideo';
 import Modal from '../modal/Modal';
 import defaultImg from '../../imgs/dummy512.jpg';
 
-const Serveyurl = 'https://forms.gle/Z9oefWiWsipZgy8W6';
+const Serveyurl =
+  'https://docs.google.com/forms/d/e/1FAIpQLSf3iJv6ShZTjAbdVbo9DZVH1Z9YRluCKDW9EHlrYXj56ngGhA/viewform?entry.264447075=';
 
 const defaultSongs = [
   {
@@ -54,6 +55,7 @@ const defaultSongs = [
     album_title: 'END THEORY : Final Edition',
   },
 ];
+const defaultId = -1;
 
 class MusicRecommend extends PureComponent {
   constructor(props) {
@@ -87,7 +89,7 @@ class MusicRecommend extends PureComponent {
   }
 
   render() {
-    const { imgUrl, songs } = this.props;
+    const { imgUrl, songs, sessionId } = this.props;
     const { modalOpen, song } = this.state;
     return (
       <div className="MusicRecommend">
@@ -141,7 +143,7 @@ class MusicRecommend extends PureComponent {
           <button
             className="servey"
             onClick={() => {
-              window.open(Serveyurl);
+              window.open(Serveyurl + { sessionId });
             }}
             type="button"
           >
@@ -156,6 +158,7 @@ class MusicRecommend extends PureComponent {
 MusicRecommend.defaultProps = {
   imgUrl: defaultImg,
   songs: defaultSongs,
+  sessionId: defaultId,
 };
 
 MusicRecommend.propTypes = {
@@ -170,6 +173,7 @@ MusicRecommend.propTypes = {
       youtube_id: PropTypes.string,
     })
   ),
+  sessionId: PropTypes.string,
 };
 
 export default function MusicRecommendWrapper(props) {
@@ -183,6 +187,7 @@ export default function MusicRecommendWrapper(props) {
       navigate={navigate}
       imgUrl={location.state?.url}
       songs={location.state?.songs}
+      sessionId={location.state?.SessionId}
     />
   );
 }
