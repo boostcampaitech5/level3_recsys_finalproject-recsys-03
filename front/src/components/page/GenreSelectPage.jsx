@@ -21,7 +21,7 @@ const genres = [
   },
   {
     img: kpopImg,
-    type: 'K-POP',
+    type: '가요',
   },
   {
     img: rockImg,
