@@ -21,6 +21,7 @@ conda init
 (back) cd hub
 (back) git clone https://huggingface.co/datasets/RecDol/PLAYLIST
 (back) git clone https://huggingface.co/datasets/RecDol/index
+(back) git clone https://huggingface.co/datasets/RecDol/CsvFiles
 ```
 
 ### 서버 실행
