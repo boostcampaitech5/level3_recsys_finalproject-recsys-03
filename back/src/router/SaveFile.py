@@ -1,12 +1,12 @@
 from fastapi import UploadFile
-from src.log.CreateDirectory import createDirectory
+from src.utils import create_dir
 from logging import Logger
 
 IMG_PATH = "outputs/userImgs/"
 
 
 def save_file(session_id: str, image: UploadFile) -> str:
-    createDirectory(IMG_PATH)
+    create_dir(IMG_PATH)
 
     file_path = f"{IMG_PATH}{session_id}.jpg"
     with open(file_path, "wb+") as file_object:

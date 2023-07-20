@@ -5,7 +5,8 @@ from src.router.dto.RecommendMusicRequest import RecommendMusicRequest
 from src.router.dto.RecommendMusicResponse import RecommendMusicResponse, RecommendMusic
 from src.infer.playlist import PlaylistIdExtractor
 from src.log.Logger import get_user_logger
-from . import SaveFile
+from src.router.SaveFile import save_file
+
 
 router = APIRouter()
 
@@ -14,7 +15,7 @@ user_logger = get_user_logger()
 pl_k = 3
 song_k = 6  # song_k must be more than 6 or loop of silder must be False
 
-# playlist = PlaylistIdExtractor(k=pl_k)
+playlist = PlaylistIdExtractor(k=pl_k, is_data_pull=False)
 
 
 @router.post("/recommendMusic")
@@ -22,10 +23,10 @@ async def recommend_music(
     image: UploadFile = File(...), data: RecommendMusicRequest = Depends(RecommendMusicRequest.as_form)
 ) -> RecommendMusicResponse:
     session_id = str(uuid4()).replace("-", "_")
-    img_path = SaveFile.save_file(session_id, image, user_logger)
+    img_path = save_file(session_id, image)
 
     pl_ids = []
-    # pl_ids.extend(playlist.get_weather_playlist_id(image))
+    pl_ids.extend(playlist.get_weather_playlist_id(img_path))
     # pl_ids.extend(playlist.get_mood_playlist_id(image))  # place for mood playlist id
     # pl_ids.extend(playlist.get_sit_playlist_id(image))  # place for situation playlist id
 
@@ -52,6 +53,7 @@ async def recommend_music(
         RecommendMusic(song_id=5, youtube_id="2Kff0U8w-aU", song_title="OMG", artist_name="NewJeans", album_title="NewJeans 'OMG'"),
         RecommendMusic(song_id=6, youtube_id="j1uXcHwLhHM", song_title="사건의 지평선", artist_name="윤하", album_title="END THEORY : Final Edition"),
     ]
+
     user_logger.info(
         {
             "session_id": session_id,

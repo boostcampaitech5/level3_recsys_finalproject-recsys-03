@@ -1,7 +1,8 @@
 import logging
 import logging.config
+from src.utils import create_dir
 from pythonjsonlogger import jsonlogger
-from . import CreateDirectory
+
 
 OUTPUT_PATH = "outputs/logs"
 USER_LOG_PATH = OUTPUT_PATH + "/user_log.log"
@@ -43,7 +44,7 @@ logger_config = {
     "loggers": {"fastapi": {"level": "INFO", "handlers": ["api_file", "console"]}, "user": {"level": "INFO", "handlers": ["user_file", "console"]}},
 }
 
-CreateDirectory.createDirectory(OUTPUT_PATH)
+create_dir(OUTPUT_PATH)
 logging.config.dictConfig(logger_config)
 
 
