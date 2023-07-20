@@ -16,8 +16,9 @@ user_logger = get_user_logger()
 pl_k = 3
 song_k = 6  # song_k must be more than 6 or loop of silder must be False
 
+
 playlist = PlaylistIdExtractor(k=pl_k, is_data_pull=False)
-song = SongIdExtractor(k=song_k, is_data_pull=False)
+song = SongIdExtractor(k=song_k, is_data_pull=True)
 
 
 @router.post("/recommendMusic")
@@ -28,22 +29,31 @@ async def recommend_music(
     img_path = save_file(session_id, image)
 
     pl_scores, pl_ids = [], []
-    w_scores, w_ids = playlist.get_weather_playlist_id(img_path)
-    pl_scores.extend(w_scores)
-    pl_ids.extend(w_ids)
-    
-    # pl_ids.extend(playlist.get_mood_playlist_id(image))  # place for mood playlist id
-    # pl_ids.extend(playlist.get_sit_playlist_id(image))  # place for situation playlist id
-    
+
+    weather_scores, weather_ids = playlist.get_weather_playlist_id(img_path)
+    sit_scores, sit_ids = playlist.get_mood_playlist_id(img_path)
+    mood_scores, mood_ids = playlist.get_sit_playlist_id(img_path)
+
+    pl_scores.extend(weather_scores)
+    pl_scores.extend(sit_scores)
+    pl_scores.extend(mood_scores)
+    pl_ids.extend(weather_ids)
+    pl_ids.extend(sit_ids)
+    pl_ids.extend(mood_ids)
+
     user_genres = [genre for genre in data.genres[0].split(",")]
     songs = song.get_song_info(pl_ids, pl_scores, user_genres)
-    
-    songs=[RecommendMusic(
-        song_id=int(songs.iloc[i]["song_id"]),
-        youtube_id=songs.iloc[i]["youtube_key"],
-        song_title=songs.iloc[i]["song_title"],
-        artist_name=songs.iloc[i]["artist_name"],
-        album_title=songs.iloc[i]["album_title"],) for i in range(songs.shape[0])]
+
+    songs = [
+        RecommendMusic(
+            song_id=int(songs.iloc[i]["song_id"]),
+            youtube_id=songs.iloc[i]["youtube_key"],
+            song_title=songs.iloc[i]["song_title"],
+            artist_name=songs.iloc[i]["artist_name"],
+            album_title=songs.iloc[i]["album_title"],
+        )
+        for i in range(songs.shape[0])
+    ]
 
     user_logger.info(
         {
