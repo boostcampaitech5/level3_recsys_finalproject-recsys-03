@@ -1,6 +1,6 @@
 import os
+import faiss
 import hydra
-import datasets
 from transformers import AutoImageProcessor, AutoModel
 from src.utils import set_seed, encode, read_dataset
 
@@ -24,7 +24,7 @@ def main(config) -> None:
     # encode
     dataset_with_embeddings = dataset.map(lambda x: {"embeddings": encode(x["image"], processor, model)})
     # add faiss index
-    dataset_with_embeddings.add_faiss_index(column="embeddings")
+    dataset_with_embeddings.add_faiss_index(column="embeddings", metric_type=faiss.METRIC_INNER_PRODUCT)
     # save faiss index
     dataset_with_embeddings.save_faiss_index(index_name="embeddings", file=os.path.join(save_dir, f"{tag_type}.index"))
     # save dataset
