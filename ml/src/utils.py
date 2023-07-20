@@ -1,6 +1,7 @@
 import re
 import os
 import ast
+import faiss
 import torch
 import wandb
 import dotenv
@@ -17,6 +18,7 @@ import matplotlib.pyplot as plt
 from huggingface_hub import HfApi
 from huggingface_hub import Repository
 from typing import Optional, Tuple, List
+from transformers import AutoImageProcessor, AutoModel
 
 
 def set_seed(seed) -> None:
@@ -49,21 +51,15 @@ def init_wandb(config, k: Optional[int] = None, group: Optional[int] = None) -> 
     )
 
 
-def load_huggingface_dataset(seed: int = 42, num_samples: int = 100, name: str = "beans", split: str = "train") -> datasets.Dataset:
-    dataset = datasets.load_dataset(name, split=split)
-    return dataset.shuffle(seed=seed).select(range(num_samples))
+def encode(image: Image, processor: AutoImageProcessor, model: AutoModel) -> torch.Tensor:
+    embedding = model(**processor(image, return_tensors="pt")).last_hidden_state[:, 0].detach().numpy()
+    faiss.normalize_L2(embedding)
+    return embedding.squeeze()
 
 
-def encode(image, encoder, model) -> torch.Tensor:
-    image_pp = encoder(image, return_tensors="pt")
-    features = model(**image_pp).last_hidden_state[:, 0].detach().numpy()
-    return features.squeeze()
-
-
-def fetch_similar_images_topk(query, encoder, model, dataset, k: int) -> Tuple[list, list]:
-    query_embedding = model(**encoder(query, return_tensors="pt"))
-    query_embedding = query_embedding.last_hidden_state[:, 0].detach().numpy().squeeze()
-    scores, retrieved_examples = dataset.get_nearest_examples("embeddings", query_embedding, k=k)
+def search(image: Image, processor: AutoImageProcessor, model: AutoModel, dataset: datasets.Dataset, k: int) -> Tuple[list, list]:
+    embedding = encode(image, processor, model)
+    scores, retrieved_examples = dataset.get_nearest_examples("embeddings", embedding, k=k)
     return scores, retrieved_examples
 
 
@@ -99,6 +95,21 @@ def read_data(file_name: str) -> pd.DataFrame:
     df.columns = [col.lower() for col in df.columns]
     str2list(df, ["playlist_songs", "playlist_tags"])
     return df
+
+
+def read_dataset(data_dir: str, tag_type: str) -> datasets.Dataset:
+    Repository(local_dir=data_dir).git_pull()
+    data_path = os.path.join(data_dir, f"{tag_type}")
+    dir_list = os.listdir(data_path)
+
+    dsets: List[Optional[datasets.Dataset]] = []
+    for _, dir in enumerate(dir_list):
+        print("path", os.path.join(data_path, dir))
+        cur_dataset = datasets.load_from_disk(os.path.join(data_path, dir))
+        dsets.append(cur_dataset)
+
+    dataset = datasets.concatenate_datasets(dsets)
+    return dataset
 
 
 def train_val_test_split(dataset: datasets.Dataset) -> Tuple[datasets.Dataset, datasets.Dataset, datasets.Dataset]:
@@ -182,21 +193,6 @@ def generate_predict_result_csv(config, probs: list[torch.Tensor], dataset: data
     dirpath = os.path.join(config.path.output_dir, config.wandb.name)
     filename = f"{config.wandb.name}_predict_result.csv"
     df.to_csv(os.path.join(dirpath, filename), index=False)
-
-
-def read_dataset(data_dir: str, tag_type: str) -> datasets.Dataset:
-    Repository(local_dir=data_dir).git_pull()
-    data_path = os.path.join(data_dir, f"{tag_type}")
-    dir_list = os.listdir(data_path)
-
-    dsets: List[Optional[datasets.Dataset]] = []
-    for _, dir in enumerate(dir_list):
-        print("path", os.path.join(data_path, dir))
-        cur_dataset = datasets.load_from_disk(os.path.join(data_path, dir))
-        dsets.append(cur_dataset)
-
-    dataset = datasets.concatenate_datasets(dsets)
-    return dataset
 
 
 def upload_HFHub(config) -> None:
