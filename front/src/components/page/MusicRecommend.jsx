@@ -96,8 +96,8 @@ class MusicRecommend extends PureComponent {
             {modalOpen && (
               <Modal
                 imgUrl={imgUrl}
-                artist_name={song.artist_name}
-                song_title={song.song_title}
+                artistName={song.artist_name}
+                musicTitle={song.song_title}
                 setOpenModal={() => {
                   this.setModalOpen();
                 }}
