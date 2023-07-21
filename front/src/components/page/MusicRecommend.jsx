@@ -187,7 +187,7 @@ export default function MusicRecommendWrapper(props) {
       navigate={navigate}
       imgUrl={location.state?.url}
       songs={location.state?.songs}
-      sessionId={location.state?.SessionId}
+      sessionId={location.state?.sessionId}
     />
   );
 }
