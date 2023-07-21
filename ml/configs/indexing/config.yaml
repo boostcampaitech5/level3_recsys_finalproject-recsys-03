@@ -1,6 +1,7 @@
 seed: 42
-repo_id: RecDol/PL_Multilabel
-name: weather-17_061939
-data_dir: ./input/data
+model_repo_id: RecDol/PL_Multilabel
+index_repo_id: RecDol/faiss_index
+name: mood-19_110133
+data_dir: ./input/data/PLAYLIST
 output_dir: ./output/
-tag_type: weather #choice = [weather, mood , sit]
+tag_type: mood #choice = [weather, mood , sit]
