@@ -120,7 +120,7 @@ function ImageUploadPage() {
         <input
           type="file"
           id="file"
-          accept="image/png, image/jpg, image/jpeg, image/gif, image/heic, image/heif"
+          accept="image/png, image/jpg, image/jpeg, image/heic, image/heif"
           onChange={(e) => insertImg(e)}
           style={{ display: 'none' }}
         />
