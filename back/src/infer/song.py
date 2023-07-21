@@ -42,7 +42,6 @@ class SongIdExtractor:
                 raise Exception(f"Wrong File {file} is detected !!!")
             
     def get_song_info(self, pl_id_list: list, sim_list: list, user_genres: list) -> pd.DataFrame:
-        sim_list = [1/sim for sim in sim_list]
         model_result = self.result_to_df(pl_id_list, sim_list)
 
         pl_result = self.playlist.loc[self.playlist['playlist_id'].isin(pl_id_list)][['playlist_id','playlist_songs','num_of_songs','playlist_view', 'playlist_likecount','tag_sit_cnt', 'tag_mood_cnt', 'tag_weather_cnt' ]]
@@ -84,7 +83,6 @@ class SongIdExtractor:
         
         merged = merged[["playlist_id","sim","song_id", "pl_match", "song_title","genre", "user_genre", "pl_favor", "song_favor", "youtube_key", "artist_name", "album_title"]]
         
-        self.min_max_scale(merged, "sim")
         self.min_max_scale(merged, "pl_favor")
         self.min_max_scale(merged, "song_favor")
         merged['favor_score'] = merged.song_favor + merged.pl_favor
