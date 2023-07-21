@@ -36,7 +36,7 @@ def main(config) -> None:
 
     api = HfApi()
     api.upload_file(
-        path_or_fileobj=save_dir, path_in_repo=f"{tag_type}/{name}", repo_id=index_repo, commit_message=f"upload index: {name}", repo_type="dataset"
+        path_or_fileobj=save_file, path_in_repo=f"{tag_type}/{name}", repo_id=index_repo, commit_message=f"upload index: {name}", repo_type="dataset"
     )
 
 @hydra.main(version_base="1.2", config_path="configs/indexing", config_name="config.yaml")
