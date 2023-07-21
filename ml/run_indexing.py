@@ -16,7 +16,7 @@ def main(config) -> None:
     index_repo = config.index_repo_id
     subfolder = f"{tag_type}/{name}/{name}_huggingface"
     save_dir = os.path.join(output_dir, name)
-    save_file = f"{save_dir}/{tag_type}.index"
+    save_file = f"{save_dir}/{name}.index"
     set_seed(config.seed)
 
     # init model
@@ -36,7 +36,7 @@ def main(config) -> None:
 
     api = HfApi()
     api.upload_file(
-        path_or_fileobj=save_file, path_in_repo=f"{tag_type}/{name}", repo_id=index_repo, commit_message=f"upload index: {name}", repo_type="dataset"
+        path_or_fileobj=save_file, path_in_repo=f"{tag_type}/{name}.index", repo_id=index_repo, commit_message=f"upload index: {name}", repo_type="dataset"
     )
 
 @hydra.main(version_base="1.2", config_path="configs/indexing", config_name="config.yaml")
