@@ -28,12 +28,12 @@ function CropPage() {
     navigate('/loading');
 
     requestRecommendMusic(croppedImage, info.genres).then(
-      ({ SessionId, songs }) => {
+      ({ session_id: sessionId, songs }) => {
         navigate('/music-rec', {
           state: {
             url: croppedImage,
             songs,
-            SessionId,
+            SessionId: sessionId,
           },
         });
       }
