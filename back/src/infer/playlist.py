@@ -1,4 +1,5 @@
 import os
+import faiss
 import datasets
 import numpy as np
 from PIL import Image
@@ -106,6 +107,7 @@ class PlaylistIdExtractor:
         self, query_image: Image, processor: ViTImageProcessor, model: ViTModel, dataset: Dataset, k: int
     ) -> Tuple[np.ndarray, dict]:
         query_embedding = model(**processor(query_image, return_tensors="pt"))
-        query_embedding = query_embedding.last_hidden_state[:, 0].detach().numpy().squeeze()
-        scores, retrieved_examples = dataset.get_nearest_examples("embeddings", query_embedding, k=k)
+        query_embedding = query_embedding.last_hidden_state[:, 0].detach().numpy()
+        faiss.normalize_L2(query_embedding)
+        scores, retrieved_examples = dataset.get_nearest_examples("embeddings", query_embedding.squeeze(), k=k)
         return scores, retrieved_examples
