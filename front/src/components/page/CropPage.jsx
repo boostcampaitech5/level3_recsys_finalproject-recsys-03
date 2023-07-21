@@ -28,7 +28,7 @@ function CropPage() {
     navigate('/loading');
 
     requestRecommendMusic(croppedImage, info.genres).then(
-      ({ SessionId, songs }) => {
+      ({ session_id: SessionId, songs }) => {
         navigate('/music-rec', {
           state: {
             url: croppedImage,
