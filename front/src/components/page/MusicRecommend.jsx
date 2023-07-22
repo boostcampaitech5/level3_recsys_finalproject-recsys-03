@@ -62,7 +62,7 @@ const defaultSongs = [
       'https://p.scdn.co/mp3-preview/1eff5d6411ae2c65990552133729f3e907c4a793?cid=0037db4c059245e2a697e420eaf107e0',
   },
 ];
-const defaultId = -1;
+const defaultId = '-1';
 
 class MusicRecommend extends PureComponent {
   constructor(props) {
@@ -107,6 +107,8 @@ class MusicRecommend extends PureComponent {
                 imgUrl={imgUrl}
                 artistName={song.artist_name}
                 musicTitle={song.song_title}
+                sessionId={sessionId}
+                songId={song.song_id}
                 setOpenModal={() => {
                   this.setModalOpen();
                 }}
