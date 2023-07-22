@@ -1,10 +1,11 @@
-import React, { PureComponent, createRef } from 'react';
+import React, { PureComponent } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FiRotateCcw, FiSave } from 'react-icons/fi';
 import PropTypes from 'prop-types';
+import Marquee from 'react-fast-marquee';
+
 import MusicSelector from './MusicSelector';
 import './MusicRecommend.css';
-import YouTubeVideo from './YouTubeVideo';
 import Modal from '../modal/Modal';
 import defaultImg from '../../imgs/dummy512.jpg';
 
@@ -14,45 +15,51 @@ const Serveyurl =
 const defaultSongs = [
   {
     song_id: 1,
-    youtube_id: 'XHMdIA6bEOE',
     song_title: '음악1',
     artist_name: '가수1',
     album_title: '앨범1',
+    music_url:
+      'https://p.scdn.co/mp3-preview/6801b88192f9a6dc4ee0c256dfbf72671dc83c7a?cid=0037db4c059245e2a697e420eaf107e0',
   },
   {
     song_id: 2,
-    youtube_id: 'Sq_mS6xWpvk',
     song_title: '음악2',
     artist_name: '가수가수가수가수가수가수가수가수2',
     album_title: '앨범2',
+    music_url:
+      'https://p.scdn.co/mp3-preview/bd50f6e6d92ed09aaf38b759ddd96c7164931aa1?cid=0037db4c059245e2a697e420eaf107e0',
   },
   {
     song_id: 3,
-    youtube_id: 'A1tZgPAcpjE',
     song_title: '음악3',
     artist_name: '가수3',
     album_title: '앨범앨범앨범앨범앨범앨범앨범앨범3',
+    music_url:
+      'https://p.scdn.co/mp3-preview/5274582d3f3f34e82fb83e814dcad59182c92ae4?cid=0037db4c059245e2a697e420eaf107e0',
   },
   {
     song_id: 4,
-    youtube_id: 'NbKH4iZqq1Y',
     song_title: '음악4',
     artist_name: '가수4',
     album_title: '앨범4',
+    music_url:
+      'https://p.scdn.co/mp3-preview/a54a328016674ea6da346af84c6c06c6536195c8?cid=0037db4c059245e2a697e420eaf107e0',
   },
   {
     song_id: 5,
-    youtube_id: '2Kff0U8w-aU',
     song_title: '음악5',
     artist_name: '가수5',
     album_title: '앨범5',
+    music_url:
+      'https://p.scdn.co/mp3-preview/1aaf30001acf34f7c6c0d9aee23c354d05923fc4?cid=0037db4c059245e2a697e420eaf107e0',
   },
   {
     song_id: 6,
-    youtube_id: 'j1uXcHwLhHM',
     song_title: '음악6',
     artist_name: '가수6',
     album_title: '앨범6',
+    music_url:
+      'https://p.scdn.co/mp3-preview/1eff5d6411ae2c65990552133729f3e907c4a793?cid=0037db4c059245e2a697e420eaf107e0',
   },
 ];
 const defaultId = -1;
@@ -63,7 +70,6 @@ class MusicRecommend extends PureComponent {
 
     const { songs } = this.props;
 
-    this.youTubeVideoRef = createRef();
     this.state = {
       modalOpen: false,
       song: songs[0],
@@ -91,6 +97,7 @@ class MusicRecommend extends PureComponent {
   render() {
     const { imgUrl, songs, sessionId } = this.props;
     const { modalOpen, song } = this.state;
+
     return (
       <div className="MusicRecommend">
         <div className="contents">
@@ -117,7 +124,17 @@ class MusicRecommend extends PureComponent {
             onSlideChange={this.onSlideChange}
           />
           <h2>지금 노래를 들어보세요</h2>
-          <YouTubeVideo ref={this.youTubeVideoRef} videoId={song.youtube_id} />
+          <Marquee pauseOnHover speed={30}>
+            <div className="infoBox">
+              <div className="songName">{song.song_title}</div>
+              <div className="artistName">{song.artist_name}</div>
+            </div>
+          </Marquee>
+          <div className="playerBox">
+            <audio controls src={song.music_url}>
+              <track kind="captions" />
+            </audio>
+          </div>
         </div>
         <div className="footer">
           <div className="buttons">

@@ -18,6 +18,28 @@
   font-size: 1.3em;
 }
 
+.infoBox {
+  color: white;
+  margin: auto 0;
+  text-align: center;
+}
+
+.infoBox .songName {
+  font-weight: bolder;
+  font-size: larger;
+  padding: 0.5em;
+}
+
+.infoBox .artistName {
+  font-weight: lighter;
+  font-size: medium;
+  padding: 0.5em;
+}
+
+.playerBox {
+  padding: 1.5em;
+}
+
 .MusicRecommend .footer button {
   height: 100%;
   border: none;
