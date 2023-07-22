@@ -3,9 +3,10 @@ from uuid import uuid4
 
 from src.router.dto.RecommendMusicRequest import RecommendMusicRequest
 from src.router.dto.RecommendMusicResponse import RecommendMusicResponse, RecommendMusic
+from src.router.dto.UserFeedbackRequest import UserFeedbackRequest
 from src.infer.playlist import PlaylistIdExtractor
 from src.infer.song import SongIdExtractor
-from src.log.Logger import get_user_logger
+from src.log.Logger import get_user_logger, get_feedback_logger
 from src.router.SaveFile import save_file
 from src.infer.spotify import get_spotify_url
 
@@ -13,6 +14,7 @@ from src.infer.spotify import get_spotify_url
 router = APIRouter()
 
 user_logger = get_user_logger()
+feedback_logger = get_feedback_logger()
 
 pl_k = 3
 song_k = 15
@@ -70,3 +72,17 @@ async def recommend_music(
     )
 
     return RecommendMusicResponse(session_id=session_id, songs=songs)
+
+
+@router.post("/userFeedback")
+async def user_Feedback(data: UserFeedbackRequest) -> None:
+    feedback_logger.info(
+        {
+            "session Id": data.session_id,
+            "song Id": data.song_id,
+            "thumbs up": data.thumbs_up,
+            "thumbs down": data.thumbs_down,
+        }
+    )
+
+    return None
