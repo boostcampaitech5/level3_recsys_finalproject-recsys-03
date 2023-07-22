@@ -6,6 +6,7 @@ from pythonjsonlogger import jsonlogger
 
 OUTPUT_PATH = "outputs/logs"
 USER_LOG_PATH = OUTPUT_PATH + "/user_log.log"
+FEEDBACK_LOG_PATH = OUTPUT_PATH + "/feedback_log.log"
 API_LOG_PATH = OUTPUT_PATH + "/api_log.log"
 
 logger_config = {
@@ -15,7 +16,7 @@ logger_config = {
         "basic": {"format": "%(asctime)s | %(levelname)s - %(message)s"},
         "json": {
             "()": "pythonjsonlogger.jsonlogger.JsonFormatter",
-            "format": "%(asctime)s %(levelname)s %(filename)s %(session_id)s %(Img Path)s %(Genres)s %(Playlist IDs)s %(Recommend Songs)s",
+            "format": "%(asctime)s %(levelname)s %(filename)s",
         },
     },
     "handlers": {
@@ -40,8 +41,22 @@ logger_config = {
             "maxBytes": 1e7,
             "backupCount": 100,
         },
+        "feedback_file": {
+            "level": "INFO",
+            "class": "logging.handlers.RotatingFileHandler",
+            "mode": "a",
+            "formatter": "basic",
+            "encoding": "utf-8",
+            "filename": FEEDBACK_LOG_PATH,
+            "maxBytes": 1e7,
+            "backupCount": 100,
+        },
     },
-    "loggers": {"fastapi": {"level": "INFO", "handlers": ["api_file", "console"]}, "user": {"level": "INFO", "handlers": ["user_file", "console"]}},
+    "loggers": {
+        "fastapi": {"level": "INFO", "handlers": ["api_file", "console"]},
+        "user": {"level": "INFO", "handlers": ["user_file", "console"]},
+        "feedback": {"level": "INFO", "handlers": ["feedback_file", "console"]},
+    },
 }
 
 create_dir(OUTPUT_PATH)
@@ -54,3 +69,7 @@ def get_fastapi_logger() -> logging.Logger:
 
 def get_user_logger() -> logging.Logger:
     return logging.getLogger("user")
+
+
+def get_feedback_logger() -> logging.Logger:
+    return logging.getLogger("feedback")
