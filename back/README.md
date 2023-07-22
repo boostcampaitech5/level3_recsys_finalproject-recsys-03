@@ -20,7 +20,7 @@ conda init
 (back) mkdir hub
 (back) cd hub
 (back) git clone https://huggingface.co/datasets/RecDol/PLAYLIST
-(back) git clone https://huggingface.co/datasets/RecDol/index
+(back) git clone https://huggingface.co/datasets/RecDol/faiss_index
 (back) git clone https://huggingface.co/datasets/RecDol/CsvFiles
 ```
 
