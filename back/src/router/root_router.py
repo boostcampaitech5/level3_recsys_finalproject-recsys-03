@@ -7,6 +7,7 @@ from src.infer.playlist import PlaylistIdExtractor
 from src.infer.song import SongIdExtractor
 from src.log.Logger import get_user_logger
 from src.router.SaveFile import save_file
+from src.infer.spotify import get_spotify_url
 
 
 router = APIRouter()
@@ -14,7 +15,8 @@ router = APIRouter()
 user_logger = get_user_logger()
 
 pl_k = 3
-song_k = 6  # song_k must be more than 6 or loop of silder must be False
+song_k = 15
+top_k = 6  # song_k must be more than 6 or loop of silder must be False
 
 
 playlist = PlaylistIdExtractor(k=pl_k, is_data_pull=False)
@@ -42,7 +44,8 @@ async def recommend_music(
     pl_ids.extend(mood_ids)
 
     user_genres = [genre for genre in data.genres[0].split(",")]
-    songs = song.get_song_info(pl_ids, pl_scores, user_genres)
+    infos = song.get_song_info(pl_ids, pl_scores, user_genres, song_k)
+    songs = get_spotify_url(infos, top_k)
 
     songs = [
         RecommendMusic(
@@ -51,6 +54,7 @@ async def recommend_music(
             song_title=songs.iloc[i]["song_title"],
             artist_name=songs.iloc[i]["artist_name"],
             album_title=songs.iloc[i]["album_title"],
+            music_url=songs.iloc[i]["music_url"],
         )
         for i in range(songs.shape[0])
     ]
