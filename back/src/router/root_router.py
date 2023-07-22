@@ -84,5 +84,3 @@ async def user_Feedback(data: UserFeedbackRequest) -> None:
             "thumbs down": data.thumbs_down,
         }
     )
-
-    return None
