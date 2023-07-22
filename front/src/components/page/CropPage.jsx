@@ -33,7 +33,7 @@ function CropPage() {
           state: {
             url: croppedImage,
             songs,
-            SessionId: sessionId,
+            sessionId,
           },
         });
       }
