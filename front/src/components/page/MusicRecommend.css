@@ -73,3 +73,33 @@
   width: 90%;
   background: #e3e3e3;
 }
+
+.audio {
+  border-radius: 15px;
+  background: none;
+}
+.audio .rhap_repeat-button {
+  color: #e3e3e3;
+  margin-right: 6px;
+}
+
+.audio .rhap_main-controls-button {
+  color: #e3e3e3;
+}
+
+.audio .rhap_volume-button {
+  color: #e3e3e3;
+}
+
+.audio .rhap_time {
+  color: #e3e3e3;
+}
+
+.audio .rhap_progress-indicator {
+  background: #f44404;
+}
+
+.audio .rhap_progress-filled {
+  background-color: #f44404;
+  opacity: 0.8;
+}

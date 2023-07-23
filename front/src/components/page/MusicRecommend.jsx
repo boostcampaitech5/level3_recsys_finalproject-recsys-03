@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { FiRotateCcw, FiSave } from 'react-icons/fi';
 import PropTypes from 'prop-types';
 import Marquee from 'react-fast-marquee';
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 
 import MusicSelector from './MusicSelector';
 import './MusicRecommend.css';
@@ -162,9 +164,15 @@ class MusicRecommend extends PureComponent {
           )}
 
           <div className="playerBox">
-            <audio controls src={song.music_url}>
-              <track kind="captions" />
-            </audio>
+            <AudioPlayer
+              className="audio"
+              autoPlay={false}
+              src={song.music_url}
+              volume={0.3}
+              timeFormat="mm:ss"
+              defaultCurrentTime="00:00"
+              showJumpControls={false}
+            />
           </div>
         </div>
         <div className="footer">
