@@ -1,15 +1,17 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, createRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FiRotateCcw, FiSave } from 'react-icons/fi';
 import PropTypes from 'prop-types';
 import Marquee from 'react-fast-marquee';
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 
 import MusicSelector from './MusicSelector';
 import './MusicRecommend.css';
 import Modal from '../modal/Modal';
 import defaultImg from '../../imgs/dummy512.jpg';
 
-const Serveyurl =
+const serveyUrl =
   'https://docs.google.com/forms/d/e/1FAIpQLSf3iJv6ShZTjAbdVbo9DZVH1Z9YRluCKDW9EHlrYXj56ngGhA/viewform?entry.264447075=';
 
 const defaultSongs = [
@@ -73,6 +75,8 @@ class MusicRecommend extends PureComponent {
 
     const { songs } = this.props;
 
+    this.playerRef = createRef();
+
     this.state = {
       modalOpen: false,
       song: songs[0],
@@ -84,6 +88,10 @@ class MusicRecommend extends PureComponent {
         song: songs[e.target.swiper.realIndex],
       }));
     };
+  }
+
+  componentDidUpdate() {
+    this.playerRef.current.audio.current.pause();
   }
 
   setModalOpen(modalOpen) {
@@ -162,9 +170,16 @@ class MusicRecommend extends PureComponent {
           )}
 
           <div className="playerBox">
-            <audio controls src={song.music_url}>
-              <track kind="captions" />
-            </audio>
+            <AudioPlayer
+              className="audio"
+              autoPlay={false}
+              src={song.music_url}
+              volume={0.3}
+              timeFormat="mm:ss"
+              defaultCurrentTime="00:00"
+              showJumpControls={false}
+              ref={this.playerRef}
+            />
           </div>
         </div>
         <div className="footer">
@@ -191,7 +206,7 @@ class MusicRecommend extends PureComponent {
           <button
             className="servey"
             onClick={() => {
-              window.open(Serveyurl + sessionId);
+              window.open(serveyUrl + sessionId);
             }}
             type="button"
           >
