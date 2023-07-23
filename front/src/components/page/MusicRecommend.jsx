@@ -23,16 +23,18 @@ const defaultSongs = [
   },
   {
     song_id: 2,
-    song_title: '음악2',
-    artist_name: '가수가수가수가수가수가수가수가수2',
+    song_title: '음악2음악2음악2음악2음악2음악2음악2음악2음악2',
+    artist_name:
+      '가수가수가수가수가수가수가수가수가수가수가수가수가수가수가수2',
     album_title: '앨범2',
     music_url:
       'https://p.scdn.co/mp3-preview/bd50f6e6d92ed09aaf38b759ddd96c7164931aa1?cid=0037db4c059245e2a697e420eaf107e0',
   },
   {
     song_id: 3,
-    song_title: '음악3',
-    artist_name: '가수3',
+    song_title:
+      '사랑하긴 했었나요 스쳐가는 인연이었나요 짧지 않은 우리 함께했던 시간들이 자꾸 내 마음을 가둬두네',
+    artist_name: '잔미',
     album_title: '앨범앨범앨범앨범앨범앨범앨범앨범3',
     music_url:
       'https://p.scdn.co/mp3-preview/5274582d3f3f34e82fb83e814dcad59182c92ae4?cid=0037db4c059245e2a697e420eaf107e0',
@@ -40,7 +42,8 @@ const defaultSongs = [
   {
     song_id: 4,
     song_title: '음악4',
-    artist_name: '가수4',
+    artist_name:
+      '사랑하긴 했었나요 스쳐가는 인연이었나요 짧지 않은 우리 함께했던 시간들이 자꾸 내 마음을 가둬두네',
     album_title: '앨범4',
     music_url:
       'https://p.scdn.co/mp3-preview/a54a328016674ea6da346af84c6c06c6536195c8?cid=0037db4c059245e2a697e420eaf107e0',
@@ -62,7 +65,7 @@ const defaultSongs = [
       'https://p.scdn.co/mp3-preview/1eff5d6411ae2c65990552133729f3e907c4a793?cid=0037db4c059245e2a697e420eaf107e0',
   },
 ];
-const defaultId = '-1';
+const defaultId = 'NULL';
 
 class MusicRecommend extends PureComponent {
   constructor(props) {
@@ -97,6 +100,8 @@ class MusicRecommend extends PureComponent {
   render() {
     const { imgUrl, songs, sessionId } = this.props;
     const { modalOpen, song } = this.state;
+    const isShortSongTitle = song.song_title.length < 23;
+    const isShortArtistName = song.artist_name.length < 29;
 
     return (
       <div className="MusicRecommend">
@@ -119,19 +124,43 @@ class MusicRecommend extends PureComponent {
             <h1>일상의 노래를 찾았어요!</h1>
             <h3>당신의 일상과 취향을 모두 반영했어요</h3>
           </div>
-
           <MusicSelector
             songs={songs}
             imgUrl={imgUrl}
             onSlideChange={this.onSlideChange}
           />
           <h2>지금 노래를 들어보세요</h2>
-          <Marquee pauseOnHover speed={30}>
+          {isShortSongTitle && isShortArtistName && (
             <div className="infoBox">
               <div className="songName">{song.song_title}</div>
               <div className="artistName">{song.artist_name}</div>
             </div>
-          </Marquee>
+          )}
+          {isShortSongTitle && !isShortArtistName && (
+            <div className="infoBox">
+              <div className="songName">{song.song_title}</div>
+              <Marquee pauseOnHover speed={40}>
+                <div className="artistName">{song.artist_name}</div>
+              </Marquee>
+            </div>
+          )}
+          {!isShortSongTitle && isShortArtistName && (
+            <div className="infoBox">
+              <Marquee pauseOnHover speed={40}>
+                <div className="songName">{song.song_title}</div>
+              </Marquee>
+              <div className="artistName">{song.artist_name}</div>
+            </div>
+          )}
+          {!isShortSongTitle && !isShortArtistName && (
+            <Marquee pauseOnHover speed={40}>
+              <div className="infoBox">
+                <div className="songName">{song.song_title}</div>
+                <div className="artistName">{song.artist_name}</div>
+              </div>
+            </Marquee>
+          )}
+
           <div className="playerBox">
             <audio controls src={song.music_url}>
               <track kind="captions" />
@@ -162,7 +191,7 @@ class MusicRecommend extends PureComponent {
           <button
             className="servey"
             onClick={() => {
-              window.open(Serveyurl + { sessionId });
+              window.open(Serveyurl + sessionId);
             }}
             type="button"
           >
