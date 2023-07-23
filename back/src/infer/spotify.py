@@ -3,6 +3,9 @@ import spotipy
 import pandas as pd
 from spotipy.oauth2 import SpotifyClientCredentials
 from src.utils import check_substring
+from src.log.Logger import get_spotify_logger
+
+logger = get_spotify_logger()
 
 
 def get_spotify_url(df: pd.DataFrame, top_k: int) -> pd.DataFrame:
@@ -24,20 +27,33 @@ def get_spotify_url(df: pd.DataFrame, top_k: int) -> pd.DataFrame:
         result = sp.search(seary_query, limit=4, type="track")
 
         for idx in range(4):
-            res_release_date = result["tracks"]["items"][idx]["album"]["release_date"]
+            # res_release_date = result["tracks"]["items"][idx]["album"]["release_date"]
             res_artist_name = result["tracks"]["items"][idx]["artists"][0]["name"]
             res_title = result["tracks"]["items"][idx]["name"]
             url = result["tracks"]["items"][idx]["preview_url"]
 
             if res_title != title and res_artist_name != artist:
-                print(f"spotify : {res_title},  {res_artist_name}")
-                print(f"genie : {title},  {artist}")
                 if not (check_substring(res_title, title) and check_substring(res_artist_name, artist)):
-                    print("wrong!!")
-                    print(f"spotify : {res_title},  {res_artist_name}")
-                    print(f"genie : {title},  {artist}")
-                    print("-----------------------------------------------")
+                    logger.warning(
+                        {
+                            "song_id": df.iloc[i]["song_id"],
+                            "spotify_title": res_title,
+                            "spotify_artist": res_artist_name,
+                            "genie_title": title,
+                            "genie_artist": artist,
+                        }
+                    )
                     url = None
+                else:
+                    logger.info(
+                        {
+                            "song_id": df.iloc[i]["song_id"],
+                            "spotify_title": res_title,
+                            "spotify_artist": res_artist_name,
+                            "genie_title": title,
+                            "genie_artist": artist,
+                        }
+                    )
 
             if url:
                 urls.append(
@@ -50,7 +66,10 @@ def get_spotify_url(df: pd.DataFrame, top_k: int) -> pd.DataFrame:
                         "music_url": url,
                     }
                 )
+                logger.info({"song_id": df.iloc[i]["song_id"], "music_url": url})
                 break
+            else:
+                logger.warning({"song_id": df.iloc[i]["song_id"], "music_url": url})
 
     df = pd.DataFrame(urls)
     return df
