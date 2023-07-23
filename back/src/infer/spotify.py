@@ -32,7 +32,7 @@ def get_spotify_url(df: pd.DataFrame, top_k: int) -> pd.DataFrame:
             res_title = result["tracks"]["items"][idx]["name"]
             url = result["tracks"]["items"][idx]["preview_url"]
 
-            if res_title != title and res_artist_name != artist:
+            if res_title != title or res_artist_name != artist:
                 if not (check_substring(res_title, title) and check_substring(res_artist_name, artist)):
                     logger.warning(
                         {
