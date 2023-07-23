@@ -24,9 +24,9 @@ def get_spotify_url(df: pd.DataFrame, top_k: int) -> pd.DataFrame:
         artist = df.iloc[i]["artist_name"]
 
         seary_query = title + " " + artist
-        result = sp.search(seary_query, limit=4, type="track")
+        result = sp.search(seary_query, limit=3, type="track")
 
-        for idx in range(4):
+        for idx in range(3):
             # res_release_date = result["tracks"]["items"][idx]["album"]["release_date"]
             res_artist_name = result["tracks"]["items"][idx]["artists"][0]["name"]
             res_title = result["tracks"]["items"][idx]["name"]
