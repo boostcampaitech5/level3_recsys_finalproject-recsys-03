@@ -206,7 +206,7 @@ class MusicRecommend extends PureComponent {
           <button
             className="servey"
             onClick={() => {
-              window.open(serveyUrl + { sessionId });
+              window.open(serveyUrl + sessionId);
             }}
             type="button"
           >
