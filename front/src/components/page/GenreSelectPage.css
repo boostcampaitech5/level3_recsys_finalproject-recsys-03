@@ -40,18 +40,19 @@
 }
 
 .GenreSelectPage .footer button {
-  width: 90%;
-  text-align: left;
-  padding: 20px;
-}
-
-.GenreSelectPage .next {
-  background: #f44404;
+  height: 100%;
+  border: none;
+  border-radius: 15px;
+  font-weight: 900;
   color: black;
 }
 
+.footer button svg:nth-of-type(1) {
+  margin: auto 5px;
+}
+
 .GenreSelectPage .next svg {
-  margin-left: auto;
+  margin-left: 10px;
 }
 
 .GenreSelectPage .genreBox {
@@ -79,4 +80,29 @@
 
 .GenreSelectPage .GenreSelector.disabled {
   color: rgb(129, 129, 129);
+}
+
+.GenreSelectPage .buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 10px;
+  height: 100%;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.GenreSelectPage .next {
+  width: 100%;
+  background: #f44404;
+}
+
+.GenreSelectPage .prev {
+  width: 100%;
+  background: #e3e3e3;
+}
+
+.GenreSelectPage .buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
