@@ -29,7 +29,7 @@ def main(config) -> None:
     # add faiss index
     dataset_with_embeddings.add_faiss_index(column="embeddings", metric_type=faiss.METRIC_INNER_PRODUCT)
     # save faiss index
-    dataset_with_embeddings.save_faiss_index(index_name="embeddings", file=os.path.join(save_dir, f"{tag_type}.index"))
+    dataset_with_embeddings.save_faiss_index(index_name="embeddings", file=os.path.join(save_dir, f"{name}.index"))
     # save dataset
     dataset_with_embeddings.drop_index(index_name="embeddings")
     dataset_with_embeddings.save_to_disk(os.path.join(save_dir, f"{tag_type}_dataset"))
