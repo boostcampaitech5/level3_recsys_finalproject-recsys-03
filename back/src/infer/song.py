@@ -32,7 +32,7 @@ class SongIdExtractor:
                 self.playlist = pd.read_csv(os.path.join(self.CSV_PATH, file))
             elif "songs_detail" in file:
                 self.song_detail = pd.read_csv(os.path.join(self.CSV_PATH, file))
-            elif "songs_v" in file:
+            elif "songs_0723" in file:
                 self.songs = pd.read_csv(os.path.join(self.CSV_PATH, file))
             elif "keys" in file:
                 self.youtube = pd.read_csv(os.path.join(self.CSV_PATH, file))
@@ -60,7 +60,7 @@ class SongIdExtractor:
         self.youtube.columns = [col.lower() for col in self.youtube.columns]
         self.youtube["song_id"] = self.youtube["song_id"].apply(lambda x: str(int(x)))
 
-        self.songs = self.songs[["SONG_TITLE", "SONG_ID", "ARTIST_NAME", "ALBUM_TITLE"]]
+        self.songs = self.songs[["SONG_TITLE", "SONG_ID", "ARTIST_NAME", "ALBUM_TITLE", "RELEASE_DATE"]]
         self.songs["SONG_ID"] = self.songs["SONG_ID"].apply(lambda x: str(int(x)))
 
         self.song_detail = self.song_detail[self.song_detail.SONG_ID.isna() == False]
@@ -97,6 +97,7 @@ class SongIdExtractor:
                 "youtube_key",
                 "artist_name",
                 "album_title",
+                "release_date",
             ]
         ]
 
@@ -106,7 +107,8 @@ class SongIdExtractor:
 
         merged["pl_score"] = merged.pl_favor + merged.pl_match + (1 / merged.pl_match)
         rec_result = merged.sort_values(by=["user_genre", "pl_score", "favor_score"], ascending=False).reset_index(drop=True)
-        rec_songs = rec_result[:song_k][["song_id", "youtube_key", "song_title", "artist_name", "album_title"]]
+        rec_result = rec_result.drop_duplicates(["song_id"])
+        rec_songs = rec_result[:][["song_id", "youtube_key", "song_title", "artist_name", "album_title", "release_date"]]
 
         return rec_songs
 
