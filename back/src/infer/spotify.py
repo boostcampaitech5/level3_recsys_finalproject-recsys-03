@@ -22,54 +22,53 @@ def get_spotify_url(df: pd.DataFrame, top_k: int) -> pd.DataFrame:
 
         title = df.iloc[i]["song_title"]
         artist = df.iloc[i]["artist_name"]
+        release_date = df.iloc[i]["release_date"]
 
         seary_query = title + " " + artist
-        result = sp.search(seary_query, limit=3, type="track")
+        result = sp.search(seary_query, limit=4, type="track")
+        res_score = -1
+        url = ""
 
-        for idx in range(3):
-            # res_release_date = result["tracks"]["items"][idx]["album"]["release_date"]
-            res_artist_name = result["tracks"]["items"][idx]["artists"][0]["name"]
-            res_title = result["tracks"]["items"][idx]["name"]
-            url = result["tracks"]["items"][idx]["preview_url"]
+        for item in result["tracks"]["items"]:
+            res_release_date = item["album"]["release_date"]
+            res_artist_name = item["artists"][0]["name"]
+            res_title = item["name"]
+            res_url = item["preview_url"]
 
-            if res_title != title or res_artist_name != artist:
-                if not (check_substring(res_title, title) and check_substring(res_artist_name, artist)):
-                    logger.warning(
-                        {
-                            "song_id": df.iloc[i]["song_id"],
-                            "spotify_title": res_title,
-                            "spotify_artist": res_artist_name,
-                            "genie_title": title,
-                            "genie_artist": artist,
-                        }
-                    )
-                    url = None
-                else:
-                    logger.info(
-                        {
-                            "song_id": df.iloc[i]["song_id"],
-                            "spotify_title": res_title,
-                            "spotify_artist": res_artist_name,
-                            "genie_title": title,
-                            "genie_artist": artist,
-                        }
-                    )
+            if not res_url:
+                continue
 
-            if url:
-                urls.append(
-                    {
-                        "song_id": df.iloc[i]["song_id"],
-                        "youtube_key": df.iloc[i]["youtube_key"],
-                        "song_title": df.iloc[i]["song_title"],
-                        "artist_name": df.iloc[i]["artist_name"],
-                        "album_title": df.iloc[i]["album_title"],
-                        "music_url": url,
-                    }
-                )
-                logger.info({"song_id": df.iloc[i]["song_id"], "music_url": url})
-                break
-            else:
-                logger.warning({"song_id": df.iloc[i]["song_id"], "music_url": url})
+            now_score = check_substring(res_title, title) + check_substring(res_artist_name, artist) + (res_release_date == release_date)
+            logger.info(
+                {"now_score": now_score, "spotify_title": res_title, "spotify_artist": res_artist_name, "genie_title": title, "genie_artist": artist}
+            )
+
+            if now_score > res_score:
+                url = res_url
+                res_score = now_score
+
+        if res_score <= 1:
+            url = None
+
+        if url:
+            urls.append(
+                {
+                    "song_id": df.iloc[i]["song_id"],
+                    "youtube_key": df.iloc[i]["youtube_key"],
+                    "song_title": df.iloc[i]["song_title"],
+                    "artist_name": df.iloc[i]["artist_name"],
+                    "album_title": df.iloc[i]["album_title"],
+                    "music_url": url,
+                }
+            )
+            logger.info(
+                {
+                    "song_id": df.iloc[i]["song_id"],
+                    "music_url": url,
+                }
+            )
+        else:
+            logger.warning({"song_id": df.iloc[i]["song_id"], "music_url": url})
 
     df = pd.DataFrame(urls)
     return df

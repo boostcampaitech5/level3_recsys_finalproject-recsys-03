@@ -22,6 +22,6 @@ def str2list(data: pd.DataFrame, columns: list) -> None:
 
 
 def check_substring(result: str, query: str) -> bool:
-    result = result.lower()
-    query = query.lower()
+    result = result.lower().replace(" ", "")
+    query = query.lower().replace(" ", "")
     return result in query or query in result
