@@ -60,21 +60,6 @@
   width: 85%;
 }
 
-/* .UploadPage .uploadBnt {
-  width: 90%;
-  height: 100%;
-  margin: auto;
-  background-color: #f44404;
-  border-radius: 15px;
-  font-family: 'Noto Sans KR', sans-serif;
-  text-align: center;
-  font-weight: 900;
-  font-size: 1.1em;
-  color: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-} */
 .UploadPage .footer button {
   height: 100%;
   border: none;
@@ -110,8 +95,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* width: 100%;
-  background: #f44404; */
 }
 
 .UploadPage .prev {
