@@ -1,6 +1,6 @@
 import React, { PureComponent, createRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiChevronsRight } from 'react-icons/fi';
+import { FiChevronsRight, FiChevronsLeft } from 'react-icons/fi';
 import PropTypes from 'prop-types';
 import './GenreSelectPage.css';
 import SelectButton from './SelectButton';
@@ -103,6 +103,11 @@ class GenreSelectorPage extends PureComponent {
     });
   }
 
+  goPrev() {
+    const { navigate } = this.props;
+    navigate('/');
+  }
+
   toggleNoMatter() {
     const { selectedNoMatter } = this.state;
     const newSelectedNoMatter = !selectedNoMatter;
@@ -164,10 +169,24 @@ class GenreSelectorPage extends PureComponent {
           </div>
         </div>
         <div className="footer">
-          <button className="next" onClick={() => this.goNext()} type="button">
-            <span>다음으로</span>
-            <FiChevronsRight />
-          </button>
+          <div className="buttons">
+            <button
+              className="prev"
+              type="button"
+              onClick={() => this.goPrev()}
+            >
+              <FiChevronsLeft />
+              이전으로
+            </button>
+            <button
+              className="next"
+              type="button"
+              onClick={() => this.goNext()}
+            >
+              다음으로
+              <FiChevronsRight />
+            </button>
+          </div>
         </div>
       </div>
     );

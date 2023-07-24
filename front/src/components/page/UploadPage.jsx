@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { FiUpload } from 'react-icons/fi';
+import { FiUpload, FiChevronsLeft } from 'react-icons/fi';
 import './UploadPage.css';
 import heic2any from 'heic2any';
 import WrongImg1 from '../../wrong1.jpg';
@@ -22,6 +22,10 @@ function ImageUploadPage() {
         genres: info.genres,
       },
     });
+  };
+
+  const naviagteToPrev = () => {
+    navigate('/genre-select');
   };
 
   const insertImg = (e) => {
@@ -111,19 +115,29 @@ function ImageUploadPage() {
         </div>
       </div>
       <div className="footer">
-        <label htmlFor="file" className="bnt-container">
-          <div className="uploadBnt">
-            <span>사진 업로드하기 </span>
-            <FiUpload />
-          </div>
-        </label>
-        <input
-          type="file"
-          id="file"
-          accept="image/png, image/jpg, image/jpeg, image/heic, image/heif"
-          onChange={(e) => insertImg(e)}
-          style={{ display: 'none' }}
-        />
+        <div className="buttons">
+          <button
+            className="prev"
+            type="button"
+            onClick={() => naviagteToPrev()}
+          >
+            <FiChevronsLeft />
+            이전으로
+          </button>
+          <label htmlFor="file" className="uploadBnt">
+            <div className="uploadBnt">
+              <span>업로드하기 </span>
+              <FiUpload />
+            </div>
+          </label>
+          <input
+            type="file"
+            id="file"
+            accept="image/png, image/jpg, image/jpeg, image/heic, image/heif"
+            onChange={(e) => insertImg(e)}
+            style={{ display: 'none' }}
+          />
+        </div>
       </div>
     </div>
   );
