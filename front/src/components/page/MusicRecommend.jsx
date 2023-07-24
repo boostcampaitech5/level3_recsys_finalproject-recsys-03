@@ -210,7 +210,7 @@ class MusicRecommend extends PureComponent {
             }}
             type="button"
           >
-            <span>간단한 설문조사하고 커피 받기! ☕️</span>
+            <span>설문 참여하고 배민 상품권 받기! 🍕</span>
           </button>
         </div>
       </div>
