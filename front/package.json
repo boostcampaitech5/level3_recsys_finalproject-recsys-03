@@ -12,6 +12,7 @@
     "http-proxy-middleware": "^2.0.6",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
     "react-easy-crop": "^5.0.0",
     "react-fast-marquee": "^1.6.0",

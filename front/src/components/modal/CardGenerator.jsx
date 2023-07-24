@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isIOS } from 'react-device-detect';
 import defaultImg from '../../imgs/dummy512.jpg';
 import backgroundMusicCardImg from '../../imgs/white_background_qr.png';
 
@@ -25,7 +26,7 @@ const drawBackgroundMusicCard = (canvas, ctx, onLoadFinished) => {
   };
 };
 
-const drawQueryImage = (canvas, ctx, url, backgroundImgTag) => {
+const drawQueryImage = (canvas, ctx, url, backgroundImgTag, onLoadFinished) => {
   const queryImgTag = new Image();
   queryImgTag.src = url;
 
@@ -69,6 +70,8 @@ const drawQueryImage = (canvas, ctx, url, backgroundImgTag) => {
     ctx.clip();
 
     ctx.drawImage(queryImgTag, x, y, queryWidth, queryHeight);
+
+    onLoadFinished();
   };
 };
 
@@ -76,6 +79,7 @@ class CardGenerator extends Component {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
+    this.imgRef = React.createRef();
   }
 
   componentDidMount() {
@@ -175,7 +179,10 @@ class CardGenerator extends Component {
         backgroundImgTag.height - backgroundImgTag.height * 0.25
       );
 
-      drawQueryImage(canvas, ctx, imgUrl, backgroundImgTag);
+      drawQueryImage(canvas, ctx, imgUrl, backgroundImgTag, () => {
+        const dataURL = canvas.toDataURL('image/png');
+        this.imgRef.current.src = dataURL;
+      });
     });
   }
 
@@ -191,11 +198,26 @@ class CardGenerator extends Component {
     }
   };
 
-  render() {
+  renderByOs(isIos) {
+    if (isIos) {
+      return (
+        <>
+          <div className="cardHeader">
+            <span>이미지를 길게 눌러 저장하기</span>
+          </div>
+          <div className="title">
+            <canvas ref={this.canvasRef} style={{ width: '0%' }} />
+            <img ref={this.imgRef} style={{ width: '100%' }} alt="card" />
+          </div>
+        </>
+      );
+    }
+
     return (
       <>
         <div className="title">
-          <canvas ref={this.canvasRef} style={{ width: '100%' }} />
+          <canvas ref={this.canvasRef} style={{ width: '0%' }} />
+          <img ref={this.imgRef} style={{ width: '100%' }} alt="card" />
         </div>
         <div className="bottom">
           <button
@@ -208,6 +230,10 @@ class CardGenerator extends Component {
         </div>
       </>
     );
+  }
+
+  render() {
+    return this.renderByOs(isIOS);
   }
 }
 

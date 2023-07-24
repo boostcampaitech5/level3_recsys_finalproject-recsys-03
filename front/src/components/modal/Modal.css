@@ -118,6 +118,13 @@
   fill: white;
 }
 
+.cardHeader {
+  color: white;
+  font-weight: 900;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
 @keyframes modal-show {
   from {
     opacity: 0;
