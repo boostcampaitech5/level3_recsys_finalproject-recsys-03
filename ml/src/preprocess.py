@@ -107,7 +107,14 @@ def check_img_temp(url: str, temp_dir: str):
 
 def generate_df(df: pd.DataFrame, tag_type: str) -> pd.DataFrame:
     tag_col = f"tag_{tag_type}"
-    tag_list = tag_uniques(df[tag_col])
+
+    if tag_type == "weather":
+        tag_list = ['봄', '여름', '가을', '겨울', '우중충한날']
+    if tag_type == "mood":
+        tag_list = ['힘찬', '몽환적인', '밝은', '슬픔', '우울/외로움', '편안한', '사랑']
+    if tag_type == "sit":
+        tag_list = ['집중', '여유', '밤', '오후', '저녁', '기분전환', '산책', '운동']
+    
     col_list = [tag_type[0] + str(i) for i in range(len(tag_list))]
 
     for tag, col in zip(tag_list, col_list):
