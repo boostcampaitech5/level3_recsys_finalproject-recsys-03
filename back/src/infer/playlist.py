@@ -11,7 +11,7 @@ from huggingface_hub import Repository
 from typing import List, Optional
 from transformers import AutoImageProcessor, AutoModel, ViTImageProcessor, ViTModel
 
-from src.utils import create_dir, get_first_dir
+from src.utils import create_dir
 
 
 class PlaylistIdExtractor:
@@ -31,27 +31,32 @@ class PlaylistIdExtractor:
         # set model path
         self.MODEL_REPO = f"Recdol/PL_Multilabel"
 
-        self.WEATHER_MODEL_VERSION = "weather-19_023325"
+        self.WEATHER_MODEL_VERSION = "weather-23_174820"
         self.WEATHER_SUB = f"weather/{self.WEATHER_MODEL_VERSION}/{self.WEATHER_MODEL_VERSION}_huggingface"
 
-        self.SIT_MODEL_VERSION = "sit-19_055337"
+        self.SIT_MODEL_VERSION = "sit-23_180832"
         self.SIT_SUB = f"sit/{self.SIT_MODEL_VERSION}/{self.SIT_MODEL_VERSION}_huggingface"
 
-        self.MOOD_MODEL_VERSION = "mood-19_110133"
+        self.MOOD_MODEL_VERSION = "mood-24_012158"
         self.MOOD_SUB = f"mood/{self.MOOD_MODEL_VERSION}/{self.MOOD_MODEL_VERSION}_huggingface"
 
         # set data path
         self.DATA_PATH = os.path.join(self.HUB_PATH, "PLAYLIST")
         self.mood_data_path = os.path.join(self.DATA_PATH, "mood")
         self.sit_data_path = os.path.join(self.DATA_PATH, "sit")
-        weather_data_path = os.path.join(self.DATA_PATH, "weather")
-        self.WEATHER_DATA = os.path.join(weather_data_path, get_first_dir(weather_data_path))
+        self.weather_data_path = os.path.join(self.DATA_PATH, "weather")
 
         # set faiss path
         self.FAISS_PATH = os.path.join(self.HUB_PATH, "faiss_index")
-        self.WEATHER_FAISS = os.path.join(self.FAISS_PATH, "weather")
-        self.SIT_FAISS = os.path.join(self.FAISS_PATH, "sit")
-        self.MOOD_FAISS = os.path.join(self.FAISS_PATH, "mood")
+
+        self.WEATHER_MODEL_VERSION = "weather-23_174820"
+        self.WEATHER_FAISS_PATH = os.path.join(self.FAISS_PATH, f"weather/{self.WEATHER_MODEL_VERSION}.index")
+
+        self.SIT_MODEL_VERSION = "sit-23_180832"
+        self.SIT_FAISS_PATH = os.path.join(self.FAISS_PATH, f"sit/{self.SIT_MODEL_VERSION}.index")
+
+        self.MOOD_MODEL_VERSION = "mood-24_012158"
+        self.MOOD_FAISS_PATH = os.path.join(self.FAISS_PATH, f"mood/{self.MOOD_MODEL_VERSION}.index")
 
     def load_index_file_path(self, path: str) -> str:
         file_list = os.listdir(path)
@@ -76,14 +81,14 @@ class PlaylistIdExtractor:
             Repository(local_dir=self.DATA_PATH).git_pull()
             Repository(local_dir=self.FAISS_PATH).git_pull()
 
-        self.weather_dataset = datasets.load_from_disk(self.WEATHER_DATA)
-        self.weather_dataset.load_faiss_index(index_name="embeddings", file=self.load_index_file_path(self.WEATHER_FAISS))
+        self.weather_dataset = self.read_dataset(self.weather_data_path)
+        self.weather_dataset.load_faiss_index(index_name="embeddings", file=self.WEATHER_FAISS_PATH)
 
         self.sit_dataset = self.read_dataset(self.sit_data_path)
-        self.sit_dataset.load_faiss_index(index_name="embeddings", file=self.load_index_file_path(self.SIT_FAISS))
+        self.sit_dataset.load_faiss_index(index_name="embeddings", file=self.SIT_FAISS_PATH)
 
         self.mood_dataset = self.read_dataset(self.mood_data_path)
-        self.mood_dataset.load_faiss_index(index_name="embeddings", file=self.load_index_file_path(self.MOOD_FAISS))
+        self.mood_dataset.load_faiss_index(index_name="embeddings", file=self.MOOD_FAISS_PATH)
 
     def load_model(self):
         self.weather_processor = AutoImageProcessor.from_pretrained(self.MODEL_REPO, subfolder=self.WEATHER_SUB)
