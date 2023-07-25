@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { FiUpload, FiChevronsLeft } from 'react-icons/fi';
+import { FiChevronsLeft } from 'react-icons/fi';
 import './UploadPage.css';
 import heic2any from 'heic2any';
 import WrongImg1 from '../../wrong1.jpg';
@@ -125,9 +125,8 @@ function ImageUploadPage() {
             이전으로
           </button>
           <label htmlFor="file" className="uploadBnt">
-            <div className="uploadBnt">
+            <div>
               <span>업로드하기 </span>
-              <FiUpload />
             </div>
           </label>
           <input
