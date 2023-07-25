@@ -1,6 +1,7 @@
 import React, { PureComponent, createRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { FiRotateCcw, FiSave } from 'react-icons/fi';
+import { FiRotateCcw } from 'react-icons/fi';
+import { TbCards } from 'react-icons/tb';
 import PropTypes from 'prop-types';
 import Marquee from 'react-fast-marquee';
 import AudioPlayer from 'react-h5-audio-player';
@@ -199,8 +200,8 @@ class MusicRecommend extends PureComponent {
                 this.setModalOpen(true);
               }}
             >
-              <FiSave />
-              저장하기
+              <TbCards />
+              포토카드 받기
             </button>
           </div>
           <button
