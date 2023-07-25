@@ -1,16 +1,17 @@
 import React, { PureComponent, createRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { FiRotateCcw } from 'react-icons/fi';
+import { FiRotateCcw, FiHeart } from 'react-icons/fi';
 import { TbCards } from 'react-icons/tb';
 import PropTypes from 'prop-types';
 import Marquee from 'react-fast-marquee';
-import AudioPlayer from 'react-h5-audio-player';
+import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
 import MusicSelector from './MusicSelector';
 import './MusicRecommend.css';
 import Modal from '../modal/Modal';
 import defaultImg from '../../imgs/dummy512.jpg';
+import requestUserFeedback from '../../requests/requestUserFeedback';
 
 const serveyUrl =
   'https://docs.google.com/forms/d/e/1FAIpQLSf3iJv6ShZTjAbdVbo9DZVH1Z9YRluCKDW9EHlrYXj56ngGhA/viewform?entry.264447075=';
@@ -81,18 +82,26 @@ class MusicRecommend extends PureComponent {
     this.state = {
       modalOpen: false,
       song: songs[0],
+      isLike: false,
     };
 
     this.onSlideChange = (e) => {
       this.setState((state) => ({
         modalOpen: state.modalOpen,
         song: songs[e.target.swiper.realIndex],
+        isLike: false,
       }));
     };
   }
 
   componentDidUpdate() {
     this.playerRef.current.audio.current.pause();
+  }
+
+  onClick() {
+    this.setState((prevState) => ({
+      isLike: !prevState.isLike,
+    }));
   }
 
   setModalOpen(modalOpen) {
@@ -108,7 +117,7 @@ class MusicRecommend extends PureComponent {
 
   render() {
     const { imgUrl, songs, sessionId } = this.props;
-    const { modalOpen, song } = this.state;
+    const { modalOpen, song, isLike } = this.state;
     const isShortSongTitle = song.song_title.length < 23;
     const isShortArtistName = song.artist_name.length < 29;
 
@@ -121,8 +130,6 @@ class MusicRecommend extends PureComponent {
                 imgUrl={imgUrl}
                 artistName={song.artist_name}
                 musicTitle={song.song_title}
-                sessionId={sessionId}
-                songId={song.song_id}
                 setOpenModal={() => {
                   this.setModalOpen();
                 }}
@@ -172,6 +179,22 @@ class MusicRecommend extends PureComponent {
 
           <div className="playerBox">
             <AudioPlayer
+              customAdditionalControls={[
+                RHAP_UI.LOOP,
+                <button
+                  className="feedbackbtn"
+                  onClick={() => {
+                    this.onClick();
+                    requestUserFeedback(sessionId, song.song_id, !isLike);
+                  }}
+                  type="button"
+                >
+                  <FiHeart
+                    fill={isLike ? '#f44404' : 'black'}
+                    color="#f44404"
+                  />
+                </button>,
+              ]}
               className="audio"
               autoPlay={false}
               src={song.music_url}

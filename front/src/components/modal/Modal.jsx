@@ -1,28 +1,9 @@
-import { React, useState } from 'react';
+import { React } from 'react';
 import './Modal.css';
 import PropTypes from 'prop-types';
 import CardGen from './CardGenerator';
-import requestUserFeedback from '../../requests/requestUserFeedback';
 
-function Modal({
-  setOpenModal,
-  imgUrl,
-  artistName,
-  musicTitle,
-  songId,
-  sessionId,
-}) {
-  const [thumbsup, setThumbsup] = useState(false);
-  const [thumbsdown, setThumbsdown] = useState(false);
-  const onThumbsup = () => {
-    setThumbsdown(false);
-    setThumbsup(!thumbsup);
-  };
-  const onThumbsdown = () => {
-    setThumbsup(false);
-    setThumbsdown(!thumbsdown);
-  };
-
+function Modal({ setOpenModal, imgUrl, artistName, musicTitle }) {
   return (
     <div className="modalBackground">
       <div className="modalContainer">
@@ -51,54 +32,6 @@ function Modal({
         />
         <div className="feedback">
           <span>해당 노래가 잘 어울리나요?</span>
-          <div className="thumbtns">
-            <button
-              className="thumbtn"
-              onClick={() => {
-                onThumbsup();
-                requestUserFeedback(
-                  sessionId,
-                  songId,
-                  !thumbsup,
-                  thumbsup && thumbsdown
-                );
-              }}
-              type="button"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="20"
-                viewBox="0 -960 960 960"
-                width="20"
-                fill={thumbsup ? '#f44404' : 'white'}
-              >
-                <path d="M716-120H272v-512l278-288 39 31q6 5 9 14t3 22v10l-45 211h299q24 0 42 18t18 42v81.839q0 7.161 1.5 14.661T915-461L789-171q-8.878 21.25-29.595 36.125Q738.689-120 716-120Zm-384-60h397l126-299v-93H482l53-249-203 214v427Zm0-427v427-427Zm-60-25v60H139v392h133v60H79v-512h193Z" />
-              </svg>
-            </button>
-            <button
-              className="thumbtn"
-              onClick={() => {
-                onThumbsdown();
-                requestUserFeedback(
-                  sessionId,
-                  songId,
-                  thumbsup && thumbsdown,
-                  !thumbsdown
-                );
-              }}
-              type="button"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="20"
-                viewBox="0 -960 960 960"
-                width="20"
-                fill={thumbsdown ? '#f44404' : 'white'}
-              >
-                <path d="M242-840h444v512L408-40l-39-31q-6-5-9-14t-3-22v-10l45-211H103q-24 0-42-18t-18-42v-81.839Q43-477 41.5-484.5T43-499l126-290q8.878-21.25 29.595-36.125Q219.311-840 242-840Zm384 60H229L103-481v93h373l-53 249 203-214v-427Zm0 427v-427 427Zm60 25v-60h133v-392H686v-60h193v512H686Z" />
-              </svg>
-            </button>
-          </div>
         </div>
       </div>
     </div>
@@ -110,8 +43,6 @@ Modal.propTypes = {
   imgUrl: PropTypes.string.isRequired,
   artistName: PropTypes.string.isRequired,
   musicTitle: PropTypes.string.isRequired,
-  songId: PropTypes.number.isRequired,
-  sessionId: PropTypes.string.isRequired,
 };
 
 export default Modal;
