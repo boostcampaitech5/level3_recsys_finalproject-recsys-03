@@ -32,7 +32,7 @@ class SongIdExtractor:
                 self.playlist = pd.read_csv(os.path.join(self.CSV_PATH, file))
             elif "songs_detail" in file:
                 self.song_detail = pd.read_csv(os.path.join(self.CSV_PATH, file))
-            elif "songs_0723" in file:
+            elif "songs_v" in file:
                 self.songs = pd.read_csv(os.path.join(self.CSV_PATH, file))
             elif "keys" in file:
                 self.youtube = pd.read_csv(os.path.join(self.CSV_PATH, file))
