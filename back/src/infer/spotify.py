@@ -3,7 +3,7 @@ import spotipy
 import pandas as pd
 from spotipy.oauth2 import SpotifyClientCredentials
 from src.utils import check_substring
-from src.log.Logger import get_spotify_logger
+from src.log.logger import get_spotify_logger
 
 logger = get_spotify_logger()
 
