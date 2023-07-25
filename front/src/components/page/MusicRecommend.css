@@ -58,20 +58,41 @@
 }
 
 .MusicRecommend .retry {
-  width: 100%;
+  width: 98%;
+  height: 100%;
+  box-shadow: 0px 0px 0px 2px #e3e3e3;
   background: #e3e3e3;
 }
 
 .MusicRecommend .save {
-  width: 100%;
+  width: 98%;
+  height: 100%;
+  box-shadow: 0px 0px 0px 2px #f44404;
   background: #f44404;
 }
 
 .MusicRecommend .servey {
   margin-top: 3%;
   margin-bottom: 10%;
-  width: 90%;
+  width: 88%;
+  height: 100%;
+  box-shadow: 0px 0px 0px 2px #e3e3e3;
   background: #e3e3e3;
+}
+
+.MusicRecommend .retry:hover {
+  color: #e3e3e3;
+  background-color: black;
+}
+
+.MusicRecommend .servey:hover {
+  color: #e3e3e3;
+  background-color: black;
+}
+
+.MusicRecommend .save:hover {
+  color: #f44404;
+  background-color: black;
 }
 
 .audio {
