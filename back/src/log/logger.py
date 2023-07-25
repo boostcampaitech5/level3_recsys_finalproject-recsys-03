@@ -1,7 +1,6 @@
 import logging
 import logging.config
 from src.utils import create_dir
-from pythonjsonlogger import jsonlogger
 
 
 OUTPUT_PATH = "outputs/logs"
