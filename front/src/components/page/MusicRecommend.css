@@ -124,3 +124,32 @@
   background-color: #f44404;
   opacity: 0.8;
 }
+
+.audio .rhap_additional-controls {
+  flex: 1 1;
+}
+
+.audio .rhap_main-controls {
+  flex: 1;
+}
+
+.audio .rhap_volume-controls {
+  flex: 1;
+}
+
+.feedbackbtn {
+  text-align: center;
+  align-items: center;
+  color: white;
+  fill: white;
+  background-color: black;
+  border: none;
+  width: 25px;
+  height: 20px;
+  margin-right: -5%;
+}
+.feedbackbtn svg {
+  width: 23px;
+  height: 23px;
+  margin-top: -2.5px;
+}
