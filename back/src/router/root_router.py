@@ -75,7 +75,7 @@ async def recommend_music(
 
 
 @router.post("/userFeedback")
-async def user_Feedback(data: UserFeedbackRequest) -> None:
+async def user_feedback(data: UserFeedbackRequest) -> None:
     feedback_logger.info(
         {
             "session Id": data.session_id,
