@@ -1,13 +1,13 @@
 from fastapi import APIRouter, UploadFile, File, Depends
 from uuid import uuid4
 
-from back.src.router.dto.recommend_music_request import RecommendMusicRequest
-from back.src.router.dto.recommend_music_response import RecommendMusicResponse, RecommendMusic
-from back.src.router.dto.user_feedback_request import UserFeedbackRequest
+from src.router.dto.recommend_music_request import RecommendMusicRequest
+from src.router.dto.recommend_music_response import RecommendMusicResponse, RecommendMusic
+from src.router.dto.user_feedback_request import UserFeedbackRequest
 from src.infer.playlist import PlaylistIdExtractor
 from src.infer.song import SongIdExtractor
-from back.src.log.logger import get_user_logger, get_feedback_logger
-from back.src.router.save_file import save_file
+from src.log.logger import get_user_logger, get_feedback_logger
+from src.router.preprocess import save_file, resize_img
 from src.infer.spotify import get_spotify_url
 
 
@@ -19,7 +19,7 @@ feedback_logger = get_feedback_logger()
 pl_k = 3
 song_k = 15
 top_k = 6  # song_k must be more than 6 or loop of silder must be False
-
+SIZE = 224
 
 playlist = PlaylistIdExtractor(k=pl_k, is_data_pull=True)
 song = SongIdExtractor(k=song_k, is_data_pull=True)
@@ -31,6 +31,7 @@ async def recommend_music(
 ) -> RecommendMusicResponse:
     session_id = str(uuid4()).replace("-", "_")
     img_path = save_file(session_id, image)
+    resize_img(img_path, SIZE)
 
     pl_scores, pl_ids = [], []
 
