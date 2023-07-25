@@ -50,7 +50,6 @@
   height: 95%;
   color: black;
   font-weight: 900;
-  font-size: 1.1em;
   background: #e3e3e3;
   box-shadow: 0px 0px 0px 2px #e3e3e3;
   background: #e3e3e3;
@@ -62,6 +61,12 @@
   color: black;
   box-shadow: 0px 0px 0px 2px #f44404;
   background: #f44404;
+}
+
+.CropPage .notice {
+  color: #d4d4d4;
+  margin-top: 2em;
+  font-size: 0.8em;
 }
 
 .CropPage .retry:hover {
