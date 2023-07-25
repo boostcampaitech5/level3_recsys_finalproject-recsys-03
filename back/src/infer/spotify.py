@@ -2,6 +2,10 @@ import os
 import spotipy
 import pandas as pd
 from spotipy.oauth2 import SpotifyClientCredentials
+from src.utils import check_substring
+from src.log.Logger import get_spotify_logger
+
+logger = get_spotify_logger()
 
 
 def get_spotify_url(df: pd.DataFrame, top_k: int) -> pd.DataFrame:
@@ -18,10 +22,39 @@ def get_spotify_url(df: pd.DataFrame, top_k: int) -> pd.DataFrame:
 
         title = df.iloc[i]["song_title"]
         artist = df.iloc[i]["artist_name"]
+        release_date = df.iloc[i]["release_date"]
 
         seary_query = title + " " + artist
-        result = sp.search(seary_query, limit=1, type="track")
-        url = result["tracks"]["items"][0]["preview_url"]
+        result = sp.search(seary_query, limit=4, type="track")
+        res_score = -1
+        url = ""
+
+        for item in result["tracks"]["items"]:
+            try:
+                res_release_date = item["album"]["release_date"]
+                res_artist_name = item["artists"][0]["name"]
+                res_title = item["name"]
+                res_url = item["preview_url"]
+            except TypeError:
+                pass
+
+            if not res_url:
+                continue
+
+            now_score = check_substring(res_title, title) + check_substring(res_artist_name, artist) + (res_release_date == release_date)
+            logger.info(
+                {"now_score": now_score, "spotify_title": res_title, "spotify_artist": res_artist_name, "genie_title": title, "genie_artist": artist}
+            )
+
+            if now_score > res_score:
+                url = res_url
+                res_score = now_score
+
+        if res_score <= 1:
+            url = None
+
+        if (not url) and (result["tracks"]["items"][0]["album"]["release_date"] == release_date):
+            url = result["tracks"]["items"][0]["preview_url"]
 
         if url:
             urls.append(
@@ -34,6 +67,14 @@ def get_spotify_url(df: pd.DataFrame, top_k: int) -> pd.DataFrame:
                     "music_url": url,
                 }
             )
+            logger.info(
+                {
+                    "song_id": df.iloc[i]["song_id"],
+                    "music_url": url,
+                }
+            )
+        else:
+            logger.warning({"song_id": df.iloc[i]["song_id"], "music_url": url})
 
     df = pd.DataFrame(urls)
     return df
