@@ -1,4 +1,3 @@
-from PIL import Image
 from fastapi import APIRouter, UploadFile, File, Depends
 from uuid import uuid4
 
@@ -8,7 +7,7 @@ from src.router.dto.user_feedback_request import UserFeedbackRequest
 from src.infer.playlist import PlaylistIdExtractor
 from src.infer.song import SongIdExtractor
 from src.log.logger import get_user_logger, get_feedback_logger
-from src.router.save_file import save_file
+from src.router.preprocess import save_file, resize_img
 from src.infer.spotify import get_spotify_url
 
 
@@ -32,10 +31,7 @@ async def recommend_music(
 ) -> RecommendMusicResponse:
     session_id = str(uuid4()).replace("-", "_")
     img_path = save_file(session_id, image)
-
-    with Image.open(img_path) as im:
-        resized = im.resize((SIZE, SIZE))
-        resized.save(img_path)
+    resize_img(img_path, SIZE)
 
     pl_scores, pl_ids = [], []
 
