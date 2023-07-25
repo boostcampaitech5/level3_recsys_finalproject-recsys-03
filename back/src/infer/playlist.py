@@ -5,12 +5,10 @@ import numpy as np
 from PIL import Image
 from io import BytesIO
 from typing import Tuple
-from fastapi import File
 from datasets import Dataset
 from huggingface_hub import Repository
 from typing import List, Optional
 from transformers import AutoImageProcessor, AutoModel, ViTImageProcessor, ViTModel
-
 from src.utils import create_dir
 
 
