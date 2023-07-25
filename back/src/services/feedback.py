@@ -7,11 +7,4 @@ class FeedbackService:
         self.feedback_logger = get_feedback_logger()
 
     def log_user_feedback(self, data: UserFeedbackRequest) -> None:
-        self.feedback_logger.info(
-            {
-                "session Id": data.session_id,
-                "song Id": data.song_id,
-                "thumbs up": data.thumbs_up,
-                "thumbs down": data.thumbs_down,
-            }
-        )
+        self.feedback_logger.info({"session Id": data.session_id, "song Id": data.song_id, "is like": data.is_like})
