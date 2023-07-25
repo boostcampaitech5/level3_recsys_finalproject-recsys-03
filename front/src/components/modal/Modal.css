@@ -67,9 +67,11 @@
 .downloadBnt {
   border: none;
   padding: 15px 0 15px 0;
-  width: 80%;
+  width: 78%;
+  height: 100%;
   margin-top: 6.5px;
   background-color: #f44404;
+  box-shadow: 0px 0px 0px 2px #f44404;
   border-radius: 15px;
   font-family: 'Noto Sans KR', sans-serif;
   text-align: center;
@@ -114,8 +116,8 @@
 }
 
 .downloadBnt:hover {
-  color: white;
-  fill: white;
+  color: #f44404;
+  background-color: black;
 }
 
 .cardHeader {

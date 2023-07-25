@@ -225,7 +225,7 @@ class CardGenerator extends Component {
             type="button"
             onClick={this.handleDownload}
           >
-            <span>이미지 다운로드</span>
+            <span>포토카드 다운로드</span>
           </button>
         </div>
       </>

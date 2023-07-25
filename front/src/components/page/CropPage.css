@@ -46,15 +46,33 @@
 }
 
 .CropPage .retry {
-  width: 100%;
+  width: 98%;
+  height: 95%;
+  color: black;
+  font-weight: 900;
+  font-size: 1.1em;
+  background: #e3e3e3;
+  box-shadow: 0px 0px 0px 2px #e3e3e3;
   background: #e3e3e3;
 }
 
 .CropPage .next {
-  width: 100%;
+  width: 98%;
+  height: 95%;
+  color: black;
+  box-shadow: 0px 0px 0px 2px #f44404;
   background: #f44404;
 }
 
+.CropPage .retry:hover {
+  color: #e3e3e3;
+  background-color: black;
+}
+
+.CropPage .next:hover {
+  color: #f44404;
+  background-color: black;
+}
 .CropPage .buttons button {
   display: flex;
   align-items: center;
