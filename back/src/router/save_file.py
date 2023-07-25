@@ -1,6 +1,5 @@
 from fastapi import UploadFile
 from src.utils import create_dir
-from logging import Logger
 
 IMG_PATH = "outputs/userImgs/"
 

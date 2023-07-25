@@ -3,7 +3,7 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.router import root_router
-from src.log.ExceptionHandler import add_exception_handler
+from back.src.log.exception_handler import add_exception_handler
 from dotenv import load_dotenv
 
 load_dotenv(".env")
