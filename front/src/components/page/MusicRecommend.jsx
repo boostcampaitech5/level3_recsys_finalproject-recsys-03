@@ -83,6 +83,7 @@ class MusicRecommend extends PureComponent {
       modalOpen: false,
       song: songs[0],
       isLike: false,
+      toggleLazyPause: false,
     };
 
     this.onSlideChange = (e) => {
@@ -90,12 +91,18 @@ class MusicRecommend extends PureComponent {
         modalOpen: state.modalOpen,
         song: songs[e.target.swiper.realIndex],
         isLike: false,
+        toggleLazyPause: true,
       }));
     };
   }
 
   componentDidUpdate() {
-    this.playerRef.current.audio.current.pause();
+    const { toggleLazyPause } = this.state;
+
+    if (toggleLazyPause) {
+      this.playerRef.current.audio.current.pause();
+      this.setState({ toggleLazyPause: false });
+    }
   }
 
   onClick() {
