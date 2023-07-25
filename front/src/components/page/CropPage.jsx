@@ -73,6 +73,11 @@ function CropPage() {
             />
           </div>
         </div>
+        <div className="notice">
+          <span>
+            업로드한 이미지는 결과 분석 외의 용도로는 사용되지 않습니다
+          </span>
+        </div>
       </div>
 
       <div className="footer">
