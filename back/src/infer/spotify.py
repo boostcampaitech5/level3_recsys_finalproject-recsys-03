@@ -30,10 +30,13 @@ def get_spotify_url(df: pd.DataFrame, top_k: int) -> pd.DataFrame:
         url = ""
 
         for item in result["tracks"]["items"]:
-            res_release_date = item["album"]["release_date"]
-            res_artist_name = item["artists"][0]["name"]
-            res_title = item["name"]
-            res_url = item["preview_url"]
+            try:
+                res_release_date = item["album"]["release_date"]
+                res_artist_name = item["artists"][0]["name"]
+                res_title = item["name"]
+                res_url = item["preview_url"]
+            except TypeError:
+                pass
 
             if not res_url:
                 continue
@@ -49,6 +52,9 @@ def get_spotify_url(df: pd.DataFrame, top_k: int) -> pd.DataFrame:
 
         if res_score <= 1:
             url = None
+
+        if (not url) and (result["tracks"]["items"][0]["album"]["release_date"] == release_date):
+            url = result["tracks"]["items"][0]["preview_url"]
 
         if url:
             urls.append(
