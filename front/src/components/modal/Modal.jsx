@@ -30,9 +30,6 @@ function Modal({ setOpenModal, imgUrl, artistName, musicTitle }) {
           musicTitle={musicTitle}
           artistName={artistName}
         />
-        <div className="feedback">
-          <span>해당 노래가 잘 어울리나요?</span>
-        </div>
       </div>
     </div>
   );
