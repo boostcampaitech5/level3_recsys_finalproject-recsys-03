@@ -30,7 +30,7 @@
 }
 
 .page {
-  height: 750px;
+  height: 770px;
   margin: 0 auto;
   width: min(100%, 400px);
   position: relative;
@@ -46,7 +46,7 @@
   position: absolute;
   height: 70px;
   width: 100%;
-  bottom: 0;
+  bottom: 20px;
 }
 
 .footer button {
