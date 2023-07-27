@@ -4,7 +4,7 @@
     <source srcset="./docs/imgs/IMGenie_logo_white.png" media="(prefers-color-scheme: dark)">
     <img width="300" src="./docs/imgs/IMGenie_logo_black.png">
   </picture>
-  <h2>당신의 일상에 노래를 찾아드립니다.</h2>
+  <h2>당신의 일상에 노래를 찾아드립니다</h2>
   <p>Recsys-03 Recdol's Level 3 final project</p>
   <p align="center">
     <img src="https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=FastAPI&logoColor=white" alt="FastAPI badge">
@@ -21,7 +21,8 @@
 ## 프로젝트 설명
 
 <strong>IMGenie</strong>는 일상의 사진을 토대로 어울리는 음악을 추천해주는 서비스입니다 🎧
-<a href="https://youtu.be/mlpkmxorWVs">시연 영상 <img src="https://www.youtube.com/favicon.ico"></a>
+<a href="https://youtu.be/mlpkmxorWVs">시연 영상 <img src="https://www.youtube.com/favicon.ico"></a>  
+이미지를 개시하면 분위기, 상황, 날씨를 고려해 어울리는 노래를 추천해줍니다
 
 ## 개발 환경 설정
 
