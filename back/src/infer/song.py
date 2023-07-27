@@ -43,7 +43,7 @@ class SongIdExtractor:
         result_df.iloc[pop, :] = by_pop.reset_index(drop=True)
         result_df.iloc[sim, :] = by_sim.reset_index(drop=True)
 
-        result_df = result_df.drop_duplicates().reset_index(drop=True)
+        result_df = result_df.drop_duplicates(["song_id"]).reset_index(drop=True)
 
         return result_df
 
