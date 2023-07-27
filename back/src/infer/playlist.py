@@ -29,13 +29,13 @@ class PlaylistIdExtractor:
         # set model path
         self.MODEL_REPO = f"Recdol/PL_Multilabel"
 
-        self.WEATHER_MODEL_VERSION = "weather-23_174820"
+        self.WEATHER_MODEL_VERSION = "weather-25_150958"
         self.WEATHER_SUB = f"weather/{self.WEATHER_MODEL_VERSION}/{self.WEATHER_MODEL_VERSION}_huggingface"
 
-        self.SIT_MODEL_VERSION = "sit-23_180832"
+        self.SIT_MODEL_VERSION = "sit-25_133334"
         self.SIT_SUB = f"sit/{self.SIT_MODEL_VERSION}/{self.SIT_MODEL_VERSION}_huggingface"
 
-        self.MOOD_MODEL_VERSION = "mood-24_012158"
+        self.MOOD_MODEL_VERSION = "mood-25_144428"
         self.MOOD_SUB = f"mood/{self.MOOD_MODEL_VERSION}/{self.MOOD_MODEL_VERSION}_huggingface"
 
         # set data path
@@ -47,14 +47,14 @@ class PlaylistIdExtractor:
         # set faiss path
         self.FAISS_PATH = os.path.join(self.HUB_PATH, "faiss_index")
 
-        self.WEATHER_MODEL_VERSION = "weather-23_174820"
-        self.WEATHER_FAISS_PATH = os.path.join(self.FAISS_PATH, f"weather/{self.WEATHER_MODEL_VERSION}.index")
+        self.WEATHER_INDEX_VERSION = "weather-25_150958"
+        self.WEATHER_FAISS_PATH = os.path.join(self.FAISS_PATH, f"weather/{self.WEATHER_INDEX_VERSION}.index")
 
-        self.SIT_MODEL_VERSION = "sit-23_180832"
-        self.SIT_FAISS_PATH = os.path.join(self.FAISS_PATH, f"sit/{self.SIT_MODEL_VERSION}.index")
+        self.SIT_INDEX_VERSION = "sit-25_133334"
+        self.SIT_FAISS_PATH = os.path.join(self.FAISS_PATH, f"sit/{self.SIT_INDEX_VERSION}.index")
 
-        self.MOOD_MODEL_VERSION = "mood-24_012158"
-        self.MOOD_FAISS_PATH = os.path.join(self.FAISS_PATH, f"mood/{self.MOOD_MODEL_VERSION}.index")
+        self.MOOD_INDEX_VERSION = "mood-25_144428"
+        self.MOOD_FAISS_PATH = os.path.join(self.FAISS_PATH, f"mood/{self.MOOD_INDEX_VERSION}.index")
 
     def load_index_file_path(self, path: str) -> str:
         file_list = os.listdir(path)
