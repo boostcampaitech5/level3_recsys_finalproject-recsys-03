@@ -7,8 +7,7 @@ from src.log.logger import get_user_logger
 from src.dto.music import RecommendMusicRequest, RecommendMusicResponse, RecommendMusic
 from src.services.utils import save_file, resize_img
 
-pl_k = 3
-song_k = 15
+pl_k = 15
 top_k = 6  # song_k must be more than 6 or loop of silder must be False
 SIZE = 224
 
