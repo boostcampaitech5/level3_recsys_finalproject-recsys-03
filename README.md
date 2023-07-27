@@ -6,7 +6,7 @@
   </picture>
   
   <h2>당신의 일상에 노래를 찾아드립니다</h2></hr>
-  <p>Recsys-03 Recdol's Level 3 final project</p>
+  <h3>👉 <a href="http://IMGenie.co">IMGenie.co</a> 👈</h3>
   <p align="center">
     <img src="https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=FastAPI&logoColor=white" alt="FastAPI badge">
     <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black" alt="React badge">
@@ -19,7 +19,7 @@
 </div>
 <br>
 
-## 프로젝트 설명 [[IMGenie.co](http://IMGenie.co)]
+## 프로젝트 설명
 
 <strong>IMGenie</strong>는 일상의 사진을 토대로 어울리는 음악을 추천해주는 서비스입니다 🎧  
 이미지를 개시하면 분위기, 상황, 날씨를 고려해 어울리는 노래를 추천해줍니다  
