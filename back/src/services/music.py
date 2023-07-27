@@ -18,7 +18,7 @@ class MusicService:
         self.user_logger = get_user_logger()
 
         self.playlist_id_ext = PlaylistIdExtractor(k=pl_k, is_data_pull=True)
-        self.song_id_ext = SongIdExtractor(k=song_k, is_data_pull=True)
+        self.song_id_ext = SongIdExtractor(is_data_pull=True)
 
     def recommend_music(self, image: UploadFile, data: RecommendMusicRequest) -> list[RecommendMusic]:
         session_id = str(uuid4()).replace("-", "_")
@@ -39,13 +39,12 @@ class MusicService:
         pl_ids.extend(mood_ids)
 
         user_genres = [genre for genre in data.genres[0].split(",")]
-        infos = self.song_id_ext.get_song_info(pl_ids, pl_scores, user_genres, song_k)
+        infos = self.song_id_ext.get_song_info(pl_ids, pl_scores, user_genres)
         songs = get_spotify_url(infos, top_k)
 
         songs = [
             RecommendMusic(
                 song_id=int(songs.iloc[i]["song_id"]),
-                youtube_id=songs.iloc[i]["youtube_key"],
                 song_title=songs.iloc[i]["song_title"],
                 artist_name=songs.iloc[i]["artist_name"],
                 album_title=songs.iloc[i]["album_title"],
