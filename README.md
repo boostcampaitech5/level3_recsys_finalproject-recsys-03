@@ -20,9 +20,20 @@
 
 ## 프로젝트 설명
 
-<strong>IMGenie</strong>는 일상의 사진을 토대로 어울리는 음악을 추천해주는 서비스입니다 🎧
-<a href="https://youtu.be/mlpkmxorWVs">시연 영상 <img src="https://www.youtube.com/favicon.ico"></a>  
-이미지를 개시하면 분위기, 상황, 날씨를 고려해 어울리는 노래를 추천해줍니다
+<strong>IMGenie</strong>는 일상의 사진을 토대로 어울리는 음악을 추천해주는 서비스입니다 🎧  
+이미지를 개시하면 분위기, 상황, 날씨를 고려해 어울리는 노래를 추천해줍니다 <a href="https://youtu.be/mlpkmxorWVs">시연 영상 <img src="https://www.youtube.com/favicon.ico"></a>
+
+## 프로젝트 아키텍쳐
+
+<p style="text-align: center"><strong>⚙️ 서비스 아키텍쳐 ⚙️</strong></p>
+
+<img width="100%" src="./docs/imgs/architecture_service.png"/>
+
+---
+
+<p style="text-align: center"><strong>⚙️ 모델 아키텍쳐 ⚙️</strong></p>
+
+<img width="100%" src="./docs/imgs/architecture_model.png"/>
 
 ## 개발 환경 설정
 
