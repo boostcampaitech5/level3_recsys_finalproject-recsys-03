@@ -4,7 +4,7 @@
     <source srcset="./docs/imgs/dark-logo.png" media="(prefers-color-scheme: dark)">
     <img width="300" src="./docs/imgs/light-logo.png">
   </picture>
-  <h2>🎵 <span style="color: #F44402">IMG</span>enie 🎵</h2>
+  <h2>🎵 IMGenie 🎵</h2>
   <h3>당신의 일상에 노래를 찾아드립니다.</h3>
   <p>Recsys-03 Recdol's Level 3 final project</p>
   <p align="center">
@@ -21,10 +21,8 @@
 
 ## 프로젝트 설명
 
-<strong><span style="color: #F44402">IMG</span>enie</strong>는 일상의 사진을 토대로 어울리는 음악을 추천해주는 서비스입니다 🎧
+<strong>IMGenie</strong>는 일상의 사진을 토대로 어울리는 음악을 추천해주는 서비스입니다 🎧
 <a href="https://youtu.be/mlpkmxorWVs">시연 영상 <img src="https://www.youtube.com/favicon.ico"></a>
-
-## 프로젝트 아키텍쳐
 
 ## 개발 환경 설정
 
