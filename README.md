@@ -1,11 +1,10 @@
 <div align="center">
   <br>
   <picture>
-    <source srcset="./docs/imgs/dark-logo.png" media="(prefers-color-scheme: dark)">
-    <img width="300" src="./docs/imgs/light-logo.png">
+    <source srcset="./docs/imgs/IMGenie_logo_white.png" media="(prefers-color-scheme: dark)">
+    <img width="300" src="./docs/imgs/IMGenie_logo_black.png">
   </picture>
-  <h2>🎵 IMGenie 🎵</h2>
-  <h3>당신의 일상에 노래를 찾아드립니다.</h3>
+  <h2>당신의 일상에 노래를 찾아드립니다.</h2>
   <p>Recsys-03 Recdol's Level 3 final project</p>
   <p align="center">
     <img src="https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=FastAPI&logoColor=white" alt="FastAPI badge">
