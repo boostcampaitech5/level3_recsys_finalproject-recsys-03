@@ -1,8 +1,5 @@
-import os
-import re
 import pandas as pd
 from typing import List
-from src.infer.utils import min_max_scale
 from huggingface_hub import Repository
 from src.infer.preprocess import SongPreprocesser
 
