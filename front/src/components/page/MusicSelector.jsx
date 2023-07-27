@@ -66,7 +66,7 @@ MusicSelector.propTypes = {
       song_title: PropTypes.string,
       artist_name: PropTypes.string,
       album_title: PropTypes.string,
-      youtube_id: PropTypes.string,
+      music_url: PropTypes.string,
     })
   ).isRequired,
   onSlideChange: PropTypes.func.isRequired,
