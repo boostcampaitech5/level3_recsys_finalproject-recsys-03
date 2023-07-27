@@ -8,8 +8,7 @@ from src.log.logger import get_user_logger
 from src.dto.music import RecommendMusicRequest, RecommendMusicResponse, RecommendMusic
 from src.services.utils import save_file, resize_img
 
-pl_k = 3
-song_k = 15
+pl_k = 15
 top_k = 6  # song_k must be more than 6 or loop of silder must be False
 SIZE = 224
 
@@ -19,7 +18,7 @@ class MusicService:
         self.user_logger = get_user_logger()
 
         self.playlist_id_ext = PlaylistIdExtractor(k=pl_k, is_data_pull=True)
-        self.song_id_ext = SongIdExtractor(k=song_k, is_data_pull=True)
+        self.song_id_ext = SongIdExtractor(is_data_pull=True)
 
     def recommend_music(self, image: UploadFile, data: RecommendMusicRequest) -> list[RecommendMusic]:
         session_id = str(uuid4()).replace("-", "_")

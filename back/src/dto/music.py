@@ -7,7 +7,6 @@ class RecommendMusic(BaseModel):
     song_title: str
     artist_name: str
     album_title: str
-    youtube_id: str
     music_url: str
 
 

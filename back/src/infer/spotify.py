@@ -2,7 +2,7 @@ import os
 import spotipy
 import pandas as pd
 from spotipy.oauth2 import SpotifyClientCredentials
-from src.infer.utils import check_substring
+from src.infer.utils import check_substring, check_string
 from src.log.logger import get_spotify_logger
 
 logger = get_spotify_logger()
@@ -41,7 +41,12 @@ def get_spotify_url(df: pd.DataFrame, top_k: int) -> pd.DataFrame:
             if not res_url:
                 continue
 
-            now_score = check_substring(res_title, title) + check_substring(res_artist_name, artist) + (res_release_date == release_date)
+            now_score = (
+                check_string(res_title, title)
+                + check_substring(res_title, title)
+                + check_substring(res_artist_name, artist)
+                + (res_release_date == release_date)
+            )
             logger.info(
                 {"now_score": now_score, "spotify_title": res_title, "spotify_artist": res_artist_name, "genie_title": title, "genie_artist": artist}
             )
@@ -53,14 +58,16 @@ def get_spotify_url(df: pd.DataFrame, top_k: int) -> pd.DataFrame:
         if res_score <= 1:
             url = None
 
-        if (not url) and (result["tracks"]["items"][0]["album"]["release_date"] == release_date):
-            url = result["tracks"]["items"][0]["preview_url"]
+        try:
+            if (not url) and (result["tracks"]["items"][0]["album"]["release_date"] == release_date):
+                url = result["tracks"]["items"][0]["preview_url"]
+        except IndexError:
+            pass
 
         if url:
             urls.append(
                 {
                     "song_id": df.iloc[i]["song_id"],
-                    "youtube_key": df.iloc[i]["youtube_key"],
                     "song_title": df.iloc[i]["song_title"],
                     "artist_name": df.iloc[i]["artist_name"],
                     "album_title": df.iloc[i]["album_title"],
