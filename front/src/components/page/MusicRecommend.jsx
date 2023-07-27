@@ -13,9 +13,6 @@ import Modal from '../modal/Modal';
 import defaultImg from '../../imgs/dummy512.jpg';
 import requestUserFeedback from '../../requests/requestUserFeedback';
 
-const serveyUrl =
-  'https://docs.google.com/forms/d/e/1FAIpQLSf3iJv6ShZTjAbdVbo9DZVH1Z9YRluCKDW9EHlrYXj56ngGhA/viewform?entry.264447075=';
-
 const defaultSongs = [
   {
     song_id: 1,
@@ -234,15 +231,6 @@ class MusicRecommend extends PureComponent {
               포토카드 받기
             </button>
           </div>
-          <button
-            className="servey"
-            onClick={() => {
-              window.open(serveyUrl + sessionId);
-            }}
-            type="button"
-          >
-            <span>설문 참여하고 배민 상품권 받기! 🍕</span>
-          </button>
         </div>
       </div>
     );
@@ -264,7 +252,7 @@ MusicRecommend.propTypes = {
       song_title: PropTypes.string,
       artist_name: PropTypes.string,
       album_title: PropTypes.string,
-      youtube_id: PropTypes.string,
+      music_url: PropTypes.string,
     })
   ),
   sessionId: PropTypes.string,
