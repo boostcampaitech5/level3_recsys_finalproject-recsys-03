@@ -34,13 +34,11 @@
 
 ## 프로젝트 아키텍쳐
 
-<p align="center"><strong>⚙️ 서비스 아키텍쳐 ⚙️</strong></p>
+### 서비스 아키텍쳐
 
 <img width="100%" src="./docs/imgs/architecture_service.png"/>
 
----
-
-<p align="center"><strong>⚙️ 모델 아키텍쳐 ⚙️</strong></p>
+### 모델 아키텍쳐
 
 <img width="100%" src="./docs/imgs/architecture_model.png"/>
 
