@@ -68,7 +68,6 @@ def get_spotify_url(df: pd.DataFrame, top_k: int) -> pd.DataFrame:
             urls.append(
                 {
                     "song_id": df.iloc[i]["song_id"],
-                    "youtube_key": df.iloc[i]["youtube_key"],
                     "song_title": df.iloc[i]["song_title"],
                     "artist_name": df.iloc[i]["artist_name"],
                     "album_title": df.iloc[i]["album_title"],
