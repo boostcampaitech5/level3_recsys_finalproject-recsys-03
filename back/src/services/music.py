@@ -1,3 +1,4 @@
+import pandas as pd
 from fastapi import UploadFile
 from uuid import uuid4
 from src.infer.playlist import PlaylistIdExtractor
@@ -25,6 +26,34 @@ class MusicService:
         img_path = save_file(session_id, image)
         resize_img(img_path, SIZE)
 
+        pl_ids, pl_scores = self._extract_playlist_ids(img_path)
+        song_df = self._extract_songs(data.genres, pl_ids, pl_scores, song_k, top_k)
+
+        songs = [
+            RecommendMusic(
+                song_id=int(song_df.iloc[i]["song_id"]),
+                youtube_id=song_df.iloc[i]["youtube_key"],
+                song_title=song_df.iloc[i]["song_title"],
+                artist_name=song_df.iloc[i]["artist_name"],
+                album_title=song_df.iloc[i]["album_title"],
+                music_url=song_df.iloc[i]["music_url"],
+            )
+            for i in range(song_df.shape[0])
+        ]
+
+        self.user_logger.info(
+            {
+                "session_id": session_id,
+                "Img Path": img_path,
+                "Genres": data.genres,
+                "Playlist IDs": pl_ids,
+                "Recommend Songs": songs,
+            }
+        )
+
+        return RecommendMusicResponse(session_id=session_id, songs=songs)
+
+    def _extract_playlist_ids(self, img_path: str) -> tuple[list[int], list[float]]:
         pl_scores, pl_ids = [], []
 
         weather_scores, weather_ids = self.playlist_id_ext.get_weather_playlist_id(img_path)
@@ -38,30 +67,8 @@ class MusicService:
         pl_ids.extend(sit_ids)
         pl_ids.extend(mood_ids)
 
-        user_genres = [genre for genre in data.genres[0].split(",")]
-        infos = self.song_id_ext.get_song_info(pl_ids, pl_scores, user_genres, song_k)
-        songs = get_spotify_url(infos, top_k)
+        return pl_ids, pl_scores
 
-        songs = [
-            RecommendMusic(
-                song_id=int(songs.iloc[i]["song_id"]),
-                youtube_id=songs.iloc[i]["youtube_key"],
-                song_title=songs.iloc[i]["song_title"],
-                artist_name=songs.iloc[i]["artist_name"],
-                album_title=songs.iloc[i]["album_title"],
-                music_url=songs.iloc[i]["music_url"],
-            )
-            for i in range(songs.shape[0])
-        ]
-
-        self.user_logger.info(
-            {
-                "session_id": session_id,
-                "Img Path": img_path,
-                "Genres": [genre for genre in data.genres[0].split(",")],
-                "Playlist IDs": pl_ids,
-                "Recommend Songs": songs,
-            }
-        )
-
-        return RecommendMusicResponse(session_id=session_id, songs=songs)
+    def _extract_songs(self, genres: list[str], pl_ids: list[int], pl_scores: list[float], song_k: int, top_k: int) -> pd.DataFrame:
+        song_infos = self.song_id_ext.get_song_info(pl_ids, pl_scores, genres, song_k)
+        return get_spotify_url(song_infos, top_k)

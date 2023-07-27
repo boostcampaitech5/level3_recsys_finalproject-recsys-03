@@ -20,5 +20,6 @@ class RecommendMusicRequest(BaseModel):
     genres: list[str]
 
     @classmethod
-    def as_form(cls, genres: list[str] = Form(...)):
-        return cls(genres=genres)
+    def as_form(cls, genres: list[str] = Form()):
+        genres_ = genres[0].split(",")
+        return cls(genres=genres_)
