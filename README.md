@@ -42,11 +42,26 @@
 
 <img width="100%" src="./docs/imgs/architecture_model.png"/>
 
-## 개발 환경 설정
+## Related Repository
 
-### Pre-Commit 설정
+### [genie Crawler](https://github.com/kCMI113/genie_crawler)<br/>
 
-```bash
-pip install pre-commit
-pre-commit install
-```
+### [unsplash Crawler](https://github.com/kCMI113/unsplash_crawler)
+
+## 구성원 및 역할
+
+| ![kCMI113](./docs/imgs/img_kCMI113.png) | ![DyeonPark](./docs/imgs/img_DyeonPark.png) | ![alstjrdlzz](./docs/imgs/img_alstjrdlzz.png) | ![2jun0](./docs/imgs/img_2jun0.png) | ![juhyein](./docs/imgs/img_juhyein.png) |
+| :-------------------------------------: | :-----------------------------------------: | :-------------------------------------------: | :---------------------------------: | :-------------------------------------: |
+|  [강찬미](https://github.com/kCMI113)   |   [박동연](https://github.com/DyeonPark)    |    [서민석](https://github.com/alstjrdlzz)    | [이준영](https://github.com/2jun0)  |  [주혜인](https://github.com/juhyein)   |
+
+- **강찬미**: 데이터 수집, FE 구현, BE 구현
+- **박동연**: 데이터 수집 및 정제, FE 구현, BE 구현
+- **서민석**: 데이터 수집 및 정제, 모델링
+- **이준영**: 데이터 수집, FE 구현, BE 구현
+- **주혜인**: 데이터 수집 및 정제, 모델링
+
+## Further Reading
+
+- [발표 영상 <img src="https://www.youtube.com/favicon.ico">](https://youtu.be/9VgtSRlCb9E)
+- [발표 자료](<./docs/pdfs/RecSys_3조_사진_기반_음악_추천(IMGenie).pdf>)
+- 랩업 리포트(7.31 업로드 예정)
