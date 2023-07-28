@@ -62,6 +62,6 @@
 
 ## Further Reading
 
-- [발표 영상](youtube~..)
-- [랩업 리포트](./docs/pdfs)
-- [발표 자료](./docs/pdfs)
+- [발표 영상 <img src="https://www.youtube.com/favicon.ico">](https://youtu.be/9VgtSRlCb9E)
+- [발표 자료](<./docs/pdfs/RecSys_3조_사진_기반_음악_추천(IMGenie).pdf>)
+- [랩업 리포트]()
