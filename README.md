@@ -64,4 +64,4 @@
 
 - [발표 영상 <img src="https://www.youtube.com/favicon.ico">](https://youtu.be/9VgtSRlCb9E)
 - [발표 자료](<./docs/pdfs/RecSys_3조_사진_기반_음악_추천(IMGenie).pdf>)
-- [랩업 리포트]()
+- 랩업 리포트(7.31 업로드 예정)
