@@ -44,6 +44,7 @@ class MusicService:
                 "session_id": session_id,
                 "Img Path": img_path,
                 "Genres": data.genres,
+                "Playlist IDs": pl_ids,
                 "Recommend Songs": songs,
             }
         )
