@@ -1,0 +1,22 @@
+# Byte-compiled / optimized / DLL files
+__pycache__
+
+# data
+*.csv
+/input
+/output
+
+# MacOS
+.DS_Store
+
+# For somebody who try to upload key file.. :)
+key
+
+# environment
+*.env
+
+# hydra
+/outputs
+
+# wandb
+/wandb

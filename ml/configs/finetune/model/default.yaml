@@ -1,0 +1,6 @@
+# model
+backbone: google/vit-base-patch16-224
+# optimizer
+lr: 5e-5
+# threshold
+threshold: 0.5

@@ -1,0 +1,5 @@
+accelerator: gpu
+devices: 1
+max_epochs: 3
+inference: true
+patience: 5

@@ -1,0 +1,4 @@
+# path to train data directory
+data_dir: ./input/data/PLAYLIST
+# path to output directory
+output_dir: ./output/

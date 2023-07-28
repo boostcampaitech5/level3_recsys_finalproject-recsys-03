@@ -1,0 +1,16 @@
+seed: 42
+
+# path to train data directory
+data_dir: ./input/data/
+# path to output directory
+output_dir: ./output/
+# path to template image directory
+temp_dir: ./input/template/
+# train data file name
+train_file: playlists_0709_v2.csv
+# tag data file name
+tag_file: new_tags.csv
+# tag type for dataset(mood/sit/weather)
+tag_type: mood
+# HF repo id to upload
+repo_id: RecDol/PLAYLIST

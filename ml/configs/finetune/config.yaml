@@ -1,0 +1,12 @@
+timestamp:
+seed: 42
+model_repo_id: RecDol/PL_Multilabel
+data_repo_id: RecDol/PLAYLIST
+
+defaults:
+  - _self_
+  - path: default.yaml
+  - data: default.yaml
+  - model: default.yaml
+  - trainer: default.yaml
+  - wandb: default.yaml

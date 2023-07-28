@@ -1,0 +1,7 @@
+seed: 42
+model_repo_id: RecDol/PL_Multilabel
+index_repo_id: RecDol/faiss_index
+name: mood-19_110133
+data_dir: ./input/data/PLAYLIST
+output_dir: ./output/
+tag_type: mood #choice = [weather, mood , sit]
