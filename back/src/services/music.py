@@ -26,7 +26,7 @@ class MusicService:
         resize_img(img_path, SIZE)
 
         pl_ids, pl_scores = self._extract_playlist_ids(img_path)
-        song_df = self._extract_songs(data.genres, pl_ids, pl_scores, song_k, top_k)
+        song_df = self._extract_songs(data.genres, pl_ids, pl_scores, top_k)
 
         songs = [
             RecommendMusic(
@@ -44,6 +44,7 @@ class MusicService:
                 "session_id": session_id,
                 "Img Path": img_path,
                 "Genres": data.genres,
+                "Playlist IDs": pl_ids,
                 "Recommend Songs": songs,
             }
         )
@@ -66,6 +67,6 @@ class MusicService:
 
         return pl_ids, pl_scores
 
-    def _extract_songs(self, genres: list[str], pl_ids: list[int], pl_scores: list[float], song_k: int, top_k: int) -> pd.DataFrame:
-        song_infos = self.song_id_ext.get_song_info(pl_ids, pl_scores, genres, song_k)
+    def _extract_songs(self, genres: list[str], pl_ids: list[int], pl_scores: list[float], top_k: int) -> pd.DataFrame:
+        song_infos = self.song_id_ext.get_song_info(pl_ids, pl_scores, genres)
         return get_spotify_url(song_infos, top_k)
