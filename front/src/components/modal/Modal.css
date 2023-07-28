@@ -1,0 +1,131 @@
+.modalBackground {
+  z-index: 10;
+  position: fixed;
+  width: min(100%, 400px);
+  height: 6000px;
+  background-color: rgba(176, 176, 176, 0.3);
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: modal-bg-show 0.4s;
+}
+
+.modalContainer {
+  width: 70%;
+  border-radius: 15px;
+  background-color: black;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  text-align: center;
+  flex-direction: column;
+  padding: 25px;
+  margin: auto;
+  margin-top: 20px;
+  animation: modal-show 0.4s;
+}
+
+.modalContainer .title {
+  display: inline-block;
+  text-align: center;
+  align-items: center;
+  color: black;
+  font-size: 10px;
+  width: 100%;
+  height: 85%;
+}
+
+.titleCloseBtn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.titleCloseBtn button {
+  background-color: transparent;
+  border: none;
+  font-size: 25px;
+  cursor: pointer;
+  margin-top: -25px;
+  margin-right: -17px;
+}
+
+.modalContainer .body {
+  flex: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.7rem;
+  text-align: center;
+}
+
+.modalContainer .bottom {
+  flex: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.downloadBnt {
+  border: none;
+  padding: 15px 0 15px 0;
+  width: 78%;
+  height: 100%;
+  margin-top: 6.5px;
+  background-color: #f44404;
+  box-shadow: 0px 0px 0px 2px #f44404;
+  border-radius: 15px;
+  font-family: 'Noto Sans KR', sans-serif;
+  text-align: center;
+  align-items: center;
+  font-weight: 900;
+  font-size: 1.1em;
+  color: black;
+}
+.feedback {
+  display: grid;
+  margin-top: 8%;
+  font-family: 'Noto Sans KR', sans-serif;
+  text-align: center;
+  align-items: center;
+  font-weight: 900;
+  font-size: 1em;
+  color: white;
+}
+
+.thumbtns button:last-child {
+  margin-left: 7px;
+}
+
+.cardImg {
+  margin-top: -10px;
+}
+
+.downloadBnt:hover {
+  color: #f44404;
+  background-color: black;
+}
+
+.cardHeader {
+  color: white;
+  font-weight: 900;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+@keyframes modal-show {
+  from {
+    opacity: 0;
+    margin-top: -30px;
+  }
+  to {
+    opacity: 1;
+    margin-top: 20px;
+  }
+}
+@keyframes modal-bg-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

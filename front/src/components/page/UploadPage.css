@@ -1,0 +1,122 @@
+.UploadPage {
+  width: 100%;
+  height: 100%;
+}
+
+.UploadPage .header h1 {
+  color: white;
+  margin: 0;
+  font-size: 1.8em;
+}
+
+.UploadPage .header h3 {
+  color: white;
+  margin: 0.5em 0 4.5em 0;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.UploadPage .guideBox {
+  height: 63%;
+  width: 90%;
+  background-color: #e3e3e3;
+  border-radius: 15px;
+  margin: auto;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.UploadPage .exImg {
+  display: flex;
+  margin-top: 1%;
+  justify-content: center;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.UploadPage .imgSet {
+  width: 28%;
+  border-radius: 15px;
+  margin-right: 3%;
+}
+.exImg img:last-child {
+  margin-right: 0;
+}
+
+.guideBox p {
+  font-family: 'Noto Sans KR', sans-serif;
+  margin-top: 9%;
+  margin-bottom: 3%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 0.85em;
+  text-align: center;
+  width: 85%;
+}
+
+.UploadPage .footer button {
+  height: 100%;
+  border: none;
+  border-radius: 15px;
+  font-weight: 900;
+  color: black;
+}
+.UploadPage .buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 10px;
+  height: 100%;
+  width: 90%;
+  margin: 0 auto;
+}
+.UploadPage .buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.UploadPage .uploadBnt {
+  width: 98%;
+  height: 100%;
+  margin: auto;
+  background-color: #f44404;
+  border-radius: 15px;
+  font-family: 'Noto Sans KR', sans-serif;
+  text-align: center;
+  font-weight: 900;
+  font-size: 1.05em;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 0px 2px #f44404;
+}
+
+.UploadPage .prev {
+  width: 98%;
+  height: 95%;
+  color: black;
+  font-weight: 900;
+  background: #e3e3e3;
+  box-shadow: 0px 0px 0px 2px #e3e3e3;
+}
+
+.UploadPage .prev:hover {
+  color: #e3e3e3;
+  background-color: black;
+}
+
+.UploadPage .uploadBnt:hover {
+  color: #f44404;
+  background-color: black;
+}
+
+.UploadPage .uploadBnt svg:hover {
+  color: #f44404;
+}

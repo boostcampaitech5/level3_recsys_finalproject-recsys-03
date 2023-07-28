@@ -1,0 +1,89 @@
+.App {
+  text-align: center;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #1a1a1a;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.page {
+  height: 770px;
+  margin: 0 auto;
+  width: min(100%, 400px);
+  position: relative;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.contents {
+  height: 680px;
+  width: 100%;
+}
+
+.footer {
+  position: absolute;
+  height: 70px;
+  width: 100%;
+  bottom: 20px;
+}
+
+.footer button {
+  height: 100%;
+  text-align: center;
+  font-weight: 900;
+  font-size: 1.05em;
+  color: black;
+  display: flex;
+  border: none;
+  border-radius: 15px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.footer button svg:nth-of-type(1) {
+  margin-right: 5px;
+}
+
+.footer button svg:nth-of-type(2) {
+  margin-left: 5px;
+}
+
+.footer button:hover {
+  color: white;
+}
+
+.footer svg {
+  font-size: 1.2em;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

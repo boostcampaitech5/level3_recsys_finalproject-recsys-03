@@ -1,0 +1,42 @@
+.Loading-div {
+  background-color: black;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 15px;
+  color: white;
+}
+
+.top-text {
+  margin-bottom: 5px;
+}
+
+.bott-text {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.Spinner {
+  margin-top: 5px;
+  height: 65px;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .Spinner {
+    animation: Spinner-spin infinite 1s linear;
+  }
+}
+
+@keyframes Spinner-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

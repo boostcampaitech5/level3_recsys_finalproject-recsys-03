@@ -1,0 +1,123 @@
+.GenreSelectPage {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0 auto;
+  width: min(100%, 25em);
+  color: white;
+}
+
+.header {
+  padding: 3em 1em 0em 1em;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.8em;
+}
+
+.header h3 {
+  margin: 0.5em 0 0 0;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.GenreSelectorWrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  background: black;
+  padding: 1.5em;
+  flex-grow: 1;
+}
+
+.GenreSelector {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 0.5em;
+}
+
+.GenreSelectPage .footer button {
+  height: 100%;
+  border: none;
+  border-radius: 15px;
+  font-weight: 900;
+  color: black;
+}
+
+.footer button svg:nth-of-type(1) {
+  margin: auto 5px;
+}
+
+.GenreSelectPage .next svg {
+  margin-left: 10px;
+}
+
+.GenreSelectPage .genreBox {
+  margin: 1em;
+  border-radius: 20px;
+}
+
+.GenreSelectPage .genreBox p {
+  margin: 10px 0 0 0;
+}
+
+.GenreSelectPage input[type='checkbox'] {
+  width: 20px;
+  height: 20px;
+
+  vertical-align: middle;
+  accent-color: #f44004;
+}
+
+.GenreSelectPage input[type='checkbox'] + label {
+  margin-left: 5px;
+  vertical-align: middle;
+  font-size: 1.1em;
+}
+
+.GenreSelectPage .GenreSelector.disabled {
+  color: rgb(129, 129, 129);
+}
+
+.GenreSelectPage .buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 10px;
+  height: 100%;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.GenreSelectPage .next {
+  width: 98%;
+  height: 95%;
+  background: #f44404;
+  box-shadow: 0px 0px 0px 2px #f44404;
+}
+
+.GenreSelectPage .prev {
+  width: 98%;
+  height: 95%;
+  background: #e3e3e3;
+  box-shadow: 0px 0px 0px 2px #e3e3e3;
+}
+
+.GenreSelectPage .next:hover {
+  color: #f44404;
+  background: black;
+  box-shadow: 0px 0px 0px 2px #f44404;
+}
+
+.GenreSelectPage .prev:hover {
+  background: black;
+  box-shadow: 0px 0px 0px 2px #e3e3e3;
+}
+
+.GenreSelectPage .buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

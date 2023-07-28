@@ -1,0 +1,85 @@
+.CropPage {
+  display: flex;
+}
+
+.CropPage .header h1 {
+  color: white;
+  margin: 0;
+  font-size: 1.8em;
+}
+
+.CropPage .header h3 {
+  color: white;
+  margin: 0.5em 0 4.5em 0;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.CropPage .cropper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.CropPage .container-cropper {
+  height: 360px;
+  width: 360px;
+  background-color: #e3e3e3;
+  margin: auto;
+}
+
+.CropPage .footer button {
+  height: 100%;
+  border: none;
+  border-radius: 15px;
+  font-weight: 900;
+  color: black;
+}
+
+.CropPage .buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 10px;
+  height: 100%;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.CropPage .retry {
+  width: 98%;
+  height: 95%;
+  color: black;
+  font-weight: 900;
+  background: #e3e3e3;
+  box-shadow: 0px 0px 0px 2px #e3e3e3;
+  background: #e3e3e3;
+}
+
+.CropPage .next {
+  width: 98%;
+  height: 95%;
+  color: black;
+  box-shadow: 0px 0px 0px 2px #f44404;
+  background: #f44404;
+}
+
+.CropPage .notice {
+  color: #d4d4d4;
+  margin-top: 2em;
+  font-size: 0.8em;
+}
+
+.CropPage .retry:hover {
+  color: #e3e3e3;
+  background-color: black;
+}
+
+.CropPage .next:hover {
+  color: #f44404;
+  background-color: black;
+}
+.CropPage .buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,155 @@
+.MusicRecommend .header h1 {
+  color: white;
+  margin: 0;
+  font-size: 1.8em;
+}
+
+.MusicRecommend .header h3 {
+  color: white;
+  margin: 0.5em 0 0 0;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.MusicRecommend h2 {
+  color: white;
+  margin: 0;
+  margin-bottom: 10px;
+  font-size: 1.3em;
+}
+
+.infoBox {
+  color: white;
+  margin: auto 0;
+  text-align: center;
+}
+
+.infoBox .songName {
+  font-weight: bolder;
+  font-size: larger;
+  padding: 0.5em;
+}
+
+.infoBox .artistName {
+  font-weight: lighter;
+  font-size: medium;
+  padding: 0.5em;
+}
+
+.playerBox {
+  padding: 1.5em;
+}
+
+.MusicRecommend .footer button {
+  height: 100%;
+  border: none;
+  border-radius: 15px;
+  font-weight: 900;
+  color: black;
+}
+
+.MusicRecommend .buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 10px;
+  height: 100%;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.MusicRecommend .retry {
+  width: 98%;
+  height: 100%;
+  box-shadow: 0px 0px 0px 2px #e3e3e3;
+  background: #e3e3e3;
+}
+
+.MusicRecommend .save {
+  width: 98%;
+  height: 100%;
+  box-shadow: 0px 0px 0px 2px #f44404;
+  background: #f44404;
+}
+
+.MusicRecommend .servey {
+  margin-top: 3%;
+  margin-bottom: 10%;
+  width: 88%;
+  height: 100%;
+  box-shadow: 0px 0px 0px 2px #e3e3e3;
+  background: #e3e3e3;
+}
+
+.MusicRecommend .retry:hover {
+  color: #e3e3e3;
+  background-color: black;
+}
+
+.MusicRecommend .servey:hover {
+  color: #e3e3e3;
+  background-color: black;
+}
+
+.MusicRecommend .save:hover {
+  color: #f44404;
+  background-color: black;
+}
+
+.audio {
+  border-radius: 15px;
+  background: none;
+}
+.audio .rhap_repeat-button {
+  color: #e3e3e3;
+  margin-right: 6px;
+}
+
+.audio .rhap_main-controls-button {
+  color: #e3e3e3;
+}
+
+.audio .rhap_volume-button {
+  color: #e3e3e3;
+}
+
+.audio .rhap_time {
+  color: #e3e3e3;
+}
+
+.audio .rhap_progress-indicator {
+  background: #f44404;
+}
+
+.audio .rhap_progress-filled {
+  background-color: #f44404;
+  opacity: 0.8;
+}
+
+.audio .rhap_additional-controls {
+  flex: 1 1;
+}
+
+.audio .rhap_main-controls {
+  flex: 1;
+}
+
+.audio .rhap_volume-controls {
+  flex: 1;
+}
+
+.feedbackbtn {
+  text-align: center;
+  align-items: center;
+  color: white;
+  fill: white;
+  background-color: black;
+  border: none;
+  width: 25px;
+  height: 20px;
+  margin-right: -5%;
+}
+.feedbackbtn svg {
+  width: 23px;
+  height: 23px;
+  margin-top: -2.5px;
+}

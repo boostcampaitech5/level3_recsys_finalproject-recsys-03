@@ -1,0 +1,58 @@
+swiper-container {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  --swiper-theme-color: #f4440480;
+}
+
+swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 80px;
+}
+
+.songCard {
+  background-color: #e3e3e3;
+  border-radius: 16px;
+  padding: 20px;
+  width: 110px;
+  display: inline-block;
+}
+
+.songCard img {
+  border-radius: 16px;
+  width: 100%;
+}
+
+.songCard .songDetail {
+  text-align: left;
+  margin: 0;
+  margin-top: 10px;
+}
+
+.songCard .songDetail p {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.songCard .songTitle {
+  font-size: 0.5em;
+  font-weight: 700;
+  margin: 0;
+}
+
+.songCard .artistName {
+  font-size: 0.5em;
+  font-weight: 400;
+  margin: 0;
+}
+
+.songCard .albumTitle {
+  font-size: 0.5em;
+  font-weight: 400;
+  margin: 0;
+  margin-top: 20px;
+}

@@ -1,0 +1,50 @@
+.MainPage {
+  height: 100%;
+}
+
+.MainPage .space {
+  padding: 2.5em;
+}
+
+.MainPage .line {
+  height: 2px;
+  background-color: #f44404;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.MainPage .title {
+  text-align: left;
+  color: white;
+  padding-left: 25px;
+  font-style: border;
+  font-size: 2.5em;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 900;
+}
+
+.MainPage .colored {
+  color: #f44404;
+}
+
+.MainPage .subtitle {
+  text-align: right;
+  color: white;
+  padding-top: 200px;
+  padding-right: 25px;
+  font-size: 1.1em;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.MainPage .border {
+  font-weight: bolder;
+}
+
+.MainPage .footer button.starbBnt {
+  width: 90%;
+  background: linear-gradient(to right, #f44404, black);
+  justify-content: left;
+  padding: 20px;
+}
