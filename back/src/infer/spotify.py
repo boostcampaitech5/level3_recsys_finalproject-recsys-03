@@ -42,7 +42,7 @@ def get_spotify_url(df: pd.DataFrame, top_k: int) -> pd.DataFrame:
                 continue
 
             now_score = (
-                check_string(res_title, title)
+                check_string(res_title, title) / 2
                 + check_substring(res_title, title)
                 + check_substring(res_artist_name, artist)
                 + (res_release_date == release_date)
@@ -55,7 +55,7 @@ def get_spotify_url(df: pd.DataFrame, top_k: int) -> pd.DataFrame:
                 url = res_url
                 res_score = now_score
 
-        if res_score <= 1:
+        if res_score <= 2:
             url = None
 
         try:
