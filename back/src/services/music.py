@@ -31,7 +31,6 @@ class MusicService:
         songs = [
             RecommendMusic(
                 song_id=int(song_df.iloc[i]["song_id"]),
-                youtube_id=song_df.iloc[i]["youtube_key"],
                 song_title=song_df.iloc[i]["song_title"],
                 artist_name=song_df.iloc[i]["artist_name"],
                 album_title=song_df.iloc[i]["album_title"],
@@ -45,7 +44,6 @@ class MusicService:
                 "session_id": session_id,
                 "Img Path": img_path,
                 "Genres": data.genres,
-                "Playlist IDs": pl_ids,
                 "Recommend Songs": songs,
             }
         )
