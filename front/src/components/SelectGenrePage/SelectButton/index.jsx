@@ -1,6 +1,6 @@
 import React, { PureComponent, createRef } from 'react';
 import PropTypes from 'prop-types';
-import './SelectButton.css';
+import './style.css';
 
 export default class SelectButton extends PureComponent {
   constructor(props) {

@@ -1,5 +1,5 @@
 import { React } from 'react';
-import './Modal.css';
+import './style.css';
 import PropTypes from 'prop-types';
 import CardGen from './CardGenerator';
 

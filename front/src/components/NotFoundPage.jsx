@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
-import logo from '../../imgs/logo.png';
+import logo from '../imgs/logo.png';
 
-export default class Home extends PureComponent {
+export default class NotFoundPage extends PureComponent {
   render() {
     return (
       <header className="App-header">

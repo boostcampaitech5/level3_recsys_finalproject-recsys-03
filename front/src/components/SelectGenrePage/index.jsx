@@ -2,17 +2,17 @@ import React, { PureComponent, createRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiChevronsRight, FiChevronsLeft } from 'react-icons/fi';
 import PropTypes from 'prop-types';
-import './GenreSelectPage.css';
+import './style.css';
 import SelectButton from './SelectButton';
-import popImg from '../../imgs/pop.jpg';
-import rockImg from '../../imgs/rock.jpg';
-import kpopImg from '../../imgs/kpop.jpg';
-import indieImg from '../../imgs/indie.jpg';
-import danceImg from '../../imgs/dance.jpg';
-import hippopImg from '../../imgs/hippop.jpg';
-import balladeImg from '../../imgs/ballade.jpg';
-import randbImg from '../../imgs/r&b.jpg';
-import etcImg from '../../imgs/etc.jpg';
+import popImg from './imgs/pop.jpg';
+import rockImg from './imgs/rock.jpg';
+import kpopImg from './imgs/kpop.jpg';
+import indieImg from './imgs/indie.jpg';
+import danceImg from './imgs/dance.jpg';
+import hippopImg from './imgs/hippop.jpg';
+import balladeImg from './imgs/ballade.jpg';
+import randbImg from './imgs/r&b.jpg';
+import etcImg from './imgs/etc.jpg';
 
 const genres = [
   {
@@ -53,7 +53,7 @@ const genres = [
   },
 ];
 
-class GenreSelectorPage extends PureComponent {
+class SelectGenrePage extends PureComponent {
   constructor(props) {
     super(props);
     this.selectButtons = genres.map(() => createRef());
@@ -193,13 +193,13 @@ class GenreSelectorPage extends PureComponent {
   }
 }
 
-GenreSelectorPage.propTypes = {
+SelectGenrePage.propTypes = {
   navigate: PropTypes.func.isRequired,
 };
 
-export default function GenreSelectorPageWrapper(props) {
+export default function SelectGenrePageWrapper(props) {
   const navigate = useNavigate();
 
   // eslint-disable-next-line react/jsx-props-no-spreading
-  return <GenreSelectorPage {...props} navigate={navigate} />;
+  return <SelectGenrePage {...props} navigate={navigate} />;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
-import './Loading.css';
+import './style.css';
 
-function Loading() {
+function LoadingPage() {
   return (
     <div className="contents">
       <div className="Loading-div">
@@ -22,4 +22,4 @@ function Loading() {
   );
 }
 
-export default Loading;
+export default LoadingPage;
