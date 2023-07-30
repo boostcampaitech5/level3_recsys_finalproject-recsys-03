@@ -1,6 +1,6 @@
 import React, { createRef, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import './MusicSelector.css';
+import './style.css';
 
 export default class MusicSelector extends PureComponent {
   constructor(props) {

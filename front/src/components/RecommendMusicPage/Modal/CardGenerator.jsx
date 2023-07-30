@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isIOS } from 'react-device-detect';
-import defaultImg from '../../imgs/dummy512.jpg';
-import backgroundMusicCardImg from '../../imgs/white_background_qr.png';
+import defaultImg from '../../../imgs/dummy512.jpg';
+import backgroundMusicCardImg from './imgs/white_background_qr.png';
 
 const drawBackgroundMusicCard = (canvas, ctx, onLoadFinished) => {
   const backgroundImgTag = new Image();

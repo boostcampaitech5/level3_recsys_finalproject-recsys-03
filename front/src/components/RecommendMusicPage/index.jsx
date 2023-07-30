@@ -6,12 +6,11 @@ import PropTypes from 'prop-types';
 import Marquee from 'react-fast-marquee';
 import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
-
 import MusicSelector from './MusicSelector';
-import './MusicRecommend.css';
-import Modal from '../modal/Modal';
+import './style.css';
+import Modal from './Modal';
 import defaultImg from '../../imgs/dummy512.jpg';
-import requestUserFeedback from '../../requests/requestUserFeedback';
+import requestUserFeedback from './requestUserFeedback';
 
 const defaultSongs = [
   {
@@ -68,7 +67,7 @@ const defaultSongs = [
 ];
 const defaultId = 'NULL';
 
-class MusicRecommend extends PureComponent {
+class RecommendMusicPage extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -237,13 +236,13 @@ class MusicRecommend extends PureComponent {
   }
 }
 
-MusicRecommend.defaultProps = {
+RecommendMusicPage.defaultProps = {
   imgUrl: defaultImg,
   songs: defaultSongs,
   sessionId: defaultId,
 };
 
-MusicRecommend.propTypes = {
+RecommendMusicPage.propTypes = {
   navigate: PropTypes.func.isRequired,
   imgUrl: PropTypes.string,
   songs: PropTypes.arrayOf(
@@ -258,12 +257,12 @@ MusicRecommend.propTypes = {
   sessionId: PropTypes.string,
 };
 
-export default function MusicRecommendWrapper(props) {
+export default function RecommendMusicPageWrapper(props) {
   const navigate = useNavigate();
   const location = useLocation();
 
   return (
-    <MusicRecommend
+    <RecommendMusicPage
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
       navigate={navigate}
