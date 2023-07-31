@@ -64,4 +64,5 @@
 
 - [발표 영상 <img src="https://www.youtube.com/favicon.ico">](https://youtu.be/9VgtSRlCb9E)
 - [발표 자료](<./docs/pdfs/RecSys_3조_사진_기반_음악_추천(IMGenie).pdf>)
-- 랩업 리포트(7.31 업로드 예정)
+- [랩업 리포트](./docs/pdfs/최종프로젝트_RecSys_3조_리포트.pdf)
+- [프로젝트 소개 노션](https://dong-yeon-park.notion.site/RecSys-03-IMGenie-8275b9c741ca442b9715d63a31a81ccf)
