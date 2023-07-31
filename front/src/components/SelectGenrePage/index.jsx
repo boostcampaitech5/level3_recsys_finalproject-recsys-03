@@ -81,7 +81,7 @@ function SelectGenrePage() {
         <div className="GenreSelectorWrapper">
           <div className="GenreSelector" ref={genreSelectorRef}>
             {genres.map((genre, index) => (
-              <div className="genreBox">
+              <div className="genreBox" key={genre.type}>
                 <SelectButton
                   canSelect={canSelectSelectButton}
                   key={genre.type}
