@@ -22,8 +22,7 @@
 ## 프로젝트 설명
 
 <strong>IMGenie</strong>는 일상 이미지를 기반으로 어울리는 음악을 추천해주는 서비스입니다 🎧  
-이미지를 게시하면 분위기, 상황, 날씨를 고려해 어울리는 노래를 추천해줍니다  
-<a href="https://youtu.be/mlpkmxorWVs">시연 영상 <img src="https://www.youtube.com/favicon.ico"></a>
+이미지를 게시하면 분위기, 상황, 날씨를 고려해 어울리는 노래를 추천해줍니다.  
 
 <div align="center">
 <img width="24%" src="./docs/imgs/example1.png">
@@ -31,6 +30,10 @@
 <img width="24%" src="./docs/imgs/example3.png">
 <img width="24%" src="./docs/imgs/example4.png">
 </div>
+
+## 시연 영상
+
+https://github.com/boostcampaitech5/level3_recsys_finalproject-recsys-03/assets/118340911/25c45ad5-f365-4851-a42b-5e28262e3dd5
 
 ## 프로젝트 아키텍쳐
 
@@ -61,7 +64,7 @@
 - **주혜인**: 데이터 수집 및 정제, 모델링
 
 ## Further Reading
-
+- [시연 영상 <img src="https://www.youtube.com/favicon.ico">](https://youtu.be/mlpkmxorWVs)
 - [발표 영상 <img src="https://www.youtube.com/favicon.ico">](https://youtu.be/9VgtSRlCb9E)
 - [발표 자료](<./docs/pdfs/RecSys_3조_사진_기반_음악_추천(IMGenie).pdf>)
 - [랩업 리포트](./docs/pdfs/최종프로젝트_RecSys_3조_리포트.pdf)
