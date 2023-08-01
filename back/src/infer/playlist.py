@@ -9,7 +9,7 @@ from datasets import Dataset
 from huggingface_hub import Repository
 from typing import List, Optional
 from transformers import AutoImageProcessor, AutoModel, ViTImageProcessor, ViTModel
-from src.utils import create_dir
+from ..utils import create_dir
 
 
 class PlaylistIdExtractor:

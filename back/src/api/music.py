@@ -1,6 +1,6 @@
 from fastapi import APIRouter, UploadFile, File, Depends
-from src.dto.music import RecommendMusicRequest, RecommendMusicResponse
-from src.services.music import MusicService
+from ..dto.music import RecommendMusicRequest, RecommendMusicResponse
+from ..services.music import MusicService
 
 
 music_service = MusicService()

@@ -2,8 +2,8 @@ import os
 import spotipy
 import pandas as pd
 from spotipy.oauth2 import SpotifyClientCredentials
-from src.infer.utils import check_substring, check_string
-from src.log.logger import get_spotify_logger
+from .utils import check_substring, check_string
+from ..log.logger import get_spotify_logger
 
 logger = get_spotify_logger()
 
