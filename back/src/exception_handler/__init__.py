@@ -1,7 +1,7 @@
 import sys
 from fastapi import FastAPI, Request, status
 from fastapi.responses import PlainTextResponse
-from src.log.logger import get_fastapi_logger
+from ..log.logger import get_fastapi_logger
 
 
 def add_exception_handler(app: FastAPI):

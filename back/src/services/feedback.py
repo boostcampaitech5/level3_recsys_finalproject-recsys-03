@@ -1,5 +1,5 @@
-from src.dto.feedback import UserFeedbackRequest
-from src.log.logger import get_feedback_logger
+from ..dto.feedback import UserFeedbackRequest
+from ..log.logger import get_feedback_logger
 
 
 class FeedbackService:

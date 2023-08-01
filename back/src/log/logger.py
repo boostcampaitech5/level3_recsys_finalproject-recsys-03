@@ -1,6 +1,6 @@
 import logging
 import logging.config
-from src.utils import create_dir
+from ..utils import create_dir
 
 
 OUTPUT_PATH = "outputs/logs"

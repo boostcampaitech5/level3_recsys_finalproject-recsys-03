@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from src.infer.utils import str2list
+from .utils import str2list
 from huggingface_hub import Repository
 
 

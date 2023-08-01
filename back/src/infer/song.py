@@ -1,7 +1,6 @@
 import pandas as pd
 from typing import List
-from huggingface_hub import Repository
-from src.infer.preprocess import SongPreprocesser
+from .preprocess import SongPreprocesser
 
 
 class SongIdExtractor:

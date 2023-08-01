@@ -1,6 +1,6 @@
 from PIL import Image
 from fastapi import UploadFile
-from src.utils import create_dir
+from ..utils import create_dir
 
 IMG_PATH = "outputs/userImgs/"
 
