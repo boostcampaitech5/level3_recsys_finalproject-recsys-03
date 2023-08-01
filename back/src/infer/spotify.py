@@ -13,7 +13,7 @@ def get_spotify_url(df: pd.DataFrame, top_k: int) -> pd.DataFrame:
     secret = os.environ["SPOTIFY_PWD"]
     client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret)
 
-    sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+    sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager, language="ko")
 
     urls = []
     for i in range(df.shape[0]):
