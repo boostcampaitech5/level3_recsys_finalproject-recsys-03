@@ -10,3 +10,6 @@ datasets==2.13.1
 faiss_gpu==1.7.2
 pre-commit==3.3.3
 spotipy==2.23.0
+pytest==7.4.0
+mongoengine==0.27.0
+mongomock==4.1.2
