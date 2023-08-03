@@ -5,7 +5,7 @@ from datetime import datetime
 
 class Song(BaseModel):
     id: str
-    genie_id: int
+    genie_id: str
     title: str
     artist: Artist
     released_date: datetime

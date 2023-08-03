@@ -4,7 +4,7 @@ from .song import Song
 
 class Playlist(BaseModel):
     id: str
-    genie_id: int
+    genie_id: str
     title: str
     like_cnt: int
     view_cnt: int
