@@ -1,5 +1,5 @@
 import unittest
-from datetime import datetime
+from datetime import date
 from src import db
 from .common import connect_to_db
 from src.db.repository import (
@@ -33,7 +33,7 @@ class TestPlaylist(unittest.TestCase):
         self.__playlist(songs=[song], genie_id="1")
 
         # not exists song
-        fake_song = Song(id="1234", genie_id="S3", title="title", artist=artist, released_date=datetime.now(), like_cnt=10, spotify_url=None)
+        fake_song = Song(id="1234", genie_id="S3", title="title", artist=artist, released_date=date.today(), like_cnt=10, spotify_url=None)
         self.assertRaises(NotFoundSongException, lambda: self.__playlist(songs=[fake_song], genie_id="2"))
 
     def test_delete_by_genie_id(self):
@@ -78,7 +78,7 @@ class TestPlaylist(unittest.TestCase):
         artist: Artist,
         genie_id: str = "S1",
         title: str = "노래",
-        released_date: datetime = datetime.now(),
+        released_date: date = date.today(),
         like_cnt: int = 10,
         spotify_url: str = "http://song.mp4",
     ) -> Song:
