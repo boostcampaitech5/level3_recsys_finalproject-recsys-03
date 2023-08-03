@@ -1,4 +1,4 @@
-from mongoengine import Document, StringField, ReferenceField, DateTimeField, IntField, URLField
+from mongoengine import Document, StringField, ReferenceField, DateField, IntField, URLField
 from ...dto.model import Song
 from .artist import ArtistDocument
 
@@ -7,7 +7,7 @@ class SongDocument(Document):
     genie_id = StringField(required=True, unique=True)
     title = StringField(required=True)
     artist = ReferenceField(ArtistDocument, required=True)
-    released_date = DateTimeField(required=True)
+    released_date = DateField(required=True)
     like_cnt = IntField(required=True)
     spotify_url = URLField()
 
