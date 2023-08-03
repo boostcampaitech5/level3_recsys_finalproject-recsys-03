@@ -1,11 +1,13 @@
 from ..document import PlaylistDocument
 from ..exception import NotFoundPlaylistException
-from ...dto.model import Playlist
+from ...dto.model import Playlist, Song
+from .common import find_song_docs_by_dto
 
 
 class PlaylistRepository:
-    def create_playlist(self, genie_id: str, name: str) -> Playlist:
-        playlist = PlaylistDocument(genie_id=genie_id, name=name)
+    def create_playlist(self, genie_id: str, title: str, like_cnt: int, view_cnt: int, tags: list[str], songs: list[Song], img_url: str) -> Playlist:
+        song_docs = find_song_docs_by_dto(songs)
+        playlist = PlaylistDocument(genie_id=genie_id, title=title, like_cnt=like_cnt, view_cnt=view_cnt, tags=tags, songs=song_docs, img_url=img_url)
         saved: PlaylistDocument = playlist.save()
         return saved.to_dto()
 
