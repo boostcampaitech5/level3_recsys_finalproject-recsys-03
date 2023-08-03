@@ -1,5 +1,5 @@
 from mongoengine import Document, StringField
-from ...dto.user import User
+from ...dto.model import User
 
 
 class UserDocument(Document):

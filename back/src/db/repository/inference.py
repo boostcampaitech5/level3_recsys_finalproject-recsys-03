@@ -1,7 +1,5 @@
 from ..document import InferenceDocument, SongsElementEmbeddedDocument
-from ...dto.inference import Inference, SongsElement
-from ...dto.user import User
-from ...dto.playlist import Playlist
+from ...dto.model import Inference, SongsElement, User, Playlist
 from .common import find_song_doc_by_dto, find_user_doc_by_dto, find_playlist_docs_by_dto
 
 

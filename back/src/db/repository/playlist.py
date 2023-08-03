@@ -1,6 +1,6 @@
 from ..document import PlaylistDocument
 from ..exception import NotFoundPlaylistException
-from ...dto.playlist import Playlist
+from ...dto.model import Playlist
 
 
 class PlaylistRepository:

@@ -1,4 +1,4 @@
-from ..dto.feedback import UserFeedbackRequest
+from ..dto.request import UserFeedbackRequest
 from ..log.logger import get_feedback_logger
 
 

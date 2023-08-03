@@ -8,7 +8,7 @@ from mongoengine import (
     EmbeddedDocumentField,
     ValidationError,
 )
-from ...dto.inference import Inference, SongsElement
+from ...dto.model import Inference, SongsElement
 from .user import UserDocument
 from .playlist import PlaylistDocument
 from .song import SongDocument

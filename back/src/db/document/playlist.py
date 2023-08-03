@@ -6,7 +6,7 @@ from mongoengine import (
     ReferenceField,
     ValidationError,
 )
-from ...dto.playlist import Playlist
+from ...dto.model import Playlist
 from .song import SongDocument
 
 

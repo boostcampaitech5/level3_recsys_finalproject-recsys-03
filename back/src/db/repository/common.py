@@ -1,9 +1,6 @@
 from mongoengine import QuerySet
 from ..document import ArtistDocument, PlaylistDocument, SongDocument, UserDocument
-from ...dto.artist import Artist
-from ...dto.playlist import Playlist
-from ...dto.song import Song
-from ...dto.user import User
+from ...dto.model import Artist, Playlist, Song, User
 from ..exception import NotFoundArtistException, NotFoundPlaylistException, NotFoundSongException, NotFoundUserException
 
 

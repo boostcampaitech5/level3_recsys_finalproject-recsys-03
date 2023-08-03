@@ -1,6 +1,6 @@
 from ..document import ArtistDocument
 from ..exception import NotFoundArtistException
-from ...dto.artist import Artist
+from ...dto.model import Artist
 
 
 class ArtistRepository:

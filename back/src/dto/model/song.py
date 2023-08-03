@@ -3,7 +3,7 @@ from .artist import Artist
 from datetime import datetime
 
 
-class Playlist(BaseModel):
+class Song(BaseModel):
     id: str
     genie_id: int
     title: str

@@ -1,6 +1,6 @@
 from ..document import UserDocument
 from ..exception import NotFoundUserException
-from ...dto.user import User
+from ...dto.model import User
 
 
 class UserRepository:
