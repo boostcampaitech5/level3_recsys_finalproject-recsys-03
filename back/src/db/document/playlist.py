@@ -44,7 +44,7 @@ class PlaylistDocument(Document):
             title=self.title,
             like_cnt=self.like_cnt,
             view_cnt=self.view_cnt,
-            tags=[self.tags],
+            tags=self.tags,
             songs=[song.to_dto() for song in self.songs],
             img_url=self.img_url,
         )
