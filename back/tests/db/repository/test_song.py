@@ -13,7 +13,7 @@ from src.db.exception import (
 from src.dto.model import Artist, Song
 
 
-class Songlist(unittest.TestCase):
+class TestSong(unittest.TestCase):
     songRepository = SongRepository()
     artistRepository = ArtistRepository()
 
