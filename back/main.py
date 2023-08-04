@@ -2,11 +2,18 @@ import uvicorn
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src import api
+from src import api, db
 from src.exception_handler import add_exception_handler
 from dotenv import load_dotenv
 
 load_dotenv(".env")
+
+db.connect(
+    db=os.environ.get("DB_HOST"),
+    host=os.environ.get("DB_NAME"),
+    username=os.environ.get("DB_USERNAME"),
+    password=os.environ.get("DB_PASSWORD"),
+)
 
 app = FastAPI()
 app.include_router(api.router)
