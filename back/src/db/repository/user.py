@@ -8,7 +8,7 @@ class UserRepository:
         saved: UserDocument = user.save()
         return saved.to_dto()
 
-    def find_by_id(self) -> User:
+    def find_by_id(self, id: str) -> User:
         user: UserDocument = UserDocument.objects(id=id).first()
 
         if not user:
