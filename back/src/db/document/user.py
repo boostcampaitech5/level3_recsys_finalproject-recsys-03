@@ -1,9 +1,7 @@
-from mongoengine import Document, StringField
+from mongoengine import Document
 from ...dto.model import User
 
 
 class UserDocument(Document):
-    fingerprint = StringField(required=True, unique=True)
-
     def to_dto(self) -> User:
-        return User(str(self.id), self.fingerprint)
+        return User(str(self.id))
