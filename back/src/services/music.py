@@ -5,7 +5,8 @@ from ..infer.playlist import PlaylistIdExtractor
 from ..infer.song import SongIdExtractor
 from ..infer.spotify import get_spotify_url
 from ..log.logger import get_user_logger
-from ..dto.music import RecommendMusicRequest, RecommendMusicResponse, RecommendMusic
+from ..dto.response import RecommendMusicResponse, RecommendMusic
+from ..dto.request import RecommendMusicRequest
 from .utils import save_file, resize_img
 
 pl_k = 15
@@ -20,7 +21,7 @@ class MusicService:
         self.playlist_id_ext = PlaylistIdExtractor(k=pl_k, is_data_pull=True)
         self.song_id_ext = SongIdExtractor(is_data_pull=True)
 
-    def recommend_music(self, image: UploadFile, data: RecommendMusicRequest) -> list[RecommendMusic]:
+    def recommend_music(self, image: UploadFile, data: RecommendMusicRequest) -> RecommendMusicResponse:
         session_id = str(uuid4()).replace("-", "_")
         img_path = save_file(session_id, image)
         resize_img(img_path, SIZE)

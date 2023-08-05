@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from ..dto.feedback import UserFeedbackRequest
+from ..dto.request import UserFeedbackRequest
 from ..services.feedback import FeedbackService
 
 
