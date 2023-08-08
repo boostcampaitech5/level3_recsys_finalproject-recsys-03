@@ -1,18 +1,17 @@
 import uvicorn
-import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src import api, db
 from src.exception_handler import add_exception_handler
-from dotenv import load_dotenv
+from src.config import AppConfig
 
-load_dotenv(".env")
+config = AppConfig()
 
 db.connect(
-    db=os.environ.get("DB_HOST"),
-    host=os.environ.get("DB_NAME"),
-    username=os.environ.get("DB_USERNAME"),
-    password=os.environ.get("DB_PASSWORD"),
+    db=config.db_name,
+    host=config.db_host,
+    username=config.db_username,
+    password=config.db_password,
 )
 
 app = FastAPI()
@@ -21,4 +20,4 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, 
 add_exception_handler(app)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host=os.environ["HOST"], port=int(os.environ["PORT"]))
+    uvicorn.run(app, host=config.host, port=config.port)
