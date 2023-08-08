@@ -1,16 +1,17 @@
-import os
 import spotipy
 import pandas as pd
 from spotipy.oauth2 import SpotifyClientCredentials
 from .utils import check_substring, check_string
 from ..log.logger import get_spotify_logger
+from ..config import AppConfig
 
+config = AppConfig()
 logger = get_spotify_logger()
 
 
 def get_spotify_url(df: pd.DataFrame, top_k: int) -> pd.DataFrame:
-    cid = os.environ["SPOTIFY_CID"]
-    secret = os.environ["SPOTIFY_PWD"]
+    cid = config.spotify_cid
+    secret = config.spotify_pwd
     client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret)
 
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager, language="ko")
