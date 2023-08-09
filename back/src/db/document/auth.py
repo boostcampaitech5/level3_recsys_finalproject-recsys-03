@@ -8,7 +8,7 @@ config = AppConfig()
 
 
 class AuthDocument(Document):
-    user = ReferenceField(UserDocument, required=True)
+    user = ReferenceField(UserDocument, required=True, unique=True)
     refresh_token = StringField(required=True)
     created_at = DateTimeField(default=datetime.utcnow)
 
