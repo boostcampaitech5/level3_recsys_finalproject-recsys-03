@@ -12,7 +12,7 @@ class AuthDocument(Document):
     refresh_token = StringField(required=True)
     created_at = DateTimeField(default=datetime.utcnow)
 
-    meta = {"indexes": [{"fields": ["created_at"], "expireAfterSeconds": config.refresh_token_exp_period}]}
+    meta = {"indexes": [{"fields": ["created_at"], "expireAfterSeconds": int(config.refresh_token_exp_period.total_seconds())}]}
 
     def to_dto(self) -> Auth:
         return Auth(id=str(self.id), user=self.user.to_dto(), refresh_token=self.refresh_token, created_at=self.created_at)
