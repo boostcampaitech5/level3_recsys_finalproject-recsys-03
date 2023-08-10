@@ -10,8 +10,8 @@ class AuthRepository:
         saved: AuthDocument = auth.save()
         return saved.to_dto()
 
-    def find_by_user_id(self, user_id: str) -> Auth:
-        auth: AuthDocument = AuthDocument.objects(user__id=user_id).first()
+    def find_by_refresh_token(self, refresh_token: str) -> Auth:
+        auth: AuthDocument = AuthDocument.objects(refresh_token=refresh_token).first()
 
         if not auth:
             return None
