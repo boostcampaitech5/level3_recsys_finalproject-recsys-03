@@ -72,9 +72,9 @@ def find_song_docs_by_dto(songs: tuple[Song]) -> QuerySet:
 
 
 def find_user_doc_by_dto(user: User) -> UserDocument:
-    query_set = UserDocument.objects(fingerprint=user.fingerprint)
+    query_set = UserDocument.objects(id=user.id).first()
 
     if not query_set:
         raise NotFoundUserException(f"Can't find user document: {user}")
 
-    return query_set.first()
+    return query_set
