@@ -1,4 +1,4 @@
-from mongoengine import DateTimeField
+from mongoengine import DateTimeField, signals
 from datetime import datetime
 
 
@@ -25,4 +25,4 @@ class UpdatedAtMixin:
     meta = {"abstract": True}
 
 
-UpdatedAtMixin.pre_save.connect(update_updated_at)
+signals.pre_save.connect(update_updated_at, sender=UpdatedAtMixin)
