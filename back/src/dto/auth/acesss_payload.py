@@ -8,6 +8,6 @@ class AccessTokenPayload(BaseModel):
     @field_validator("type")
     @classmethod
     def type_must_equal_access(cls, type: str) -> str:
-        if type == "access":
-            raise ValidationError("type must equal refresh")
+        if type != "access":
+            raise ValidationError("type must equal access")
         return type
