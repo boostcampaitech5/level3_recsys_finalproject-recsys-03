@@ -13,5 +13,5 @@ class CreatedAtMixin:
 
 
 class UpdatedAtMixin:
-    created_at = DateTimeField(default=utcnow)
+    updated_at = DateTimeField(default=utcnow)
     meta = {"abstract": True}
