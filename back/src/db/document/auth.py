@@ -1,7 +1,5 @@
 from mongoengine import Document, StringField, ReferenceField
 from ...dto.model import Auth
-
-# from datetime import datetime
 from ...config import AppConfig
 from .user import UserDocument
 from .mixin.date import CreatedAtMixin

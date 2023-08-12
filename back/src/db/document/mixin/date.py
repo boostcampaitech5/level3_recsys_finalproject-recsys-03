@@ -24,5 +24,6 @@ class UpdatedAtMixin:
     updated_at = DateTimeField(default=utcnow)
     meta = {"abstract": True}
 
-
-signals.pre_save.connect(update_updated_at, sender=UpdatedAtMixin)
+    def __init_subclass__(cls, **kwargs):
+        super().__init_subclass__(**kwargs)
+        signals.pre_save.connect(update_updated_at, sender=cls)
