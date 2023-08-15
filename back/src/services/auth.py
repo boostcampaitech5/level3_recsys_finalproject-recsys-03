@@ -3,8 +3,7 @@ from datetime import datetime
 from ..config import AppConfig
 from .jwt import encode_jwt, decode_jwt
 from ..dto.auth import AccessTokenPayload, RefreshTokenPayload
-from ..dto.model import Auth, User
-from ..db.repository import UserRepository, AuthRepository
+from ..db import Auth, User, UserRepository, AuthRepository
 from ..exceptions.auth import InvalidTokenException
 from ..exceptions.error_type import ErrorType
 
