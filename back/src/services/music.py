@@ -1,11 +1,11 @@
 from fastapi import UploadFile
 from uuid import uuid4
 from ..infer.playlist import PlaylistIdExtractor
-from ..infer.song import SongIdExtractor
+from ..infer.song import SongExtractor
 from ..log.logger import get_user_logger
 from ..dto.response import RecommendMusicResponse, RecommendMusic
 from ..dto.request import RecommendMusicRequest
-from ..db import Playlist, Song, PlaylistRepository, SongRepository
+from ..db import Playlist, Song, PlaylistRepository
 from .utils import save_file, resize_img
 
 pl_k = 15
@@ -18,9 +18,8 @@ class MusicService:
         self.user_logger = get_user_logger()
 
         self.playlist_id_ext = PlaylistIdExtractor(k=pl_k, is_data_pull=True)
-        self.song_id_ext = SongIdExtractor(is_data_pull=True)
+        self.song_ext = SongExtractor()
 
-        self.song_repository = SongRepository()
         self.playlist_repository = PlaylistRepository()
 
     def recommend_music(self, image: UploadFile, data: RecommendMusicRequest) -> RecommendMusicResponse:
@@ -73,8 +72,5 @@ class MusicService:
         return playlists, pl_scores
 
     def _extract_songs(self, genres: list[str], playlists: list[Playlist], pl_scores: list[float], top_k: int) -> list[Song]:
-        pl_ids = [playlist.genie_id for playlist in playlists]
-        song_infos = self.song_id_ext.get_song_info(pl_ids, pl_scores, genres)
-
-        song_ids = (song_info["song_id"] for song_info in song_infos)
-        return [self.song_repository.find_by_genie_id(song_id) for song_id in song_ids]
+        songs = self.song_ext.extract_songs(playlists, pl_scores, genres)
+        return songs[:top_k]

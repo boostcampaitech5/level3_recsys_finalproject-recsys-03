@@ -1,68 +1,78 @@
-import pandas as pd
-from .preprocess import SongPreprocesser
+import math
+from functools import partial
+from collections import defaultdict
+from db import Playlist, Song
+from pydantic import BaseModel
 
 
-class SongIdExtractor:
-    def __init__(self, is_data_pull: bool):
-        self.is_data_pull = is_data_pull
-        self.song_processor = SongPreprocesser(self.is_data_pull)
-        self.playlist, self.song_info = self.song_processor.get_dataframes()
+class PlaylistInfo(BaseModel):
+    playlist: Playlist
+    sim: float
+    matched: int
 
-    def get_song_info(self, pl_id_list: list[int], sim_list: list[float], user_genres: list[str]):
-        result = self.result_to_df(pl_id_list, sim_list)
 
-        pl = pd.merge(result, self.playlist)
-        pl["matched_rate"] = pl.matched / pl.tag_cnt
-        pl = pl.drop(["tag_cnt", "matched"], axis=1)
-        pl_song = self.spread_songs(pl)
+class SongInfo(BaseModel):
+    song: Song
+    sim: float
 
-        self.info = pd.merge(pl_song, self.song_info)
-        self.info["user_genre"] = self.info["genre"].apply(lambda x: x in user_genres)
 
-        result_df = self.get_sorted_info(self.info)
-        rec_songs = result_df[:][["song_id", "song_title", "artist_name", "album_title", "release_date"]]
-        return rec_songs
+class SongExtractor:
+    def extract_songs(self, playlists: list[Playlist], sim_list: list[float], selected_genres: list[str]) -> list[Song]:
+        playlist_infos = self._convert_playlist_infos(playlists, sim_list)
 
-    def get_sorted_info(self, df: pd.DataFrame):
-        n = df.shape[0]
-        cols = df.columns
-        date = [i * 3 for i in range(n)]
-        pop = [(i * 3) + 1 for i in range(n)]
-        sim = [(i * 3) + 2 for i in range(n)]
+        # matched_rates = [pl_info.matched / len(pl_info.playlist.tags) for pl_info in playlist_infos]
+        song_infos = self._spread_song_infos(playlist_infos)
 
-        result_values = [[0] * len(cols)] * (n * 3)
-        result_df = pd.DataFrame(result_values, columns=cols)
+        sorted_ = self._sorted_info(song_infos, selected_genres)
+        dropped = self._drop_duplicate_from_song_infos(sorted_)
+        return [song_info.song for song_info in dropped]
 
-        by_date = df.sort_values(by=["user_genre", "release_date"], ascending=False)
-        by_pop = df.sort_values(by=["user_genre", "listener_cnt"], ascending=False)
-        by_sim = df.sort_values(by=["sim", "listener_cnt"], ascending=False)
+    def _convert_playlist_infos(self, playlists: list[Playlist], sim_list: list[float]) -> list[PlaylistInfo]:
+        DEFAULT_INFO = PlaylistInfo(playlist=None, sim=math.inf, matched=0)
 
-        result_df.iloc[date, :] = by_date.reset_index(drop=True)
-        result_df.iloc[pop, :] = by_pop.reset_index(drop=True)
-        result_df.iloc[sim, :] = by_sim.reset_index(drop=True)
+        playlist2info = defaultdict(lambda: DEFAULT_INFO)
+        for playlist, sim in zip(playlists, sim_list):
+            pl_info = playlist2info[playlist]
 
-        result_df = result_df.drop_duplicates(["song_id"]).reset_index(drop=True)
+            pl_info.playlist = playlist
+            pl_info.sim = max(pl_info.sim, sim)
+            pl_info.matched += 1
 
-        return result_df
+        return playlist2info.values()
 
-    def result_to_df(self, id_list: list[int], sim_list: list[float]) -> pd.DataFrame:
-        model_result = pd.DataFrame({"playlist_id": id_list, "cos_sim": sim_list})
-        model_result = model_result.groupby("playlist_id").agg({"cos_sim": [max, len]}).reset_index()
-        model_result.columns = ["playlist_id", "cos_sim", "matched"]
-        return model_result
+    def _spread_song_infos(self, pl_infos: list[PlaylistInfo]) -> list[SongInfo]:
+        song_infos = []
 
-    def spread_songs(self, df: pd.DataFrame) -> pd.DataFrame:
-        pl_id = []
-        song_id = []
-        sim = []
-        pl_match = []
+        for pl_info in pl_infos:
+            song_infos += [SongInfo(song=song, sim=pl_info.sim) for song in pl_info.playlist.songs]
 
-        for id in df.playlist_id:
-            i, s, song_list, mr = df[df.playlist_id == id].values.flatten()
-            for song in song_list:
-                pl_id.append(i)
-                sim.append(s)
-                song_id.append(int(song))
-                pl_match.append(mr)
-        pl_song = pd.DataFrame({"song_id": song_id, "playlist_id": pl_id, "sim": sim, "pl_match": pl_match})
-        return pl_song
+        return song_infos
+
+    def _sorted_info(self, song_infos: list[SongInfo], selected_genres: list[str]) -> list[SongInfo]:
+        sorted_ = [None] * len(song_infos)
+        sorted_[::3] = sorted(song_infos[::3], key=partial(self._sort_song_info_by_release_date, selected_genres=selected_genres))
+        sorted_[1::3] = sorted(song_infos[1:][::3], key=partial(self._sort_song_info_by_popularity, selected_genres=selected_genres))
+        sorted_[2::3] = sorted(song_infos[2:][::3], key=self._sort_song_info_by_similarity)
+
+        return sorted_
+
+    @classmethod
+    def _sort_song_info_by_release_date(cls, song_info: SongInfo, selected_genres: list[str]):
+        matched_generes = song_info.song.genres & selected_genres
+        return -(matched_generes, song_info.song.album.released_date)
+
+    @classmethod
+    def _sort_song_info_by_popularity(cls, song_info: SongInfo, selected_genres: list[str]):
+        matched_generes = song_info.song.genres & selected_genres
+        return -(matched_generes, song_info.song.listener_cnt)
+
+    @classmethod
+    def _sort_song_info_by_similarity(cls, song_info: SongInfo):
+        return -(song_info.sim, song_info.song.listener_cnt)
+
+    def _drop_duplicate_from_song_infos(self, song_infos: list[SongInfo]) -> list[SongInfo]:
+        song2infos = {}
+        for song_info in song_infos:
+            song2infos[song_info.song] = song_info
+
+        return song2infos.values()
