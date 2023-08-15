@@ -1,12 +1,11 @@
-import pandas as pd
 from fastapi import UploadFile
 from uuid import uuid4
 from ..infer.playlist import PlaylistIdExtractor
 from ..infer.song import SongIdExtractor
-from ..infer.spotify import get_spotify_url
 from ..log.logger import get_user_logger
 from ..dto.response import RecommendMusicResponse, RecommendMusic
 from ..dto.request import RecommendMusicRequest
+from ..db import Song, SongRepository
 from .utils import save_file, resize_img
 
 pl_k = 15
@@ -21,23 +20,25 @@ class MusicService:
         self.playlist_id_ext = PlaylistIdExtractor(k=pl_k, is_data_pull=True)
         self.song_id_ext = SongIdExtractor(is_data_pull=True)
 
+        self.song_repository = SongRepository()
+
     def recommend_music(self, image: UploadFile, data: RecommendMusicRequest) -> RecommendMusicResponse:
         session_id = str(uuid4()).replace("-", "_")
         img_path = save_file(session_id, image)
         resize_img(img_path, SIZE)
 
         pl_ids, pl_scores = self._extract_playlist_ids(img_path)
-        song_df = self._extract_songs(data.genres, pl_ids, pl_scores, top_k)
+        songs = self._extract_songs(data.genres, pl_ids, pl_scores, top_k)
 
         songs = [
             RecommendMusic(
-                song_id=int(song_df.iloc[i]["song_id"]),
-                song_title=song_df.iloc[i]["song_title"],
-                artist_name=song_df.iloc[i]["artist_name"],
-                album_title=song_df.iloc[i]["album_title"],
-                music_url=song_df.iloc[i]["music_url"],
+                song_id=song.id,
+                song_title=song.title,
+                artist_name=song.artist.name,
+                album_title=song.album.name,
+                music_url=song.spotify_url,
             )
-            for i in range(song_df.shape[0])
+            for song in songs
         ]
 
         self.user_logger.info(
@@ -68,6 +69,8 @@ class MusicService:
 
         return pl_ids, pl_scores
 
-    def _extract_songs(self, genres: list[str], pl_ids: list[int], pl_scores: list[float], top_k: int) -> pd.DataFrame:
+    def _extract_songs(self, genres: list[str], pl_ids: list[int], pl_scores: list[float], top_k: int) -> list[Song]:
         song_infos = self.song_id_ext.get_song_info(pl_ids, pl_scores, genres)
-        return get_spotify_url(song_infos, top_k)
+
+        song_ids = (song_info["song_id"] for song_info in song_infos)
+        return [self.song_repository.find_by_genie_id(song_id) for song_id in song_ids]
