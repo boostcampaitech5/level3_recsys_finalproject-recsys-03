@@ -3,7 +3,7 @@ from ..dto.request import ReLoginRequest
 from ..dto.response import SigninResponse, ReLoginResponse
 from ..services.auth import AuthService
 from ..config import AppConfig
-from ..db.repository import UserRepository, AuthRepository
+from ..db import UserRepository, AuthRepository
 
 config = AppConfig()
 user_repository = UserRepository()

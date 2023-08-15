@@ -4,8 +4,7 @@ from datetime import datetime
 from src.services.auth import AuthService
 from src.config import AppConfig
 from src.dto.auth import AccessTokenPayload, RefreshTokenPayload
-from src.dto.model import User, Auth
-from src.db.repository import UserRepository, AuthRepository
+from src.db import User, Auth, UserRepository, AuthRepository
 from src.exceptions.auth import InvalidTokenException
 
 
