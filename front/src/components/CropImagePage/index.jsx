@@ -27,8 +27,8 @@ function CropImagePage() {
   const naviagteToNext = () => {
     navigate('/loading');
 
-    requestRecommendMusic(croppedImage, info.genres).then(
-      ({ session_id: sessionId, songs }) => {
+    requestRecommendMusic(croppedImage, info.genres)
+      .then(({ session_id: sessionId, songs }) => {
         navigate('/music-rec', {
           state: {
             url: croppedImage,
@@ -36,8 +36,14 @@ function CropImagePage() {
             sessionId,
           },
         });
-      }
-    );
+      })
+      .catch(() => {
+        navigate('/error', {
+          state: {
+            backTo: '/upload',
+          },
+        });
+      });
   };
 
   const goUploadPage = () => {

@@ -7,6 +7,7 @@ import MusicRecommendPage from './RecommendMusicPage';
 import UploadImagePage from './UploadImagePage';
 import CropImagePage from './CropImagePage';
 import NotFoundPage from './NotFoundPage';
+import ErrorPage from './ErrorPage';
 import './App.css';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route path="/loading" element={<LoadingPage />} />
             <Route path="/genre-select" element={<SelectGenrePage />} />
             <Route path="/music-rec" element={<MusicRecommendPage />} />
+            <Route path="/error" element={<ErrorPage />} />
             <Route path="/*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
