@@ -1,7 +1,7 @@
 import math
 from functools import partial
 from collections import defaultdict
-from db import Playlist, Song
+from ..db import Playlist, Song
 from pydantic import BaseModel
 
 
