@@ -1,12 +1,16 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './style.css';
 import error from './error.png';
 
 function ErrorPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const backTo = location.state?.backTo;
+
   const goBack = () => {
-    navigate(-1);
+    navigate(backTo);
   };
 
   return (

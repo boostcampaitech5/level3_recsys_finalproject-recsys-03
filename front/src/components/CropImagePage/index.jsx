@@ -38,7 +38,11 @@ function CropImagePage() {
         });
       })
       .catch(() => {
-        navigate('/error');
+        navigate('/error', {
+          state: {
+            backTo: '/upload',
+          },
+        });
       });
   };
 
