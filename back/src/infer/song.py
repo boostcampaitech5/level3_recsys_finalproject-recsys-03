@@ -1,5 +1,4 @@
 import pandas as pd
-from typing import List
 from .preprocess import SongPreprocesser
 
 
@@ -9,7 +8,7 @@ class SongIdExtractor:
         self.song_processor = SongPreprocesser(self.is_data_pull)
         self.playlist, self.song_info = self.song_processor.get_dataframes()
 
-    def get_song_info(self, pl_id_list: list, sim_list: list, user_genres: list):
+    def get_song_info(self, pl_id_list: list[int], sim_list: list[float], user_genres: list[str]):
         result = self.result_to_df(pl_id_list, sim_list)
 
         pl = pd.merge(result, self.playlist)
@@ -46,7 +45,7 @@ class SongIdExtractor:
 
         return result_df
 
-    def result_to_df(self, id_list: List[int], sim_list: List[float]) -> pd.DataFrame:
+    def result_to_df(self, id_list: list[int], sim_list: list[float]) -> pd.DataFrame:
         model_result = pd.DataFrame({"playlist_id": id_list, "cos_sim": sim_list})
         model_result = model_result.groupby("playlist_id").agg({"cos_sim": [max, len]}).reset_index()
         model_result.columns = ["playlist_id", "cos_sim", "matched"]
