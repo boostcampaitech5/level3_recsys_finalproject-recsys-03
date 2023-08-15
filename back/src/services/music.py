@@ -5,7 +5,7 @@ from ..infer.song import SongIdExtractor
 from ..log.logger import get_user_logger
 from ..dto.response import RecommendMusicResponse, RecommendMusic
 from ..dto.request import RecommendMusicRequest
-from ..db import Song, SongRepository
+from ..db import Playlist, Song, PlaylistRepository, SongRepository
 from .utils import save_file, resize_img
 
 pl_k = 15
@@ -21,14 +21,16 @@ class MusicService:
         self.song_id_ext = SongIdExtractor(is_data_pull=True)
 
         self.song_repository = SongRepository()
+        self.playlist_repository = PlaylistRepository()
 
     def recommend_music(self, image: UploadFile, data: RecommendMusicRequest) -> RecommendMusicResponse:
         session_id = str(uuid4()).replace("-", "_")
         img_path = save_file(session_id, image)
         resize_img(img_path, SIZE)
 
-        pl_ids, pl_scores = self._extract_playlist_ids(img_path)
-        songs = self._extract_songs(data.genres, pl_ids, pl_scores, top_k)
+        playlists, pl_scores = self._extract_playlists(img_path)
+        pl_genie_ids = [playlist.genie_id for playlist in playlists]
+        songs = self._extract_songs(data.genres, playlists, pl_scores, top_k)
 
         songs = [
             RecommendMusic(
@@ -46,14 +48,14 @@ class MusicService:
                 "session_id": session_id,
                 "Img Path": img_path,
                 "Genres": data.genres,
-                "Playlist IDs": pl_ids,
+                "Playlist IDs": pl_genie_ids,
                 "Recommend Songs": songs,
             }
         )
 
         return RecommendMusicResponse(session_id=session_id, songs=songs)
 
-    def _extract_playlist_ids(self, img_path: str) -> tuple[list[int], list[float]]:
+    def _extract_playlists(self, img_path: str) -> tuple[list[Playlist], list[float]]:
         pl_scores, pl_ids = [], []
 
         weather_scores, weather_ids = self.playlist_id_ext.get_weather_playlist_id(img_path)
@@ -67,9 +69,11 @@ class MusicService:
         pl_ids.extend(sit_ids)
         pl_ids.extend(mood_ids)
 
-        return pl_ids, pl_scores
+        playlists = [self.playlist_repository.find_by_genie_id(pl_id) for pl_id in pl_ids]
+        return playlists, pl_scores
 
-    def _extract_songs(self, genres: list[str], pl_ids: list[int], pl_scores: list[float], top_k: int) -> list[Song]:
+    def _extract_songs(self, genres: list[str], playlists: list[Playlist], pl_scores: list[float], top_k: int) -> list[Song]:
+        pl_ids = [playlist.genie_id for playlist in playlists]
         song_infos = self.song_id_ext.get_song_info(pl_ids, pl_scores, genres)
 
         song_ids = (song_info["song_id"] for song_info in song_infos)
