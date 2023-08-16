@@ -25,7 +25,7 @@ class TestAuthService(unittest.TestCase):
 
         assert user == expected_user
 
-    def test_logged_in_user__유효한_토큰이_아닌경우_InvalidTokenException이_터진다(self):
+    def test_logged_in_user__if_the_access_token_is_not_valid_then_should_raise_InvalidTokenException(self):
         expected_user = User(id="1")
         self.user_repository.find_by_id.return_value = expected_user
         invalid_access_token = "invalid"
@@ -55,7 +55,7 @@ class TestAuthService(unittest.TestCase):
         new_refresh_token_payload = self.auth_service._AuthService__decode_refresh_token(new_refresh_token)
         assert new_refresh_token_payload.user_id == expected_user.id
 
-    def test_re_login__유효한_토큰이_아닌경우_InvalidTokenException이_터진다(self):
+    def test_re_login__if_the_refresh_token_is_not_valid_then_should_raise_InvalidTokenException(self):
         refresh_token = "invalid"
 
         with self.assertRaises(InvalidTokenException):
