@@ -2,25 +2,25 @@ from fastapi import UploadFile
 from uuid import uuid4
 from ..infer.playlist import PlaylistIdExtractor
 from ..infer.song import SongExtractor
-from ..log.logger import get_user_logger
 from ..dto.response import RecommendMusicResponse, RecommendMusic
 from ..dto.request import RecommendMusicRequest
 from ..db import Playlist, Song, PlaylistRepository, NotFoundPlaylistException
 from .utils import save_file, resize_img
+from logging import Logger
 
-pl_k = 15
+
 top_k = 6  # song_k must be more than 6 or loop of silder must be False
 SIZE = 224
 
 
 class MusicService:
-    def __init__(self) -> None:
-        self.user_logger = get_user_logger()
-
-        self.playlist_id_ext = PlaylistIdExtractor(k=pl_k, is_data_pull=True)
-        self.song_ext = SongExtractor()
-
-        self.playlist_repository = PlaylistRepository()
+    def __init__(
+        self, logger: Logger, playlist_repository: PlaylistRepository, playlist_id_ext: PlaylistIdExtractor, song_ext: SongExtractor
+    ) -> None:
+        self.user_logger = logger
+        self.playlist_repository = playlist_repository
+        self.playlist_id_ext = playlist_id_ext
+        self.song_ext = song_ext
 
     def recommend_music(self, image: UploadFile, data: RecommendMusicRequest) -> RecommendMusicResponse:
         session_id = str(uuid4()).replace("-", "_")
