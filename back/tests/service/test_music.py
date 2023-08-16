@@ -20,12 +20,12 @@ class TestMusicService(unittest.TestCase):
 
         self.music_service = MusicService(self.user_logger, self.playlist_repository, self.playlist_id_ext, self.song_ext)
 
-    def playlist_id_ext의_api함수_모킹(self):
+    def mock_api_functions_of_playlist_id_ext(self):
         self.playlist_id_ext.get_weather_playlist_id.return_value = ([0.1] * 15, list(range(1, 16)))
         self.playlist_id_ext.get_mood_playlist_id.return_value = ([0.1] * 15, list(range(3, 18)))
         self.playlist_id_ext.get_sit_playlist_id.return_value = ([0.1] * 15, list(range(5, 20)))
 
-    def song_ext의_api함수_모킹(self):
+    def mock_api_functions_of_song_ext(self):
         songs = []
         for i in range(45):
             album = Album(
@@ -65,8 +65,8 @@ class TestMusicService(unittest.TestCase):
     @patch("src.services.music.save_file", autospec=True)
     @patch("src.services.music.resize_img")
     def test_recommend_music(self, resize_img, save_file):
-        self.playlist_id_ext의_api함수_모킹()
-        self.song_ext의_api함수_모킹()
+        self.mock_api_functions_of_playlist_id_ext()
+        self.mock_api_functions_of_song_ext()
 
         image = Mock()
         data = RecommendMusicRequest(genres=["POP", "락"])
