@@ -23,7 +23,8 @@ jobs:
       - name: Build and push to docker hub
         uses: docker/build-push-action@v4
         with:
-          context: ./front/Dockerfile.dev
+          context: ./front/
+          file: ./front/Dockerfile.dev
           push: true
           tags: recdolserver/imgenie-front-dev
 
