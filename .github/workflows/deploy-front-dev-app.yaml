@@ -46,7 +46,7 @@ jobs:
         run: |-
           gcloud compute instances update-container "${{ secrets.GCE_INSTANCE }}" \
             --zone "${{ secrets.GCE_INSTANCE_ZONE }}" \
-            --container-image "recdolserver/imgenie-front-dev"
+            --container-image "docker.io/recdolserver/imgenie-front-dev"
 
       - name: gcp reset
         run: |-
