@@ -5,7 +5,7 @@ from ..infer.song import SongExtractor
 from ..log.logger import get_user_logger
 from ..dto.response import RecommendMusicResponse, RecommendMusic
 from ..dto.request import RecommendMusicRequest
-from ..db import Playlist, Song, PlaylistRepository
+from ..db import Playlist, Song, PlaylistRepository, NotFoundPlaylistException
 from .utils import save_file, resize_img
 
 pl_k = 15
@@ -68,9 +68,15 @@ class MusicService:
         pl_ids.extend(sit_ids)
         pl_ids.extend(mood_ids)
 
-        playlists = [self.playlist_repository.find_by_genie_id(pl_id) for pl_id in pl_ids]
+        playlists = [self._find_pl_by_genie_id(str(pl_id)) for pl_id in pl_ids]
         return playlists, pl_scores
 
     def _extract_songs(self, genres: list[str], playlists: list[Playlist], pl_scores: list[float], top_k: int) -> list[Song]:
         songs = self.song_ext.extract_songs(playlists, pl_scores, genres)
         return songs[:top_k]
+
+    def _find_pl_by_genie_id(self, genie_id: str):
+        found = self.playlist_repository.find_by_genie_id(genie_id)
+        if found is None:
+            raise NotFoundPlaylistException(f"DB에서 genie_id={genie_id}인 playlist를 찾을 수 없습니다!")
+        return found
