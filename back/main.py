@@ -7,7 +7,7 @@ from src.config import AppConfig
 
 config = AppConfig()
 
-db.connect(
+db.db.connect(
     db=config.db_name,
     host=config.db_host,
     username=config.db_username,

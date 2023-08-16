@@ -1,43 +1,45 @@
-import pandas as pd
 from fastapi import UploadFile
 from uuid import uuid4
 from ..infer.playlist import PlaylistIdExtractor
-from ..infer.song import SongIdExtractor
-from ..infer.spotify import get_spotify_url
-from ..log.logger import get_user_logger
+from ..infer.song import SongExtractor
 from ..dto.response import RecommendMusicResponse, RecommendMusic
 from ..dto.request import RecommendMusicRequest
+from ..db import Playlist, Song, PlaylistRepository, NotFoundPlaylistException
 from .utils import save_file, resize_img
+from logging import Logger
 
-pl_k = 15
+
 top_k = 6  # song_k must be more than 6 or loop of silder must be False
 SIZE = 224
 
 
 class MusicService:
-    def __init__(self) -> None:
-        self.user_logger = get_user_logger()
-
-        self.playlist_id_ext = PlaylistIdExtractor(k=pl_k, is_data_pull=True)
-        self.song_id_ext = SongIdExtractor(is_data_pull=True)
+    def __init__(
+        self, logger: Logger, playlist_repository: PlaylistRepository, playlist_id_ext: PlaylistIdExtractor, song_ext: SongExtractor
+    ) -> None:
+        self.user_logger = logger
+        self.playlist_repository = playlist_repository
+        self.playlist_id_ext = playlist_id_ext
+        self.song_ext = song_ext
 
     def recommend_music(self, image: UploadFile, data: RecommendMusicRequest) -> RecommendMusicResponse:
         session_id = str(uuid4()).replace("-", "_")
         img_path = save_file(session_id, image)
         resize_img(img_path, SIZE)
 
-        pl_ids, pl_scores = self._extract_playlist_ids(img_path)
-        song_df = self._extract_songs(data.genres, pl_ids, pl_scores, top_k)
+        playlists, pl_scores = self._extract_playlists(img_path)
+        pl_genie_ids = [playlist.genie_id for playlist in playlists]
+        songs = self._extract_songs(data.genres, playlists, pl_scores, top_k)
 
         songs = [
             RecommendMusic(
-                song_id=int(song_df.iloc[i]["song_id"]),
-                song_title=song_df.iloc[i]["song_title"],
-                artist_name=song_df.iloc[i]["artist_name"],
-                album_title=song_df.iloc[i]["album_title"],
-                music_url=song_df.iloc[i]["music_url"],
+                song_id=song.id,
+                song_title=song.title,
+                artist_name=song.artist.name,
+                album_title=song.album.name,
+                music_url=song.spotify_url,
             )
-            for i in range(song_df.shape[0])
+            for song in songs
         ]
 
         self.user_logger.info(
@@ -45,14 +47,14 @@ class MusicService:
                 "session_id": session_id,
                 "Img Path": img_path,
                 "Genres": data.genres,
-                "Playlist IDs": pl_ids,
+                "Playlist IDs": pl_genie_ids,
                 "Recommend Songs": songs,
             }
         )
 
         return RecommendMusicResponse(session_id=session_id, songs=songs)
 
-    def _extract_playlist_ids(self, img_path: str) -> tuple[list[int], list[float]]:
+    def _extract_playlists(self, img_path: str) -> tuple[list[Playlist], list[float]]:
         pl_scores, pl_ids = [], []
 
         weather_scores, weather_ids = self.playlist_id_ext.get_weather_playlist_id(img_path)
@@ -66,8 +68,15 @@ class MusicService:
         pl_ids.extend(sit_ids)
         pl_ids.extend(mood_ids)
 
-        return pl_ids, pl_scores
+        playlists = [self._find_pl_by_genie_id(str(pl_id)) for pl_id in pl_ids]
+        return playlists, pl_scores
 
-    def _extract_songs(self, genres: list[str], pl_ids: list[int], pl_scores: list[float], top_k: int) -> pd.DataFrame:
-        song_infos = self.song_id_ext.get_song_info(pl_ids, pl_scores, genres)
-        return get_spotify_url(song_infos, top_k)
+    def _extract_songs(self, genres: list[str], playlists: list[Playlist], pl_scores: list[float], top_k: int) -> list[Song]:
+        songs = self.song_ext.extract_songs(playlists, pl_scores, genres)
+        return songs[:top_k]
+
+    def _find_pl_by_genie_id(self, genie_id: str):
+        found = self.playlist_repository.find_by_genie_id(genie_id)
+        if found is None:
+            raise NotFoundPlaylistException(f"DB에서 genie_id={genie_id}인 playlist를 찾을 수 없습니다!")
+        return found

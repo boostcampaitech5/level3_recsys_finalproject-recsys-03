@@ -2,9 +2,19 @@ from fastapi import APIRouter, UploadFile, File, Depends
 from ..dto.response import RecommendMusicResponse
 from ..dto.request import RecommendMusicRequest
 from ..services.music import MusicService
+from ..infer.playlist import PlaylistIdExtractor
+from ..infer.song import SongExtractor
+from ..db import PlaylistRepository
+from ..log.logger import get_user_logger
 
+pl_k = 15
 
-music_service = MusicService()
+user_logger = get_user_logger()
+playlist_repository = PlaylistRepository()
+playlist_id_ext = PlaylistIdExtractor(k=pl_k, is_data_pull=True)
+song_ext = SongExtractor()
+
+music_service = MusicService(user_logger, playlist_repository, playlist_id_ext, song_ext)
 router = APIRouter()
 
 

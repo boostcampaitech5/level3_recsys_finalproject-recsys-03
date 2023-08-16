@@ -39,7 +39,6 @@ pip install torch
    cd hub
    git clone https://huggingface.co/datasets/RecDol/PLAYLIST
    git clone https://huggingface.co/datasets/RecDol/faiss_index
-   git clone https://huggingface.co/datasets/RecDol/CsvFiles
    ```
 
 ## 서버 실행
