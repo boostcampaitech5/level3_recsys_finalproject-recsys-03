@@ -44,11 +44,11 @@ jobs:
 
       - name: gcp deploy
         run: |-
-          gcloud compute instances update-container "${{ secrets.GCE_INSTANCE }}" \
-            --zone "${{ secrets.GCE_INSTANCE_ZONE }}" \
+          gcloud compute instances update-container "${{ secrets.FRONT_DEV_GCE_INSTANCE }}" \
+            --zone "${{ secrets.FRONT_DEV_GCE_INSTANCE_ZONE }}" \
             --container-image "docker.io/recdolserver/imgenie-front-dev"
 
       - name: gcp reset
         run: |-
-          gcloud compute instances reset "${{ secrets.GCE_INSTANCE }}" \
-            --zone "${{ secrets.GCE_INSTANCE_ZONE }}"
+          gcloud compute instances reset "${{ secrets.FRONT_DEV_GCE_INSTANCE }}" \
+            --zone "${{ secrets.FRONT_DEV_GCE_INSTANCE_ZONE }}"
