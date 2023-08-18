@@ -47,7 +47,7 @@ jobs:
           gcloud compute instances update-container "${{ secrets.FRONT_RELEASE_GCE_INSTANCE }}" \
             --zone "${{ secrets.FRONT_RELEASE_GCE_INSTANCE_ZONE }}" \
             --container-image "docker.io/recdolserver/imgenie-front-release" \
-            --container-env "${{ secrets.FRONT_RELEASE_ENV__REACT_APP_BACKEND_HOST }}"
+            --container-env PORT=80,REACT_APP_BACKEND_HOST="${{ secrets.FRONT_RELEASE_ENV__REACT_APP_BACKEND_HOST }}"
 
       - name: gcp reset
         run: |-
