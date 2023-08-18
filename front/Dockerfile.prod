@@ -9,8 +9,6 @@ COPY . .
 # 포트 설정
 ENV PORT 80
 # 포트 노출
-EXPOSE $PORT 
-# 빌드
-RUN npm run build
-# 배포
-CMD [ "npx", "serve", "-s", "build", "-l", $PORT]
+EXPOSE $PORT
+# 빌드 & 배포
+CMD npm run build && npx serve -s build -l $PORT
