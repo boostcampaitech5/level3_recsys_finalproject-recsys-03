@@ -28,17 +28,15 @@ class SongExtractor:
         return [song_info.song for song_info in dropped]
 
     def _convert_playlist_infos(self, playlists: list[Playlist], sim_list: list[float]) -> list[PlaylistInfo]:
-        DEFAULT_INFO = PlaylistInfo(playlist=None, sim=math.inf, matched=0)
-
-        playlist2info = defaultdict(lambda: DEFAULT_INFO)
+        playlist_id2info = {}
         for playlist, sim in zip(playlists, sim_list):
-            pl_info = playlist2info[playlist]
+            if pl_info := playlist_id2info.get(playlist.id):
+                pl_info.sim = max(pl_info.sim, sim)
+                pl_info.matched += 1
+            else:
+                playlist_id2info[playlist.id] = PlaylistInfo(playlist=playlist, sim=math.inf, matched=0)
 
-            pl_info.playlist = playlist
-            pl_info.sim = max(pl_info.sim, sim)
-            pl_info.matched += 1
-
-        return playlist2info.values()
+        return playlist_id2info.values()
 
     def _spread_song_infos(self, pl_infos: list[PlaylistInfo]) -> list[SongInfo]:
         song_infos = []
