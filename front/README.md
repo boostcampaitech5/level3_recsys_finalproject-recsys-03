@@ -12,3 +12,12 @@ npm i
 npm run build
 npx serve -s build -l [port number]
 ```
+
+### 🐳 Build docker image
+
+```bash
+# dev
+docker build -f Dockerfile.dev -t username:tag
+# prod
+docker build -f Dockerfile.prod -t username:tag
+```

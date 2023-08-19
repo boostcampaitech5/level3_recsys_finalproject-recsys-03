@@ -1,16 +1,16 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FiChevronsLeft } from 'react-icons/fi';
-import './UploadPage.css';
+import './style.css';
 import heic2any from 'heic2any';
-import WrongImg1 from '../../wrong1.jpg';
-import WrongImg2 from '../../wrong2.jpg';
-import WrongImg3 from '../../wrong3.jpg';
-import GoodImg1 from '../../good1.jpg';
-import GoodImg2 from '../../good2.jpg';
-import GoodImg3 from '../../good3.jpg';
+import WrongImg1 from './imgs/wrong1.jpg';
+import WrongImg2 from './imgs/wrong2.jpg';
+import WrongImg3 from './imgs/wrong3.jpg';
+import GoodImg1 from './imgs/good1.jpg';
+import GoodImg2 from './imgs/good2.jpg';
+import GoodImg3 from './imgs/good3.jpg';
 
-function ImageUploadPage() {
+function UploadImagePage() {
   const location = useLocation();
   const info = { ...location.state };
 
@@ -142,4 +142,4 @@ function ImageUploadPage() {
   );
 }
 
-export default ImageUploadPage;
+export default UploadImagePage;

@@ -3685,11 +3685,6 @@
   dependencies:
     "ms" "2.0.0"
 
-"debug@^2.6.6":
-  "version" "2.6.9"
-  dependencies:
-    "ms" "2.0.0"
-
 "debug@^3.2.7":
   "version" "3.2.7"
   dependencies:
@@ -4359,7 +4354,7 @@
     "utils-merge" "1.0.1"
     "vary" "~1.1.2"
 
-"fast-deep-equal@^3.1.1", "fast-deep-equal@^3.1.3", "fast-deep-equal@3.1.3":
+"fast-deep-equal@^3.1.1", "fast-deep-equal@^3.1.3":
   "version" "3.1.3"
 
 "fast-diff@^1.1.2":
@@ -5731,9 +5726,6 @@
     "through" "^2.3.8"
     "wrap-ansi" "^7.0.0"
 
-"load-script@^1.0.0":
-  "version" "1.0.0"
-
 "loader-runner@^4.2.0":
   "version" "4.3.0"
 
@@ -6691,7 +6683,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@^15.8.1", "prop-types@15.8.1":
+"prop-types@^15.8.1":
   "version" "15.8.1"
   dependencies:
     "loose-envify" "^1.4.0"
@@ -6897,14 +6889,7 @@
   optionalDependencies:
     "fsevents" "^2.3.2"
 
-"react-youtube@^10.1.0":
-  "version" "10.1.0"
-  dependencies:
-    "fast-deep-equal" "3.1.3"
-    "prop-types" "15.8.1"
-    "youtube-player" "5.5.2"
-
-"react@*", "react@^16.3.0 || ^17.0.0 || ^18.0.0", "react@^18.0.0", "react@^18.2.0", "react@>= 0.14.0", "react@>= 16", "react@>= 16.8.0 || 18.0.0", "react@>=0.14.1", "react@>=16", "react@>=16.4.0", "react@>=16.8":
+"react@*", "react@^16.3.0 || ^17.0.0 || ^18.0.0", "react@^18.0.0", "react@^18.2.0", "react@>= 0.14.0", "react@>= 16", "react@>= 16.8.0 || 18.0.0", "react@>=16", "react@>=16.4.0", "react@>=16.8":
   "version" "18.2.0"
   dependencies:
     "loose-envify" "^1.1.0"
@@ -7265,9 +7250,6 @@
 
 "signal-exit@^3.0.2", "signal-exit@^3.0.3", "signal-exit@^3.0.7":
   "version" "3.0.7"
-
-"sister@^3.0.0":
-  "version" "3.0.2"
 
 "sisteransi@^1.0.5":
   "version" "1.0.5"
@@ -8295,10 +8277,3 @@
 
 "yocto-queue@^0.1.0":
   "version" "0.1.0"
-
-"youtube-player@5.5.2":
-  "version" "5.5.2"
-  dependencies:
-    "debug" "^2.6.6"
-    "load-script" "^1.0.0"
-    "sister" "^3.0.0"

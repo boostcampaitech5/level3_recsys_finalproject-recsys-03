@@ -1,0 +1,31 @@
+.ErrorPage {
+  background-color: black;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 15px;
+  color: white;
+}
+
+.ErrorPage img {
+  width: 100%;
+}
+
+.ErrorPage .top-text {
+  margin-bottom: 5px;
+}
+
+.ErrorPage .bott-text {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.ErrorPage .footer button {
+  width: 90%;
+  background: #e3e3e3;
+  padding: 20px;
+}

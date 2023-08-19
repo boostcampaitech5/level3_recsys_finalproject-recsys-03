@@ -1,91 +1,15 @@
-import React, { Component } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { isIOS } from 'react-device-detect';
-import defaultImg from '../../imgs/dummy512.jpg';
-import backgroundMusicCardImg from '../../imgs/white_background_qr.png';
+import defaultImg from '../../../imgs/dummy512.jpg';
+import { drawBackgroundMusicCard, drawQueryImage } from './draw';
 
-const drawBackgroundMusicCard = (canvas, ctx, onLoadFinished) => {
-  const backgroundImgTag = new Image();
-  backgroundImgTag.src = backgroundMusicCardImg;
+function CardGenerator({ imgUrl, artistName, musicTitle }) {
+  const canvasRef = useRef();
+  const imgRef = useRef();
 
-  backgroundImgTag.width = canvas.width;
-  backgroundImgTag.height =
-    backgroundImgTag.width + backgroundImgTag.width * 0.68;
-
-  backgroundImgTag.onload = () => {
-    // background
-    ctx.drawImage(
-      backgroundImgTag,
-      0,
-      0,
-      backgroundImgTag.width,
-      backgroundImgTag.height
-    );
-
-    onLoadFinished(backgroundImgTag);
-  };
-};
-
-const drawQueryImage = (canvas, ctx, url, backgroundImgTag, onLoadFinished) => {
-  const queryImgTag = new Image();
-  queryImgTag.src = url;
-
-  queryImgTag.onload = () => {
-    const cornerRadius = 15; // radi
-    const x = backgroundImgTag.width - backgroundImgTag.width * 0.939;
-    const y = backgroundImgTag.height - backgroundImgTag.height * 0.932;
-    const queryWidth = backgroundImgTag.width - backgroundImgTag.width * 0.118;
-    const queryHeight = backgroundImgTag.width - backgroundImgTag.width * 0.118;
-
-    ctx.beginPath();
-    ctx.moveTo(x + cornerRadius, y);
-    ctx.lineTo(x + queryWidth - cornerRadius, y);
-    ctx.arcTo(
-      x + queryWidth,
-      y,
-      x + queryWidth,
-      y + cornerRadius,
-      cornerRadius
-    );
-    ctx.lineTo(x + queryWidth, y + queryHeight - cornerRadius);
-    ctx.arcTo(
-      x + queryWidth,
-      y + queryHeight,
-      x + queryWidth - cornerRadius,
-      y + queryHeight,
-      cornerRadius
-    );
-    ctx.lineTo(x + cornerRadius, y + queryHeight);
-    ctx.arcTo(
-      x,
-      y + queryHeight,
-      x,
-      y + queryHeight - cornerRadius,
-      cornerRadius
-    );
-    ctx.lineTo(x, y + cornerRadius);
-    ctx.arcTo(x, y, x + cornerRadius, y, cornerRadius);
-    ctx.closePath();
-
-    ctx.clip();
-
-    ctx.drawImage(queryImgTag, x, y, queryWidth, queryHeight);
-
-    onLoadFinished();
-  };
-};
-
-class CardGenerator extends Component {
-  constructor(props) {
-    super(props);
-    this.canvasRef = React.createRef();
-    this.imgRef = React.createRef();
-  }
-
-  componentDidMount() {
-    const { imgUrl, artistName, musicTitle } = this.props;
-
-    const canvas = this.canvasRef.current;
+  useEffect(() => {
+    const canvas = canvasRef.current;
     // origin: 525
     canvas.width = 525;
     // origin: 884
@@ -181,13 +105,13 @@ class CardGenerator extends Component {
 
       drawQueryImage(canvas, ctx, imgUrl, backgroundImgTag, () => {
         const dataURL = canvas.toDataURL('image/png');
-        this.imgRef.current.src = dataURL;
+        imgRef.current.src = dataURL;
       });
     });
-  }
+  }, [artistName, imgUrl, musicTitle]);
 
-  handleDownload = () => {
-    const canvas = this.canvasRef.current;
+  const handleDownload = useCallback(() => {
+    const canvas = canvasRef.current;
 
     if (canvas) {
       const dataURL = canvas.toDataURL('image/png');
@@ -196,45 +120,35 @@ class CardGenerator extends Component {
       link.download = 'card_image.png';
       link.click();
     }
-  };
+  }, [canvasRef]);
 
-  renderByOs(isIos) {
-    if (isIos) {
-      return (
-        <>
-          <div className="cardHeader">
-            <span>이미지를 길게 눌러 저장하기</span>
-          </div>
-          <div className="title">
-            <canvas ref={this.canvasRef} style={{ width: '0%' }} />
-            <img ref={this.imgRef} style={{ width: '100%' }} alt="card" />
-          </div>
-        </>
-      );
-    }
-
+  if (isIOS) {
     return (
       <>
-        <div className="title">
-          <canvas ref={this.canvasRef} style={{ width: '0%' }} />
-          <img ref={this.imgRef} style={{ width: '100%' }} alt="card" />
+        <div className="cardHeader">
+          <span>이미지를 길게 눌러 저장하기</span>
         </div>
-        <div className="bottom">
-          <button
-            className="downloadBnt"
-            type="button"
-            onClick={this.handleDownload}
-          >
-            <span>포토카드 다운로드</span>
-          </button>
+        <div className="title">
+          <canvas ref={canvasRef} style={{ width: '0%' }} />
+          <img ref={imgRef} style={{ width: '100%' }} alt="card" />
         </div>
       </>
     );
   }
 
-  render() {
-    return this.renderByOs(isIOS);
-  }
+  return (
+    <>
+      <div className="title">
+        <canvas ref={canvasRef} style={{ width: '0%' }} />
+        <img ref={imgRef} style={{ width: '100%' }} alt="card" />
+      </div>
+      <div className="bottom">
+        <button className="downloadBnt" type="button" onClick={handleDownload}>
+          <span>포토카드 다운로드</span>
+        </button>
+      </div>
+    </>
+  );
 }
 
 CardGenerator.defaultProps = {

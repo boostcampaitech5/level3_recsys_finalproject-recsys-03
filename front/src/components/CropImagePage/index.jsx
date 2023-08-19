@@ -2,11 +2,11 @@ import React, { useCallback, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FiCheckSquare, FiRotateCcw } from 'react-icons/fi';
 import Cropper from 'react-easy-crop';
-import './CropPage.css';
-import getCroppedImg from '../../utils/cropImage';
-import requestRecommendMusic from '../../requests/RecommendMusicRequest';
+import './style.css';
+import getCroppedImg from './cropImage';
+import requestRecommendMusic from './requestRecommendMusic';
 
-function CropPage() {
+function CropImagePage() {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
 
@@ -27,8 +27,8 @@ function CropPage() {
   const naviagteToNext = () => {
     navigate('/loading');
 
-    requestRecommendMusic(croppedImage, info.genres).then(
-      ({ session_id: sessionId, songs }) => {
+    requestRecommendMusic(croppedImage, info.genres)
+      .then(({ session_id: sessionId, songs }) => {
         navigate('/music-rec', {
           state: {
             url: croppedImage,
@@ -36,8 +36,14 @@ function CropPage() {
             sessionId,
           },
         });
-      }
-    );
+      })
+      .catch(() => {
+        navigate('/error', {
+          state: {
+            backTo: '/upload',
+          },
+        });
+      });
   };
 
   const goUploadPage = () => {
@@ -104,4 +110,4 @@ function CropPage() {
   );
 }
 
-export default CropPage;
+export default CropImagePage;
