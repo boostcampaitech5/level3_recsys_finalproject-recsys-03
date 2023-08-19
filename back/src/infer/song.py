@@ -23,8 +23,10 @@ class SongExtractor:
         song_infos = self._spread_song_infos(playlist_infos)
 
         sorted_ = self._sorted_info(song_infos, selected_genres)
-        dropped = self._drop_duplicate_from_song_infos(sorted_)
-        return [song_info.song for song_info in dropped]
+        dropped_duplicated = self._drop_duplicate_from_song_infos(sorted_)
+        dropped_no_spotify_url = self._drop_song_infos_with_no_spotify_url(dropped_duplicated)
+
+        return [song_info.song for song_info in dropped_no_spotify_url]
 
     def _convert_playlist_infos(self, playlists: list[Playlist], sim_list: list[float]) -> list[PlaylistInfo]:
         playlist_id2info = {}
@@ -75,3 +77,6 @@ class SongExtractor:
             song_id2infos[song_info.song.id] = song_info
 
         return song_id2infos.values()
+
+    def _drop_song_infos_with_no_spotify_url(self, song_infos: list[SongInfo]) -> list[SongInfo]:
+        return [song_info for song_info in song_infos if song_info.song.spotify_url]
