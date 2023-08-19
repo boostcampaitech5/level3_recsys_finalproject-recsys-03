@@ -70,8 +70,8 @@ class SongExtractor:
         return (song_info.sim, song_info.song.listener_cnt)
 
     def _drop_duplicate_from_song_infos(self, song_infos: list[SongInfo]) -> list[SongInfo]:
-        song2infos = {}
+        song_id2infos = {}
         for song_info in song_infos:
-            song2infos[song_info.song] = song_info
+            song_id2infos[song_info.song.id] = song_info
 
-        return song2infos.values()
+        return song_id2infos.values()
