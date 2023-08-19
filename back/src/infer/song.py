@@ -1,6 +1,5 @@
 import math
 from functools import partial
-from collections import defaultdict
 from ..db import Playlist, Song
 from pydantic import BaseModel
 
@@ -48,25 +47,27 @@ class SongExtractor:
 
     def _sorted_info(self, song_infos: list[SongInfo], selected_genres: list[str]) -> list[SongInfo]:
         sorted_ = [None] * len(song_infos)
-        sorted_[::3] = sorted(song_infos[::3], key=partial(self._sort_song_info_by_release_date, selected_genres=selected_genres))
-        sorted_[1::3] = sorted(song_infos[1:][::3], key=partial(self._sort_song_info_by_popularity, selected_genres=selected_genres))
-        sorted_[2::3] = sorted(song_infos[2:][::3], key=self._sort_song_info_by_similarity)
+        sorted_[::3] = sorted(song_infos[::3], key=partial(self._sort_song_info_by_release_date_asc, selected_genres=selected_genres), reverse=True)
+        sorted_[1::3] = sorted(
+            song_infos[1:][::3], key=partial(self._sort_song_info_by_popularity_asc, selected_genres=selected_genres), reverse=True
+        )
+        sorted_[2::3] = sorted(song_infos[2:][::3], key=self._sort_song_info_by_similarity_asc, reverse=True)
 
         return sorted_
 
     @classmethod
-    def _sort_song_info_by_release_date(cls, song_info: SongInfo, selected_genres: list[str]):
-        matched_generes = song_info.song.genres & selected_genres
-        return -(matched_generes, song_info.song.album.released_date)
+    def _sort_song_info_by_release_date_asc(cls, song_info: SongInfo, selected_genres: list[str]):
+        is_matched_genres = any(genre in song_info.song.genres for genre in selected_genres)
+        return (is_matched_genres, song_info.song.album.released_date)
 
     @classmethod
-    def _sort_song_info_by_popularity(cls, song_info: SongInfo, selected_genres: list[str]):
-        matched_generes = song_info.song.genres & selected_genres
-        return -(matched_generes, song_info.song.listener_cnt)
+    def _sort_song_info_by_popularity_asc(cls, song_info: SongInfo, selected_genres: list[str]):
+        is_matched_genres = any(genre in song_info.song.genres for genre in selected_genres)
+        return (is_matched_genres, song_info.song.listener_cnt)
 
     @classmethod
-    def _sort_song_info_by_similarity(cls, song_info: SongInfo):
-        return -(song_info.sim, song_info.song.listener_cnt)
+    def _sort_song_info_by_similarity_asc(cls, song_info: SongInfo):
+        return (song_info.sim, song_info.song.listener_cnt)
 
     def _drop_duplicate_from_song_infos(self, song_infos: list[SongInfo]) -> list[SongInfo]:
         song2infos = {}
