@@ -27,7 +27,7 @@ class PlaylistIdExtractor:
         create_dir(self.HUB_PATH)
 
         # set model path
-        self.MODEL_REPO = f"Recdol/PL_Multilabel"
+        self.MODEL_REPO = "Recdol/PL_Multilabel"
 
         self.WEATHER_MODEL_VERSION = "weather-25_150958"
         self.WEATHER_SUB = f"weather/{self.WEATHER_MODEL_VERSION}/{self.WEATHER_MODEL_VERSION}_huggingface"
