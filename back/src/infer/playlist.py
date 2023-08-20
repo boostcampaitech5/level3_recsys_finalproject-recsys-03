@@ -10,18 +10,20 @@ from huggingface_hub import Repository
 from typing import List, Optional
 from transformers import AutoImageProcessor, AutoModel, ViTImageProcessor, ViTModel
 from ..utils import create_dir
+from ..config import AppConfig
 
 
 class PlaylistIdExtractor:
-    def __init__(self, k: int, is_data_pull: bool):
+    def __init__(self, config: AppConfig, k: int, is_data_pull: bool):
+        self.config = config
         self.k = k
         self.is_data_pull = is_data_pull
 
-        self.set_path()
+        self.set_up_path()
         self.load_dataset()
         self.load_model()
 
-    def set_path(self):
+    def set_up_path(self):
         # set base path
         self.HUB_PATH = "./hub/"
 
