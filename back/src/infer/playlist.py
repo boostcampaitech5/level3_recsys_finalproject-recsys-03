@@ -3,7 +3,6 @@ import faiss
 import datasets
 import numpy as np
 from PIL import Image
-from io import BytesIO
 from typing import Tuple
 from datasets import Dataset
 from huggingface_hub import Repository
@@ -19,8 +18,8 @@ class PlaylistIdExtractor:
         self.is_data_pull = is_data_pull
 
         self._set_up_path()
-        self.load_dataset()
-        self.load_model()
+        self._load_dataset()
+        self._load_model()
 
     def _set_up_path(self, config: AppConfig):
         # set model path
@@ -58,7 +57,7 @@ class PlaylistIdExtractor:
         dataset = datasets.concatenate_datasets(dsets)
         return dataset
 
-    def load_dataset(self):
+    def _load_dataset(self):
         if self.is_data_pull:
             Repository(local_dir=self.DATA_PATH).git_pull()
             Repository(local_dir=self.FAISS_PATH).git_pull()
@@ -72,7 +71,7 @@ class PlaylistIdExtractor:
         self.mood_dataset = self.read_dataset(self.MOOD_DATA_PATH)
         self.mood_dataset.load_faiss_index(index_name="embeddings", file=self.MOOD_FAISS_PATH)
 
-    def load_model(self):
+    def _load_model(self):
         self.weather_processor = AutoImageProcessor.from_pretrained(self.config.model_repo, subfolder=self.WEATHER_SUB)
         self.weather_model = AutoModel.from_pretrained(self.config.model_repo, subfolder=self.WEATHER_SUB)
 
@@ -84,22 +83,22 @@ class PlaylistIdExtractor:
 
     def get_weather_playlist_id(self, image_path: str) -> list[int]:
         pil_image = Image.open(image_path)
-        scores, retrieved_examples = self.get_similar_images_topk(
+        scores, retrieved_examples = self._get_similar_images_topk(
             pil_image, self.weather_processor, self.weather_model, self.weather_dataset, k=self.k
         )
         return list(scores), [retrieved_examples["playlist_id"][i] for i in range(self.k)]
 
     def get_sit_playlist_id(self, image_path: str) -> list[int]:
         pil_image = Image.open(image_path)
-        scores, retrieved_examples = self.get_similar_images_topk(pil_image, self.sit_processor, self.sit_model, self.sit_dataset, k=self.k)
+        scores, retrieved_examples = self._get_similar_images_topk(pil_image, self.sit_processor, self.sit_model, self.sit_dataset, k=self.k)
         return list(scores), [retrieved_examples["playlist_id"][i] for i in range(self.k)]
 
     def get_mood_playlist_id(self, image_path: str) -> list[int]:
         pil_image = Image.open(image_path)
-        scores, retrieved_examples = self.get_similar_images_topk(pil_image, self.mood_processor, self.mood_model, self.mood_dataset, k=self.k)
+        scores, retrieved_examples = self._get_similar_images_topk(pil_image, self.mood_processor, self.mood_model, self.mood_dataset, k=self.k)
         return list(scores), [retrieved_examples["playlist_id"][i] for i in range(self.k)]
 
-    def get_similar_images_topk(
+    def _get_similar_images_topk(
         self, query_image: Image, processor: ViTImageProcessor, model: ViTModel, dataset: Dataset, k: int
     ) -> Tuple[np.ndarray, dict]:
         query_embedding = model(**processor(query_image, return_tensors="pt"))
