@@ -39,7 +39,7 @@ class PlaylistIdExtractor:
         self.SIT_FAISS_PATH = os.path.join(self.FAISS_PATH, f"sit/{config.sit_index_version}.index")
         self.MOOD_FAISS_PATH = os.path.join(self.FAISS_PATH, f"mood/{config.mood_index_version}.index")
 
-    def read_dataset(self, data_dir: str) -> datasets.Dataset:
+    def _read_dataset(self, data_dir: str) -> datasets.Dataset:
         dir_list = os.listdir(data_dir)
 
         dsets: List[Optional[datasets.Dataset]] = []
@@ -48,21 +48,20 @@ class PlaylistIdExtractor:
             cur_dataset = datasets.load_from_disk(os.path.join(data_dir, dir))
             dsets.append(cur_dataset)
 
-        dataset = datasets.concatenate_datasets(dsets)
-        return dataset
+        return datasets.concatenate_datasets(dsets)
 
     def _load_dataset(self):
         if self.is_data_pull:
             Repository(local_dir=self.DATA_PATH).git_pull()
             Repository(local_dir=self.FAISS_PATH).git_pull()
 
-        self.weather_dataset = self.read_dataset(self.WEATHER_DATA_PATH)
+        self.weather_dataset = self._read_dataset(self.WEATHER_DATA_PATH)
         self.weather_dataset.load_faiss_index(index_name="embeddings", file=self.WEATHER_FAISS_PATH)
 
-        self.sit_dataset = self.read_dataset(self.SIT_DATA_PATH)
+        self.sit_dataset = self._read_dataset(self.SIT_DATA_PATH)
         self.sit_dataset.load_faiss_index(index_name="embeddings", file=self.SIT_FAISS_PATH)
 
-        self.mood_dataset = self.read_dataset(self.MOOD_DATA_PATH)
+        self.mood_dataset = self._read_dataset(self.MOOD_DATA_PATH)
         self.mood_dataset.load_faiss_index(index_name="embeddings", file=self.MOOD_FAISS_PATH)
 
     def _load_model(self):
