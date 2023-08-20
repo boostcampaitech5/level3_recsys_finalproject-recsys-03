@@ -22,9 +22,8 @@ class PlaylistIdExtractor:
         self.load_model()
 
     def set_path(self):
-        # set and create base path
+        # set base path
         self.HUB_PATH = "./hub/"
-        create_dir(self.HUB_PATH)
 
         # set model path
         self.MODEL_REPO = "Recdol/PL_Multilabel"
