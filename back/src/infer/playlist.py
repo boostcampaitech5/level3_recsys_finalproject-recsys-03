@@ -39,12 +39,6 @@ class PlaylistIdExtractor:
         self.SIT_FAISS_PATH = os.path.join(self.FAISS_PATH, f"sit/{config.sit_index_version}.index")
         self.MOOD_FAISS_PATH = os.path.join(self.FAISS_PATH, f"mood/{config.mood_index_version}.index")
 
-    def load_index_file_path(self, path: str) -> str:
-        file_list = os.listdir(path)
-        for file in file_list:
-            if ".index" in file:
-                return os.path.join(path, file)
-
     def read_dataset(self, data_dir: str) -> datasets.Dataset:
         dir_list = os.listdir(data_dir)
 
