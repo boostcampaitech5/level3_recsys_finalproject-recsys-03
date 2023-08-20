@@ -1,12 +1,9 @@
 import os
 import faiss
 import datasets
-import numpy as np
 from PIL import Image
-from typing import Tuple
-from datasets import Dataset
+from datasets import Dataset, DatasetDict
 from huggingface_hub import Repository
-from typing import List, Optional
 from transformers import AutoImageProcessor, AutoModel, ViTImageProcessor, ViTModel
 from ..config import AppConfig
 
@@ -39,13 +36,13 @@ class PlaylistIdExtractor:
         self.SIT_FAISS_PATH = os.path.join(self.FAISS_PATH, f"sit/{config.sit_index_version}.index")
         self.MOOD_FAISS_PATH = os.path.join(self.FAISS_PATH, f"mood/{config.mood_index_version}.index")
 
-    def _read_dataset(self, data_dir: str) -> datasets.Dataset:
+    def _read_dataset(self, data_dir: str) -> Dataset:
         dir_list = os.listdir(data_dir)
 
-        dsets: List[Optional[datasets.Dataset]] = []
+        dsets: list[Dataset | DatasetDict] = []
         for dir in dir_list:
-            print("path", os.path.join(data_dir, dir))
-            cur_dataset = datasets.load_from_disk(os.path.join(data_dir, dir))
+            dataset_dir_path = os.path.join(data_dir, dir)
+            cur_dataset = datasets.load_from_disk(dataset_dir_path)
             dsets.append(cur_dataset)
 
         return datasets.concatenate_datasets(dsets)
@@ -74,26 +71,26 @@ class PlaylistIdExtractor:
         self.mood_processor = AutoImageProcessor.from_pretrained(self.config.model_repo, subfolder=self.MOOD_SUB)
         self.mood_model = AutoModel.from_pretrained(self.config.model_repo, subfolder=self.MOOD_SUB)
 
-    def get_weather_playlist_id(self, image_path: str) -> list[int]:
+    def get_weather_playlist_id(self, image_path: str) -> tuple[list[float], list]:
         pil_image = Image.open(image_path)
         scores, retrieved_examples = self._get_similar_images_topk(
             pil_image, self.weather_processor, self.weather_model, self.weather_dataset, k=self.k
         )
-        return list(scores), [retrieved_examples["playlist_id"][i] for i in range(self.k)]
+        return scores, [retrieved_examples["playlist_id"][i] for i in range(self.k)]
 
-    def get_sit_playlist_id(self, image_path: str) -> list[int]:
+    def get_sit_playlist_id(self, image_path: str) -> tuple[list[float], list]:
         pil_image = Image.open(image_path)
         scores, retrieved_examples = self._get_similar_images_topk(pil_image, self.sit_processor, self.sit_model, self.sit_dataset, k=self.k)
-        return list(scores), [retrieved_examples["playlist_id"][i] for i in range(self.k)]
+        return scores, [retrieved_examples["playlist_id"][i] for i in range(self.k)]
 
-    def get_mood_playlist_id(self, image_path: str) -> list[int]:
+    def get_mood_playlist_id(self, image_path: str) -> tuple[list[float], list]:
         pil_image = Image.open(image_path)
         scores, retrieved_examples = self._get_similar_images_topk(pil_image, self.mood_processor, self.mood_model, self.mood_dataset, k=self.k)
-        return list(scores), [retrieved_examples["playlist_id"][i] for i in range(self.k)]
+        return scores, [retrieved_examples["playlist_id"][i] for i in range(self.k)]
 
     def _get_similar_images_topk(
         self, query_image: Image, processor: ViTImageProcessor, model: ViTModel, dataset: Dataset, k: int
-    ) -> Tuple[np.ndarray, dict]:
+    ) -> tuple[list[float], dict]:
         query_embedding = model(**processor(query_image, return_tensors="pt"))
         query_embedding = query_embedding.last_hidden_state[:, 0].detach().numpy()
         faiss.normalize_L2(query_embedding)
