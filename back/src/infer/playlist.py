@@ -82,12 +82,7 @@ class PlaylistIdExtractor:
         self.mood_processor = AutoImageProcessor.from_pretrained(self.config.model_repo, subfolder=self.MOOD_SUB)
         self.mood_model = AutoModel.from_pretrained(self.config.model_repo, subfolder=self.MOOD_SUB)
 
-    def decode_input_image(self, encoded_image) -> Image:
-        pil_image = Image.open(BytesIO(encoded_image.file.read()))
-        return pil_image
-
     def get_weather_playlist_id(self, image_path: str) -> list[int]:
-        # pil_image = self.decode_input_image(image)
         pil_image = Image.open(image_path)
         scores, retrieved_examples = self.get_similar_images_topk(
             pil_image, self.weather_processor, self.weather_model, self.weather_dataset, k=self.k
@@ -95,13 +90,11 @@ class PlaylistIdExtractor:
         return list(scores), [retrieved_examples["playlist_id"][i] for i in range(self.k)]
 
     def get_sit_playlist_id(self, image_path: str) -> list[int]:
-        # pil_image = self.decode_input_image(image)
         pil_image = Image.open(image_path)
         scores, retrieved_examples = self.get_similar_images_topk(pil_image, self.sit_processor, self.sit_model, self.sit_dataset, k=self.k)
         return list(scores), [retrieved_examples["playlist_id"][i] for i in range(self.k)]
 
     def get_mood_playlist_id(self, image_path: str) -> list[int]:
-        # pil_image = self.decode_input_image(image)
         pil_image = Image.open(image_path)
         scores, retrieved_examples = self.get_similar_images_topk(pil_image, self.mood_processor, self.mood_model, self.mood_dataset, k=self.k)
         return list(scores), [retrieved_examples["playlist_id"][i] for i in range(self.k)]
