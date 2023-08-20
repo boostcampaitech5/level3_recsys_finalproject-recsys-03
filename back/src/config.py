@@ -17,5 +17,17 @@ class AppConfig(BaseSettings):
     access_token_exp_period: timedelta = timedelta(hours=1)
     refresh_token_exp_period: timedelta = timedelta(days=1)
 
+    # model
+    hub_path: str = "./hub"
+    model_repo: str = "Recdol/PL_Multilabel"
+
+    weather_model_version = "weather-25_150958"
+    sit_model_version = "sit-25_133334"
+    mood_model_version = "mood-25_144428"
+
+    weather_index_version = "weather-25_150958"
+    sit_index_version = "sit-25_133334"
+    mood_index_version = "mood-25_144428"
+
     class Config:
         env_file = ".env"
