@@ -8,6 +8,12 @@ COPY . .
 RUN pip install -r requirements.txt
 RUN pip install torch
 
+# git lfs
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y git \
+    git lfs install
+
 # 포트 노출
 EXPOSE $PORT 
 
