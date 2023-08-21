@@ -1,0 +1,4 @@
+[submodule "front"]
+	path = front
+	url = https://github.com/Recdol/Imgenie-front.git
+	branch = main
