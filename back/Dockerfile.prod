@@ -1,0 +1,15 @@
+FROM python:3.10
+# 앱 디렉터리 (자동생성)
+WORKDIR /app
+# 소스 추가
+COPY . .
+
+# 앱 의존성
+RUN pip install -r requirements.txt
+RUN pip install torch
+
+# 포트 노출
+EXPOSE $PORT 
+
+# 실행
+CMD [ "python3", "main.py" ]
