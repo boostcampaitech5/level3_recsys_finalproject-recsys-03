@@ -14,9 +14,9 @@ class PlaylistIdExtractor:
         self.k = k
         self.is_data_pull = is_data_pull
 
-        self._set_up_path()
+        self._set_up_path(config)
         self._load_dataset()
-        self._load_model()
+        self._load_model(config)
 
     def _set_up_path(self, config: AppConfig):
         # set model path
@@ -61,15 +61,15 @@ class PlaylistIdExtractor:
         self.mood_dataset = self._read_dataset(self.MOOD_DATA_PATH)
         self.mood_dataset.load_faiss_index(index_name="embeddings", file=self.MOOD_FAISS_PATH)
 
-    def _load_model(self):
-        self.weather_processor = AutoImageProcessor.from_pretrained(self.config.model_repo, subfolder=self.WEATHER_SUB)
-        self.weather_model = AutoModel.from_pretrained(self.config.model_repo, subfolder=self.WEATHER_SUB)
+    def _load_model(self, config: AppConfig):
+        self.weather_processor = AutoImageProcessor.from_pretrained(config.model_repo, subfolder=self.WEATHER_SUB)
+        self.weather_model = AutoModel.from_pretrained(config.model_repo, subfolder=self.WEATHER_SUB)
 
-        self.sit_processor = AutoImageProcessor.from_pretrained(self.config.model_repo, subfolder=self.SIT_SUB)
-        self.sit_model = AutoModel.from_pretrained(self.config.model_repo, subfolder=self.SIT_SUB)
+        self.sit_processor = AutoImageProcessor.from_pretrained(config.model_repo, subfolder=self.SIT_SUB)
+        self.sit_model = AutoModel.from_pretrained(config.model_repo, subfolder=self.SIT_SUB)
 
-        self.mood_processor = AutoImageProcessor.from_pretrained(self.config.model_repo, subfolder=self.MOOD_SUB)
-        self.mood_model = AutoModel.from_pretrained(self.config.model_repo, subfolder=self.MOOD_SUB)
+        self.mood_processor = AutoImageProcessor.from_pretrained(config.model_repo, subfolder=self.MOOD_SUB)
+        self.mood_model = AutoModel.from_pretrained(config.model_repo, subfolder=self.MOOD_SUB)
 
     def get_weather_playlist_id(self, image_path: str) -> tuple[list[float], list]:
         pil_image = Image.open(image_path)
