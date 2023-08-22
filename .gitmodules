@@ -2,3 +2,7 @@
 	path = front
 	url = https://github.com/Recdol/Imgenie-front.git
 	branch = main
+[submodule "back"]
+	path = back
+	url = https://github.com/Recdol/Imgenie-back.git
+	branch = main
