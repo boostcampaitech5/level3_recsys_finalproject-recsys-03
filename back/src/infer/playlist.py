@@ -49,8 +49,12 @@ class PlaylistIdExtractor:
 
     def _load_dataset(self):
         if self.is_data_pull:
-            Repository(local_dir=self.DATA_PATH).git_pull()
-            Repository(local_dir=self.FAISS_PATH).git_pull()
+            try:
+                Repository(local_dir=self.DATA_PATH).git_pull()
+                Repository(local_dir=self.FAISS_PATH).git_pull()
+            except OSError:
+                # not installed lfs
+                pass
 
         self.weather_dataset = self._read_dataset(self.WEATHER_DATA_PATH)
         self.weather_dataset.load_faiss_index(index_name="embeddings", file=self.WEATHER_FAISS_PATH)
