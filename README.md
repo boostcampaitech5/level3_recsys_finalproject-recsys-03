@@ -15,6 +15,7 @@
     <img src="https://img.shields.io/badge/Tesseract OCR-ea4335?style=flat-square&logo=google&logoColor=white" alt="Tesseract OCR badge">
     <img src="https://img.shields.io/badge/OpenCV-5C3EE8?style=flat-square&logo=opencv&logoColor=white" alt="OpenCV badge">
     <img src="https://img.shields.io/badge/Huggingface-FFD21E?style=flat-square&logo=huggingface&logoColor=white" alt="Huggingface badge">
+    <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white" alt="MongoDB badge">
   </p>
 </div>
 <br>
@@ -22,7 +23,7 @@
 ## 프로젝트 설명
 
 <strong>IMGenie</strong>는 일상 이미지를 기반으로 어울리는 음악을 추천해주는 서비스입니다 🎧  
-이미지를 게시하면 분위기, 상황, 날씨를 고려해 어울리는 노래를 추천해줍니다.  
+이미지를 게시하면 분위기, 상황, 날씨를 고려해 어울리는 노래를 추천해줍니다.
 
 <div align="center">
 <img width="24%" src="./docs/imgs/example1.png">
@@ -57,13 +58,14 @@ https://github.com/boostcampaitech5/level3_recsys_finalproject-recsys-03/assets/
 | :-------------------------------------: | :-----------------------------------------: | :-------------------------------------------: | :---------------------------------: | :-------------------------------------: |
 |  [강찬미](https://github.com/kCMI113)   |   [박동연](https://github.com/DyeonPark)    |    [서민석](https://github.com/alstjrdlzz)    | [이준영](https://github.com/2jun0)  |  [주혜인](https://github.com/juhyein)   |
 
-- **강찬미**: 데이터 수집, FE 구현, BE 구현
+- **강찬미**: 데이터 수집, FE 구현, BE 구현, DB 구현
 - **박동연**: 데이터 수집 및 정제, FE 구현, BE 구현
 - **서민석**: 데이터 수집 및 정제, 모델링
-- **이준영**: 데이터 수집, FE 구현, BE 구현
+- **이준영**: 데이터 수집, FE 구현, BE 구현, DB 구현
 - **주혜인**: 데이터 수집 및 정제, 모델링
 
 ## Further Reading
+
 - [시연 영상 <img src="https://www.youtube.com/favicon.ico">](https://youtu.be/mlpkmxorWVs)
 - [발표 영상 <img src="https://www.youtube.com/favicon.ico">](https://youtu.be/9VgtSRlCb9E)
 - [발표 자료](<./docs/pdfs/RecSys_3조_사진_기반_음악_추천(IMGenie).pdf>)
